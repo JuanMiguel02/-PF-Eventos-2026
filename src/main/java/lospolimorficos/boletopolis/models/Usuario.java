@@ -9,16 +9,14 @@ public abstract class Usuario {
     private String correo;
     private String numTelefono;
     private String contrasena;
-    private final RolUsuario rol;
 
-    public Usuario(String nombre, String apellido, String correo, String numTelefono, String contrasena, RolUsuario rol) {
+    public Usuario(String nombre, String apellido, String correo, String numTelefono, String contrasena) {
         this.idUsuario = UUID.randomUUID();
         this.nombre = nombre;
         this.apellido = apellido;
         this.correo = correo;
         this.numTelefono = numTelefono;
         this.contrasena = contrasena;
-        this.rol = rol;
     }
 
     public UUID getIdUsuario() {
@@ -43,10 +41,6 @@ public abstract class Usuario {
 
     public String getContrasena() {
         return contrasena;
-    }
-
-    public RolUsuario getRol() {
-        return rol;
     }
 
     public String getNombreCompleto() {

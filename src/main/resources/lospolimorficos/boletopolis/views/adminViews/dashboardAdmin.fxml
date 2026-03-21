@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.String?>
+<?import javafx.scene.chart.BarChart?>
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.text.Font?>
+<?import org.kordamp.ikonli.javafx.FontIcon?>
+
+<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/24.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lospolimorficos.boletopolis.viewController.DashboardAdminController">
+   <children>
+      <AnchorPane prefHeight="200.0" prefWidth="200.0">
+         <children>
+            <BorderPane layoutX="-7.0" layoutY="1.0" prefHeight="720.0" prefWidth="1200.0">
+               <top>
+                  <AnchorPane prefHeight="43.0" prefWidth="1200.0" styleClass="semi-top-form" stylesheets="@../../styles/dashboardAdmin.css" BorderPane.alignment="CENTER">
+                     <children>
+                        <Button layoutX="1109.0" layoutY="9.0" mnemonicParsing="false" onAction="#cerrar" prefHeight="34.0" prefWidth="64.0" styleClass="close" stylesheets="@../../styles/dashboardAdmin.css">
+                           <graphic>
+                              <FontIcon iconLiteral="anto-close" iconSize="20" wrappingWidth="14.0" />
+                           </graphic>
+                        </Button>
+                        <Button layoutX="1014.0" layoutY="8.0" mnemonicParsing="false" onAction="#minimizar" prefHeight="34.0" prefWidth="64.0" styleClass="minimize" stylesheets="@../../styles/dashboardAdmin.css">
+                           <graphic>
+                              <FontIcon iconLiteral="fas-minus" iconSize="20" />
+                           </graphic>
+                        </Button>
+                        <Label layoutX="94.0" layoutY="10.0" text="Sistema de Gestión Eventos">
+                           <font>
+                              <Font size="24.0" />
+                           </font>
+                        </Label>
+                        <FontIcon iconLiteral="fas-archway" iconSize="40" layoutX="33.0" layoutY="43.0" wrappingWidth="15.0" />
+                     </children>
+                  </AnchorPane>
+               </top>
+               <left>
+                  <AnchorPane prefHeight="598.0" prefWidth="233.0" styleClass="nav-form" stylesheets="@../../styles/dashboardAdmin.css" BorderPane.alignment="CENTER">
+                     <children>
+                        <FontIcon iconLiteral="fas-user" iconSize="60" layoutX="64.0" layoutY="101.0" textAlignment="CENTER" wrappingWidth="108.0" />
+                        <Label layoutX="75.0" layoutY="133.0" text="Bienvenido" textFill="WHITE">
+                           <font>
+                              <Font name="Times New Roman" size="18.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="lblUsername" layoutX="50.0" layoutY="110.0" textFill="WHITE">
+                           <font>
+                              <Font name="Times New Roman Bold" size="29.0" />
+                           </font>
+                        </Label>
+                        <Line endX="100.0" layoutX="118.0" layoutY="186.0" startX="-100.0" />
+                        <Button fx:id="btnInicio" layoutX="42.0" layoutY="213.0" mnemonicParsing="false" onAction="#cargarVistaInicio" prefHeight="40.0" prefWidth="150.0" styleClass="nav-btn" stylesheets="@../../styles/dashboardAdmin.css" text="Inicio">
+                           <graphic>
+                              <FontIcon fill="WHITE" iconLiteral="fas-home" iconSize="15" text="" wrappingWidth="18.5" />
+                           </graphic>
+                           <font>
+                              <Font size="16.0" />
+                           </font>
+                        </Button>
+                        <Button layoutX="42.0" layoutY="268.0" mnemonicParsing="false" onAction="#cargarVistaClientes" prefHeight="40.0" prefWidth="150.0" styleClass="nav-btn" stylesheets="@../../styles/dashboardAdmin.css" text="Añadir Cliente">
+                           <graphic>
+                              <FontIcon fill="WHITE" iconLiteral="fas-user-plus" iconSize="15" />
+                           </graphic>
+                           <font>
+                              <Font size="16.0" />
+                           </font>
+                        </Button>
+                        <Button layoutX="42.0" layoutY="326.0" mnemonicParsing="false" onAction="#cargarVistaEventos" prefHeight="43.0" prefWidth="151.0" styleClass="nav-btn" stylesheets="@../../styles/dashboardAdmin.css" text="Crear Evento">
+                           <graphic>
+                              <FontIcon fill="WHITE" iconLiteral="fas-dollar-sign" iconSize="15" text="" />
+                           </graphic>
+                           <font>
+                              <Font size="16.0" />
+                           </font>
+                        </Button>
+                        <Button layoutX="43.0" layoutY="388.0" mnemonicParsing="false" onAction="#cargarVistaRecintos" prefHeight="40.0" prefWidth="150.0" styleClass="nav-btn" stylesheets="@../../styles/dashboardAdmin.css" text="Añadir Recinto">
+                           <graphic>
+                              <FontIcon fill="WHITE" iconLiteral="fas-dollar-sign" iconSize="15" text="" />
+                           </graphic>
+                           <font>
+                              <Font size="16.0" />
+                           </font>
+                        </Button>
+                        <Button layoutX="43.0" layoutY="450.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="150.0" styleClass="nav-btn" stylesheets="@../../styles/dashboardAdmin.css" text="Ver Métricas">
+                           <graphic>
+                              <FontIcon fill="WHITE" iconLiteral="fas-dollar-sign" iconSize="15" text="" />
+                           </graphic>
+                           <font>
+                              <Font size="16.0" />
+                           </font>
+                        </Button>
+                        <Label alignment="CENTER" layoutX="20.0" layoutY="159.0" prefHeight="20.0" prefWidth="181.0" textAlignment="CENTER" textFill="WHITE">
+                           <font>
+                              <Font name="Times New Roman" size="18.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </AnchorPane>
+               </left>
+               <center>
+                  <StackPane fx:id="contenedorCentro" prefHeight="150.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+                     <children>
+                        <AnchorPane prefHeight="200.0" prefWidth="200.0">
+                           <children>
+                              <AnchorPane fx:id="vistaInicio" layoutX="20.0" layoutY="14.0" prefHeight="635.0" prefWidth="932.0" stylesheets="@../../styles/dashboardAdmin.css">
+                                 <styleClass>
+                                    <String fx:value="white-bg" />
+                                    <String fx:value="shadow" />
+                                 </styleClass>
+                                 <children>
+                                    <AnchorPane layoutX="49.0" layoutY="14.0" prefHeight="222.0" prefWidth="834.0" stylesheets="@../../styles/dashboardAdmin.css">
+                                       <styleClass>
+                                          <String fx:value="white-bg" />
+                                          <String fx:value="shadow" />
+                                       </styleClass>
+                                       <children>
+                                          <AnchorPane layoutX="29.0" layoutY="26.0" prefHeight="171.0" prefWidth="243.0" styleClass="card" stylesheets="@../../styles/dashboardAdmin.css">
+                                             <children>
+                                                <FontIcon iconColor="WHITE" iconLiteral="fas-users" iconSize="70" layoutX="14.0" layoutY="100.0" wrappingWidth="73.5" />
+                                                <Label layoutX="88.0" layoutY="118.0" text="Total de Clientes" textFill="#fcfcfc">
+                                                   <font>
+                                                      <Font name="Times New Roman" size="17.0" />
+                                                   </font>
+                                                </Label>
+                                                <Label fx:id="lblTotalEmployees" layoutX="207.0" layoutY="13.0" text="0" textFill="WHITE">
+                                                   <font>
+                                                      <Font name="Times New Roman" size="44.0" />
+                                                   </font>
+                                                </Label>
+                                             </children>
+                                          </AnchorPane>
+                                          <AnchorPane layoutX="296.0" layoutY="26.0" prefHeight="171.0" prefWidth="243.0" styleClass="card" stylesheets="@../../styles/dashboardAdmin.css">
+                                             <children>
+                                                <Label layoutX="93.0" layoutY="114.0" text="Total de Eventos" textFill="#fcfcfc">
+                                                   <font>
+                                                      <Font name="Times New Roman" size="17.0" />
+                                                   </font>
+                                                </Label>
+                                                <Label fx:id="lblActiveEmployees" layoutX="210.0" layoutY="10.0" text="0" textFill="WHITE">
+                                                   <font>
+                                                      <Font name="Times New Roman" size="44.0" />
+                                                   </font>
+                                                </Label>
+                                                <FontIcon iconColor="WHITE" iconLiteral="fas-archway" iconSize="70" layoutX="14.0" layoutY="111.0" />
+                                             </children>
+                                          </AnchorPane>
+                                          <AnchorPane layoutX="565.0" layoutY="26.0" prefHeight="171.0" prefWidth="243.0" styleClass="card" stylesheets="@../../styles/dashboardAdmin.css">
+                                             <children>
+                                                <FontIcon iconColor="WHITE" iconLiteral="fas-check" iconSize="70" layoutX="21.0" layoutY="97.0" wrappingWidth="73.5" />
+                                                <Label layoutX="86.0" layoutY="114.0" text="Total de Compras" textFill="#fcfcfc">
+                                                   <font>
+                                                      <Font name="Times New Roman" size="17.0" />
+                                                   </font>
+                                                </Label>
+                                                <Label fx:id="lblInactiveEmployees" layoutX="200.0" layoutY="10.0" text="0" textFill="WHITE">
+                                                   <font>
+                                                      <Font name="Times New Roman" size="44.0" />
+                                                   </font>
+                                                </Label>
+                                             </children>
+                                          </AnchorPane>
+                                       </children>
+                                    </AnchorPane>
+                                    <BarChart fx:id="homeChart" layoutX="164.0" layoutY="264.0" prefHeight="269.0" prefWidth="620.0" title="Datos de Ventas">
+                                       <xAxis>
+                                          <CategoryAxis prefHeight="21.0" prefWidth="546.0" side="BOTTOM" />
+                                       </xAxis>
+                                       <yAxis>
+                                          <NumberAxis side="LEFT" />
+                                       </yAxis>
+                                    </BarChart>
+                                    <Button layoutX="372.0" layoutY="549.0" mnemonicParsing="false" prefHeight="53.0" prefWidth="205.0" text="Generar Reporte" />
+                                 </children>
+                              </AnchorPane>
+                           </children>
+                        </AnchorPane>
+                     </children>
+                  </StackPane>
+               </center>
+            </BorderPane>
+         </children>
+      </AnchorPane>
+   </children>
+</StackPane>
