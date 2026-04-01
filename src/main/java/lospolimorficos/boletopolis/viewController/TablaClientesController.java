@@ -13,7 +13,6 @@ import static lospolimorficos.boletopolis.services.ServicioAlerta.mostrarAlertaE
 
 public class TablaClientesController {
 
-
     @FXML
     private TableColumn<Cliente, String> colApellidoCliente;
 
@@ -97,9 +96,9 @@ public class TablaClientesController {
                         + " " + cliente.getNumDocumento() + " Registrado Éxitosamente", Alert.AlertType.INFORMATION);
                 limpiarCampos();
                 cargarClientes();
+            }else{
+                mostrarAlertaError("Este cliente ya se encuentra registrado");
             }
-
-
 
         } catch (Exception e) {
             throw new RuntimeException(e);

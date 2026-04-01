@@ -22,6 +22,9 @@ public final class UsuarioRepositorio {
     }
 
     public boolean registrarUsuario(Usuario usuario) {
+        if(existeUsuario(usuario.getCorreo())){
+            return false;
+        }
         return usuarios.add(usuario);
     }
 
@@ -49,5 +52,14 @@ public final class UsuarioRepositorio {
                 .filter(u -> u instanceof Cliente)
                 .map(u -> (Cliente) u)
                 .collect(Collectors.toCollection(FXCollections::observableArrayList));
+    }
+
+    public boolean existeUsuario(String correo){
+        for(Usuario usuario : this.usuarios){
+            if(usuario.getCorreo().equals(correo)){
+                return true;
+            }
+        }
+        return false;
     }
 }

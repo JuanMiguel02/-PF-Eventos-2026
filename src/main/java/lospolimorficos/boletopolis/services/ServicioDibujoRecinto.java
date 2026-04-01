@@ -120,11 +120,10 @@ public class ServicioDibujoRecinto {
         double inicioX = baseX - ancho / 2;
         double inicioY = baseY - alto / 2;
 
-        // Ajuste de límites
-        if (inicioX < 0) inicioX = 5;
-        if (inicioY < 0) inicioY = 25;
-        if (inicioX + ancho > panelMapa.getPrefWidth()) inicioX = panelMapa.getPrefWidth() - ancho - 5;
-        if (inicioY + alto > panelMapa.getPrefHeight()) inicioY = panelMapa.getPrefHeight() - alto - 5;
+        // El clamping se ha movido a los controladores mediante ajustarDimensionesPanelMapa,
+        // sin embargo, mantenemos una validación mínima para evitar coordenadas negativas.
+        if (inicioX < 5) inicioX = 5;
+        if (inicioY < 25) inicioY = 25;
 
         // Dibujar etiqueta de nombre
         dibujarEtiquetaZona(nombre, inicioX, inicioY, ancho);
@@ -373,7 +372,7 @@ public class ServicioDibujoRecinto {
         double baseX = escX + escW / 2;
         double baseY = escY + escH / 2;
         double offset = 60;
-        double separacion = 120;
+        double separacion = 100;
 
         double dx = 0;
         double dy = 0;

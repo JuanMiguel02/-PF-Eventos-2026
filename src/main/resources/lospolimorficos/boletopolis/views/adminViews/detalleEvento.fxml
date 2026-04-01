@@ -70,7 +70,7 @@
                               <Label style="-fx-font-size: 18; -fx-font-weight: bold;" text="Mapa del Recinto" />
                               <ScrollPane fitToHeight="true" fitToWidth="true" prefHeight="500.0" styleClass="white-bg">
                                  <content>
-                                    <AnchorPane fx:id="panelMapa" prefHeight="1000.0" prefWidth="1000.0" style="-fx-background-color: #f4f4f4;" />
+                                    <AnchorPane fx:id="panelMapa" minHeight="600.0" minWidth="800.0" style="-fx-background-color: #f4f4f4;" />
                                  </content>
                               </ScrollPane>
                            </children>

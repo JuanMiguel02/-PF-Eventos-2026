@@ -103,7 +103,7 @@ public class DetalleEventoController {
 
         // Ajustamos el tamaño del panel para que el ScrollPane funcione correctamente
         Platform.runLater(() -> {
-            ajustarTamañoPanelMapa();
+            ajustarDimensionPanelMapa();
             servicioDibujo.renderizar(evento.getRecinto().getEscenario(), evento.getRecinto().getZonas());
         });
     }
@@ -111,8 +111,9 @@ public class DetalleEventoController {
     /**
      * Calcula y establece las dimensiones mínimas y preferidas del panelMapa para asegurar
      * que todo el contenido (escenario y zonas) sea visible dentro del ScrollPane.
+     * Itera sobre los elementos del recinto para encontrar las coordenadas extremas.
      */
-    private void ajustarTamañoPanelMapa() {
+    private void ajustarDimensionPanelMapa() {
         if (evento == null || evento.getRecinto() == null) return;
 
         Recinto recinto = evento.getRecinto();
@@ -148,11 +149,13 @@ public class DetalleEventoController {
         // Aseguramos que siempre haya un espacio mínimo visible
         minX = Math.min(minX, 0);
         minY = Math.min(minY, 0);
-        maxX = Math.max(maxX, 600);
-        maxY = Math.max(maxY, 400);
+        maxX = Math.max(maxX, 800);
+        maxY = Math.max(maxY, 600);
 
-        double finalWidth = maxX - minX;
-        double finalHeight = maxY - minY;
+        // Si hay coordenadas negativas importantes (por el escenario arriba/izquierda),
+        // desplazamos el origen sumando el valor absoluto de minX/minY al tamaño total.
+        double finalWidth = maxX - Math.min(0, minX);
+        double finalHeight = maxY - Math.min(0, minY);
 
         panelMapa.setPrefWidth(finalWidth);
         panelMapa.setPrefHeight(finalHeight);

@@ -74,8 +74,7 @@ public class TablaEventosController {
                     return true;
                 } else if (evento.getRecinto().getNombre().toLowerCase().contains(lowerCaseFilter)) {
                     return true;
-                }
-                return false;
+                } else return evento.getEstado().toString().toLowerCase().contains(lowerCaseFilter);
             });
         });
         tblEventos.setItems(filteredData);

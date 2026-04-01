@@ -75,12 +75,20 @@ public class FormularioEventoController {
             LocalDateTime fechaHora = LocalDateTime.of(dpFecha.getValue(), LocalTime.parse(txtHora.getText()));
             String tipo = cmbTipoEvento.getValue();
 
+            Duration duracionDefault = Duration.ofHours(2);
+            if (eventoController.existeConflicto(recinto, fechaHora, duracionDefault)) {
+                mostrarAlertaError("Ya existe un evento en este recinto durante el horario seleccionado");
+                return;
+            }
+
             Evento nuevoEvento;
+            Recinto copiaRecinto = recinto.copiar();
+
             if ("Concierto".equals(tipo)) {
-                nuevoEvento = new Concierto(nombre, descripcion, ciudad, fechaHora, EstadoEvento.BORRADOR, recinto, Duration.ofHours(2), "Artista Desconocido", "Varios");
+                nuevoEvento = new Concierto(nombre, descripcion, ciudad, fechaHora, EstadoEvento.BORRADOR, copiaRecinto, duracionDefault, "Artista Desconocido", "Varios");
             } else {
                 // Por ahora usamos Concierto como fallback si no hay otras clases concretas listas para instanciar con sus campos específicos
-                nuevoEvento = new Concierto(nombre, descripcion, ciudad, fechaHora, EstadoEvento.BORRADOR, recinto, Duration.ofHours(1), "N/A", "N/A");
+                nuevoEvento = new Concierto(nombre, descripcion, ciudad, fechaHora, EstadoEvento.BORRADOR, copiaRecinto, Duration.ofHours(1), "N/A", "N/A");
             }
 
             nuevoEvento.setRutaImagen(rutaImagenSeleccionada);
@@ -94,6 +102,7 @@ public class FormularioEventoController {
 
         } catch (Exception e) {
             mostrarAlertaError("Error en los datos: " + e.getMessage());
+            e.printStackTrace();
         }
     }
 

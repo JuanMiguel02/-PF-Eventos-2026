@@ -1,6 +1,6 @@
 package lospolimorficos.boletopolis.models;
 
-public class Asiento {
+public class Asiento implements Cloneable {
     private String idAsiento;
     private int fila;
     private int numero;
@@ -36,5 +36,11 @@ public class Asiento {
 
     public void setEstado(EstadoAsiento estado) {
         this.estado = estado;
+    }
+
+    public Asiento copiar() throws CloneNotSupportedException {
+        Asiento copia = (Asiento) super.clone();
+        copia.setEstado(this.estado);
+        return copia;
     }
 }

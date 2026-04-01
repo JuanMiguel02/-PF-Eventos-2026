@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-public class Recinto {
+public class Recinto implements Cloneable {
 
     private final UUID idRecinto;
     private String nombre;
@@ -84,5 +84,16 @@ public class Recinto {
 
     public void setCapacidad(int capacidad) {
         this.capacidad = capacidad;
+    }
+
+    public Recinto copiar () throws CloneNotSupportedException {
+        Recinto copia = (Recinto) super.clone();
+        copia.setEscenario(this.escenario);
+        copia.setCapacidad(this.capacidad);
+        copia.zonas = new ArrayList<>();
+        for (Zona zona : this.zonas) {
+            copia.agregarZona(zona.copiar());
+        }
+        return copia;
     }
 }

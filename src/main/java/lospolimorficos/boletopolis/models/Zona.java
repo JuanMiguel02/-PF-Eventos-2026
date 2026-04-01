@@ -5,7 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class Zona {
+public class Zona implements Cloneable {
 
     private static Map<TipoZona, Integer> contadores = new HashMap<>();
 
@@ -73,5 +73,14 @@ public class Zona {
 
     public void setPrecioZona(double precioZona) {
         this.precioZona = precioZona;
+    }
+
+    public Zona copiar() throws CloneNotSupportedException {
+        Zona copia = (Zona) super.clone();
+        copia.asientos = new ArrayList<>();
+        for (Asiento asiento : this.asientos) {
+            copia.agregarAsiento(asiento.copiar());
+        }
+        return copia;
     }
 }
