@@ -1,22 +1,67 @@
 package lospolimorficos.boletopolis.models;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class Zona {
+
+    private static Map<TipoZona, Integer> contadores = new HashMap<>();
+
     private String idZona;
     private double precioZona;
     private String nombre;
     private TipoZona tipoZona;
+    private PosicionZona posicionZona;
     private int capacidad;
     private List<Asiento> asientos;
 
-    public Zona(String idZona, int capacidad, TipoZona tipoZona, String nombre, double precioZona) {
-        this.idZona = idZona;
+    public Zona(String nombre, int capacidad, TipoZona tipoZona, PosicionZona posicion, double precioZona) {
+        this.idZona = generarId(tipoZona);
         this.capacidad = capacidad;
         this.tipoZona = tipoZona;
+        this.posicionZona = posicion;
         this.nombre = nombre;
         this.precioZona = precioZona;
         this.asientos = new ArrayList<>();
+    }
+
+    private String generarId(TipoZona tipoZona) {
+        int numero = contadores.getOrDefault(tipoZona, 0) + 1;
+        contadores.put(tipoZona, numero);
+        return tipoZona.name() + "-" + numero;
+    }
+
+    public void agregarAsiento(Asiento asiento) {
+        this.asientos.add(asiento);
+    }
+
+    public String getIdZona() {
+        return idZona;
+    }
+
+    public double getPrecioZona() {
+        return precioZona;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public TipoZona getTipoZona() {
+        return tipoZona;
+    }
+
+    public int getCapacidad() {
+        return capacidad;
+    }
+
+    public PosicionZona getPosicionZona() {
+        return posicionZona;
+    }
+
+    public List<Asiento> getAsientos() {
+        return asientos;
     }
 }

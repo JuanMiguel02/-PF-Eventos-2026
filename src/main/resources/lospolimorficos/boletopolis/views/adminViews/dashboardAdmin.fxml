@@ -87,7 +87,7 @@
                               <Font size="16.0" />
                            </font>
                         </Button>
-                        <Button layoutX="43.0" layoutY="450.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="150.0" styleClass="nav-btn" stylesheets="@../../styles/dashboardAdmin.css" text="Ver Métricas">
+                        <Button layoutX="43.0" layoutY="486.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="150.0" styleClass="nav-btn" stylesheets="@../../styles/dashboardAdmin.css" text="Ver Métricas">
                            <graphic>
                               <FontIcon fill="WHITE" iconLiteral="fas-dollar-sign" iconSize="15" text="" />
                            </graphic>
@@ -100,6 +100,14 @@
                               <Font name="Times New Roman" size="18.0" />
                            </font>
                         </Label>
+                        <Button layoutX="42.0" layoutY="435.0" mnemonicParsing="false" onAction="#cargarVistaTablaRecintos" prefHeight="40.0" prefWidth="150.0" styleClass="nav-btn" stylesheets="@../../styles/dashboardAdmin.css" text="Ver Recintos">
+                           <graphic>
+                              <FontIcon fill="WHITE" iconLiteral="fas-dollar-sign" iconSize="15" text="" />
+                           </graphic>
+                           <font>
+                              <Font size="16.0" />
+                           </font>
+                        </Button>
                      </children>
                   </AnchorPane>
                </left>

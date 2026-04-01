@@ -2,14 +2,35 @@ package lospolimorficos.boletopolis.models;
 
 public class Asiento {
     private String idAsiento;
-    private String fila;
+    private int fila;
     private int numero;
     private EstadoAsiento estado;
 
-    public Asiento(String idAsiento, String fila, int numero, EstadoAsiento estado) {
-        this.idAsiento = idAsiento;
+    public Asiento(int fila, int numero) {
+        this.idAsiento = generarId(fila, numero);
         this.fila = fila;
         this.numero = numero;
-        this.estado = estado;
+        this.estado = EstadoAsiento.DISPONIBLE;
+    }
+
+    private String generarId(int fila, int numero){
+        char letraFila = (char) ('A' + fila-1);
+        return letraFila + String.valueOf(numero);
+    }
+
+    public String getIdAsiento() {
+        return idAsiento;
+    }
+
+    public int getFila() {
+        return fila;
+    }
+
+    public int getNumero() {
+        return numero;
+    }
+
+    public EstadoAsiento getEstado() {
+        return estado;
     }
 }

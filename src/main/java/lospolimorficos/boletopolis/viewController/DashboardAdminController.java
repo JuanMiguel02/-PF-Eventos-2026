@@ -20,7 +20,7 @@ public class DashboardAdminController {
             Parent vista = FXMLLoader.load(Objects.requireNonNull(getClass().getResource(fxml)));
             contenedorCentro.getChildren().setAll(vista);
         }catch(Exception e){
-            System.out.println(e.getMessage());
+            e.printStackTrace();
         }
     }
 
@@ -36,7 +36,12 @@ public class DashboardAdminController {
 
     @FXML
     private void cargarVistaRecintos(){
+        cargarVista("/lospolimorficos/boletopolis/views/adminViews/creacionRecinto.fxml");
+    }
 
+    @FXML
+    private void cargarVistaTablaRecintos(){
+        cargarVista("/lospolimorficos/boletopolis/views/adminViews/tablaRecintos.fxml");
     }
 
     @FXML

@@ -22,6 +22,10 @@ public final class RecintoRepositorio {
         return recintos.add(recinto);
     }
 
+    public boolean eliminarRecinto(Recinto recinto) {
+        return recintos.remove(recinto);
+    }
+
     public ObservableList<Recinto> getRecintos() {
         return recintos;
     }
