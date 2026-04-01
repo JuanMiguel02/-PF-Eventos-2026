@@ -9,8 +9,8 @@ public class ObraTeatro extends Evento{
     private String director;
     private int numActos;
 
-    public ObraTeatro(String descripcion, String nombre, Ciudad ciudad, LocalDateTime fechaYHora, EstadoEvento estado, Recinto recinto, Duration duracion, String companiaTeatro, String director, int numActos) {
-        super(descripcion, nombre, ciudad, fechaYHora, estado, recinto, duracion);
+    public ObraTeatro(String nombre, String descripcion, Ciudad ciudad, LocalDateTime fechaYHora, EstadoEvento estado, Recinto recinto, Duration duracion, String companiaTeatro, String director, int numActos) {
+        super(nombre, descripcion, ciudad, fechaYHora, estado, recinto, duracion);
         this.companiaTeatro = companiaTeatro;
         this.director = director;
         this.numActos = numActos;

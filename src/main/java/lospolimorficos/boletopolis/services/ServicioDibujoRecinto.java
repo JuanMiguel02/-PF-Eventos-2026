@@ -16,10 +16,20 @@ import java.util.Map;
  */
 public class ServicioDibujoRecinto {
 
+    /**
+     * Define los modos de interacción permitidos para los asientos.
+     */
+    public enum ModoInteraccion {
+        ADMIN_RECINTO, // Solo permite alternar entre DISPONIBLE y BLOQUEADO
+        ADMIN_EVENTO   // Permite todos los estados (DISPONIBLE, RESERVADO, VENDIDO, BLOQUEADO)
+    }
+
     private final AnchorPane panelMapa;
     private double centroX;
     private double centroY;
     private boolean interactivo = false;
+    private ModoInteraccion modoInteraccion = ModoInteraccion.ADMIN_EVENTO;
+    private Runnable onAsientoChanged;
 
     /**
      * Constructor del servicio de dibujo.
@@ -31,12 +41,28 @@ public class ServicioDibujoRecinto {
     }
 
     /**
+     * Establece la acción a ejecutar cuando cambie el estado de un asiento.
+     * @param onAsientoChanged Runnable con la acción de actualización.
+     */
+    public void setOnAsientoChanged(Runnable onAsientoChanged) {
+        this.onAsientoChanged = onAsientoChanged;
+    }
+
+    /**
      * Actualiza las coordenadas centrales del lienzo basándose en el tamaño actual del panel.
      * Si el panel no tiene dimensiones definidas, utiliza valores por defecto (500, 400).
      */
     public void actualizarCentros() {
         this.centroX = panelMapa.getPrefWidth() > 0 ? panelMapa.getPrefWidth() / 2 : 500;
         this.centroY = panelMapa.getPrefHeight() > 0 ? panelMapa.getPrefHeight() / 2 : 400;
+    }
+
+    /**
+     * Establece el modo de interacción para restringir los estados de los asientos.
+     * @param modo El modo deseado.
+     */
+    public void setModoInteraccion(ModoInteraccion modo) {
+        this.modoInteraccion = modo;
     }
 
     /**
@@ -173,25 +199,51 @@ public class ServicioDibujoRecinto {
      */
     private void configurarInteractividadAsiento(Rectangle r, Asiento asiento, TipoZona tipo) {
         actualizarColorAsiento(r, asiento, tipo);
-        Tooltip.install(r, new Tooltip("Asiento: " + asiento.getIdAsiento() + "\nEstado: " + asiento.getEstado()));
+        actualizarTooltipAsiento(r, asiento);
 
         if (interactivo) {
             r.setOnMouseClicked(event -> {
                 toggleEstadoAsiento(asiento);
                 actualizarColorAsiento(r, asiento, tipo);
-                Tooltip.install(r, new Tooltip("Asiento: " + asiento.getIdAsiento() + "\nEstado: " + asiento.getEstado()));
+                actualizarTooltipAsiento(r, asiento);
             });
         }
     }
 
     /**
-     * Cambia el estado de un asiento al siguiente en el ciclo definido en EstadoAsiento.
+     * Actualiza el tooltip del asiento con su ID y estado actual.
+     * @param r El rectángulo visual.
+     * @param asiento El objeto del modelo.
+     */
+    private void actualizarTooltipAsiento(Rectangle r, Asiento asiento) {
+        Tooltip.install(r, new Tooltip("Asiento: " + asiento.getIdAsiento() + "\nEstado: " + asiento.getEstado()));
+    }
+
+    /**
+     * Cambia el estado de un asiento al siguiente en el ciclo definido en EstadoAsiento,
+     * respetando el modo de interacción configurado.
      * @param asiento Asiento a modificar.
      */
     private void toggleEstadoAsiento(Asiento asiento) {
-        EstadoAsiento[] estados = EstadoAsiento.values();
-        int siguienteIndex = (asiento.getEstado().ordinal() + 1) % estados.length;
-        asiento.setEstado(estados[siguienteIndex]);
+        EstadoAsiento actual = asiento.getEstado();
+        EstadoAsiento nuevo;
+
+        if (modoInteraccion == ModoInteraccion.ADMIN_RECINTO) {
+            // En recinto solo alternamos entre DISPONIBLE y BLOQUEADO
+            nuevo = (actual == EstadoAsiento.BLOQUEADO) ? EstadoAsiento.DISPONIBLE : EstadoAsiento.BLOQUEADO;
+        } else {
+            // En evento alternamos entre todos los estados (DISPONIBLE, RESERVADO, VENDIDO, BLOQUEADO)
+            EstadoAsiento[] estados = EstadoAsiento.values();
+            int siguienteIndex = (actual.ordinal() + 1) % estados.length;
+            nuevo = estados[siguienteIndex];
+        }
+
+        asiento.setEstado(nuevo);
+
+        // Notificar cambio si existe acción definida
+        if (onAsientoChanged != null) {
+            onAsientoChanged.run();
+        }
     }
 
     /**
@@ -202,11 +254,25 @@ public class ServicioDibujoRecinto {
      * @param tipo El tipo de zona para obtener el color base de disponibilidad.
      */
     private void actualizarColorAsiento(Rectangle r, Asiento asiento, TipoZona tipo) {
+        if (asiento.getEstado() == null) return;
+        
         switch (asiento.getEstado()) {
-            case DISPONIBLE -> r.setStyle(tipo.getEstilo());
-            case VENDIDO -> r.setFill(Color.RED);
-            case RESERVADO -> r.setFill(Color.ORANGE);
-            case BLOQUEADO -> r.setFill(Color.GRAY);
+            case DISPONIBLE -> {
+                r.setFill(null); // Limpiar color sólido previo si existe
+                r.setStyle(tipo.getEstilo());
+            }
+            case VENDIDO -> {
+                r.setStyle(""); // Limpiar estilo previo
+                r.setFill(Color.RED);
+            }
+            case RESERVADO -> {
+                r.setStyle(""); // Limpiar estilo previo
+                r.setFill(Color.ORANGE);
+            }
+            case BLOQUEADO -> {
+                r.setStyle(""); // Limpiar estilo previo
+                r.setFill(Color.GRAY);
+            }
         }
     }
 
@@ -273,11 +339,20 @@ public class ServicioDibujoRecinto {
             rect.setStyle("-fx-fill: #575252;");
             rect.setLayoutX(escX);
             rect.setLayoutY(escY);
-            Label nombre = new Label("Escenario");
-            nombre.setLayoutX(escX);
-            nombre.setLayoutY(escY - 20);
+
+            Label labelEscenario = new Label("Escenario");
+            labelEscenario.setLayoutY(escY - 20);
+
+            // Listener para centrar el título del escenario horizontalmente
+            labelEscenario.widthProperty().addListener((obs, oldVal, newVal) -> {
+                double labelX = (escX + escW / 2) - newVal.doubleValue() / 2;
+                labelEscenario.setLayoutX(labelX);
+            });
+
+            labelEscenario.setLayoutX(escX); // Posición inicial
+            
             panelMapa.getChildren().add(rect);
-            panelMapa.getChildren().add(nombre);
+            panelMapa.getChildren().add(labelEscenario);
         }
         return datos;
     }

@@ -31,7 +31,7 @@ public class DashboardAdminController {
 
     @FXML
     private void cargarVistaEventos(){
-
+        cargarVista("/lospolimorficos/boletopolis/views/adminViews/tablaEventos.fxml");
     }
 
     @FXML

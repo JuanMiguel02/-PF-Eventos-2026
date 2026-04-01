@@ -32,8 +32,6 @@ public class TablaRecintosController {
     @FXML
     private TableColumn<Recinto, String> colRecintoId;
     @FXML
-    private AnchorPane contenedorClientes;
-    @FXML
     private TableView<Recinto> tblRecinto;
     @FXML
     private TextField txtBuscarRecinto;
@@ -47,7 +45,6 @@ public class TablaRecintosController {
     private TextField txtId;
     @FXML
     private TextField txtNombre;
-
 
     private final RecintoController recintoController = new RecintoController();
 

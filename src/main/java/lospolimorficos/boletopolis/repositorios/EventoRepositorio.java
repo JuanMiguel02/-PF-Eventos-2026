@@ -6,7 +6,7 @@ import lospolimorficos.boletopolis.models.Evento;
 
 public final class EventoRepositorio {
 
-    private ObservableList<Evento> eventos = FXCollections.observableArrayList();
+    private final ObservableList<Evento> eventos = FXCollections.observableArrayList();
     private static EventoRepositorio instancia;
 
     private EventoRepositorio() {}
@@ -23,5 +23,18 @@ public final class EventoRepositorio {
 
     public ObservableList<Evento> getEventos() {
         return eventos;
+    }
+    public boolean eliminarEvento(Evento evento) {
+        return eventos.remove(evento);
+    }
+
+    public boolean actualizarEvento(Evento eventoActualizado) {
+        for (int i = 0; i < eventos.size(); i++) {
+            if (eventos.get(i).getIdEvento().equals(eventoActualizado.getIdEvento())) {
+                eventos.set(i, eventoActualizado);
+                return true;
+            }
+        }
+        return false;
     }
 }

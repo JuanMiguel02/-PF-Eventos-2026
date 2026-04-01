@@ -29,7 +29,7 @@ public class Zona {
 
     public int calcularOcupacion(){
         return asientos.stream()
-                .filter(a -> a.getEstado() != EstadoAsiento.DISPONIBLE)
+                .filter(a -> a.getEstado() != EstadoAsiento.DISPONIBLE && a.getEstado() != EstadoAsiento.BLOQUEADO)
                 .toArray().length;
     }
 

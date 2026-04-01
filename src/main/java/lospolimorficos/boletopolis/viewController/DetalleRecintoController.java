@@ -1,5 +1,6 @@
 package lospolimorficos.boletopolis.viewController;
 
+import javafx.application.Platform;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
@@ -34,6 +35,12 @@ public class DetalleRecintoController {
         this.recinto = recinto;
         this.servicioDibujo = new ServicioDibujoRecinto(panelMapa);
         this.servicioDibujo.setInteractivo(true);
+        this.servicioDibujo.setModoInteraccion(ServicioDibujoRecinto.ModoInteraccion.ADMIN_RECINTO);
+        this.servicioDibujo.setOnAsientoChanged(() -> {
+            recintoController.actualizarRecinto(recinto);
+            cargarDatosRecinto(); // Por si cambia la ocupación total
+            tblZonas.refresh();   // Actualizar la columna de ocupación por zonas
+        });
         mostrarDetalles();
     }
 
@@ -46,7 +53,7 @@ public class DetalleRecintoController {
         cargarZonas();
 
         // Dibujar el mapa (esperamos a que el panel esté listo)
-        javafx.application.Platform.runLater(() -> {
+        Platform.runLater(() -> {
             ajustarTamañoPanelMapa();
             servicioDibujo.renderizar(recinto.getEscenario(), recinto.getZonas());
         });
@@ -59,37 +66,51 @@ public class DetalleRecintoController {
      */
     private void ajustarTamañoPanelMapa() {
         if (recinto == null) return;
-        
-        // Calcular dimensiones necesarias basadas en las zonas
-        double maxRight = 600; // Mínimo
-        double maxBottom = 400; // Mínimo
-        
+
+        double minX = Double.MAX_VALUE;
+        double minY = Double.MAX_VALUE;
+        double maxX = Double.MIN_VALUE;
+        double maxY = Double.MIN_VALUE;
+
         // Considerar escenario
         double[] datosEsc = servicioDibujo.obtenerDatosEscenarioSilencioso(recinto.getEscenario() != null ? recinto.getEscenario().posicion() : null);
-        maxRight = Math.max(maxRight, datosEsc[0] + datosEsc[2] + 100);
-        maxBottom = Math.max(maxBottom, datosEsc[1] + datosEsc[3] + 100);
-        
+        minX = Math.min(minX, datosEsc[0] - 50);
+        minY = Math.min(minY, datosEsc[1] - 50);
+        maxX = Math.max(maxX, datosEsc[0] + datosEsc[2] + 100);
+        maxY = Math.max(maxY, datosEsc[1] + datosEsc[3] + 100);
+
         // Considerar zonas
         Map<PosicionZona, Integer> contadores = new HashMap<>();
         for (Zona zona : recinto.getZonas()) {
             int index = contadores.getOrDefault(zona.getPosicionZona(), 0);
             contadores.put(zona.getPosicionZona(), index + 1);
-            
+
             double[] base = servicioDibujo.calcularPosicionBaseZona(zona.getPosicionZona(), datosEsc[0], datosEsc[1], datosEsc[2], datosEsc[3], index);
             int filas = zona.getAsientos().stream().mapToInt(Asiento::getFila).max().orElse(0);
             int columnas = zona.getAsientos().stream().mapToInt(Asiento::getNumero).max().orElse(0);
-            
+
             double ancho = columnas * 12;
             double alto = filas * 12;
-            
-            maxRight = Math.max(maxRight, base[0] + (ancho/2) + 50);
-            maxBottom = Math.max(maxBottom, base[1] + (alto/2) + 50);
+
+            minX = Math.min(minX, base[0] - (ancho / 2) - 50);
+            minY = Math.min(minY, base[1] - (alto / 2) - 50);
+            maxX = Math.max(maxX, base[0] + (ancho / 2) + 100);
+            maxY = Math.max(maxY, base[1] + (alto / 2) + 100);
         }
-        
-        panelMapa.setPrefWidth(maxRight);
-        panelMapa.setPrefHeight(maxBottom);
-        panelMapa.setMinWidth(maxRight);
-        panelMapa.setMinHeight(maxBottom);
+
+        // Aseguramos que siempre haya un espacio mínimo visible
+        minX = Math.min(minX, 0);
+        minY = Math.min(minY, 0);
+        maxX = Math.max(maxX, 600);
+        maxY = Math.max(maxY, 400);
+
+        double finalWidth = maxX - minX;
+        double finalHeight = maxY - minY;
+
+        panelMapa.setPrefWidth(finalWidth);
+        panelMapa.setPrefHeight(finalHeight);
+        panelMapa.setMinWidth(finalWidth);
+        panelMapa.setMinHeight(finalHeight);
         servicioDibujo.actualizarCentros();
     }
 

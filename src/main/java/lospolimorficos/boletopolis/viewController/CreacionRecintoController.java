@@ -150,7 +150,7 @@ public class CreacionRecintoController {
         long count = zonasActuales.stream()
                 .filter(z -> z.getTipoZona() == tipoSeleccionado)
                 .count();
-        String nombreGenerado = tipoSeleccionado.name() + "-" + (count + 1);
+        String nombreGenerado = tipoSeleccionado.name() + "-" + (count + 1) + " " + posicionSeleccionada.name();
 
         int filas = Integer.parseInt(txtFilas.getText());
         int columnas = Integer.parseInt(txtColumnas.getText());

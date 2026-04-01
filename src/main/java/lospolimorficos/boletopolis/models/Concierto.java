@@ -7,8 +7,8 @@ public class Concierto extends Evento{
     private String artista;
     private String generoMusical;
 
-    public Concierto(String descripcion, String nombre, Ciudad ciudad, LocalDateTime fechaYHora, EstadoEvento estado, Recinto recinto, Duration duracion, String artista, String generoMusical) {
-        super(descripcion, nombre, ciudad, fechaYHora, estado, recinto, duracion);
+    public Concierto(String nombre, String descripcion, Ciudad ciudad, LocalDateTime fechaYHora, EstadoEvento estado, Recinto recinto, Duration duracion, String artista, String generoMusical) {
+        super(nombre, descripcion, ciudad, fechaYHora, estado, recinto, duracion);
         this.artista = artista;
         this.generoMusical = generoMusical;
     }
