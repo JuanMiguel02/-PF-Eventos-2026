@@ -33,4 +33,8 @@ public class Asiento {
     public EstadoAsiento getEstado() {
         return estado;
     }
+
+    public void setEstado(EstadoAsiento estado) {
+        this.estado = estado;
+    }
 }

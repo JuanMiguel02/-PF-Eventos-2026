@@ -3,7 +3,7 @@ package lospolimorficos.boletopolis.models;
 public enum TipoZona {
     VIP("-fx-fill: gold;"),
     GENERAL("-fx-fill: lightblue;"),
-    ECONOMICA("-fx-fill: lightgray;");
+    PREFERENCIAL("-fx-fill: lightgray;");
 
     private String estilo;
 

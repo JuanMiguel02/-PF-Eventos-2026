@@ -16,15 +16,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 
+/**
+ * Controlador para la vista de creación de recintos.
+ * Permite definir la estructura física de un recinto, incluyendo el escenario,
+ * las zonas de asientos y su disposición visual antes de persistirlo.
+ */
 public class CreacionRecintoController {
 
     @FXML private TextField txtNombre;
     @FXML private TextField txtDireccion;
     @FXML private ComboBox<Ciudad> cmbCiudad;
 
-    @FXML private ComboBox<PlantillaRecinto> cmbPlantillas;
     @FXML private ComboBox<PosicionEscenario> cmbEscenario;
-
     @FXML private ComboBox<PosicionZona> cmbPosicionZona;
     @FXML private ComboBox<TipoZona> cmbTipoZona;
 
@@ -34,6 +37,8 @@ public class CreacionRecintoController {
 
     @FXML private AnchorPane panelMapa;
     @FXML private ScrollPane scrollPane;
+    @FXML private Label lblConteoZonas;
+    @FXML private Label lblCapacidadTotal;
     private double escala = 1.0;
     private double ultimoX, ultimoY;
     private double centroX;
@@ -43,6 +48,10 @@ public class CreacionRecintoController {
     private final RecintoController recintoController = new RecintoController();
     private ServicioDibujoRecinto servicioDibujo;
 
+    /**
+     * Inicializa los componentes de la vista, configura los eventos de scroll y arrastre
+     * para el mapa, y carga las opciones en los ComboBox.
+     */
     @FXML
     public void initialize() {
         // Inicializar servicio de dibujo
@@ -89,23 +98,43 @@ public class CreacionRecintoController {
         cmbTipoZona.getItems().addAll(TipoZona.values());
         cmbCiudad.getItems().addAll(Ciudad.values());
 
-        cmbPlantillas.getItems().addAll(cargarPlantillas());
+        cmbEscenario.setOnAction(e -> renderizarMapa());
 
-        cmbPlantillas.setOnAction(e -> cargarPlantilla());
+        actualizarResumen();
     }
 
+    /**
+     * Elimina la última zona agregada a la lista actual.
+     * Útil para corregir errores durante el proceso de diseño del recinto.
+     */
+    @FXML
+    private void eliminarUltimaZona() {
+        if (!zonasActuales.isEmpty()) {
+            zonasActuales.removeLast();
+            renderizarMapa();
+            actualizarResumen();
+        }
+    }
+
+    /**
+     * Actualiza las etiquetas de información en la interfaz de usuario con el
+     * conteo actual de zonas y la capacidad total sumada.
+     */
+    private void actualizarResumen() {
+        lblConteoZonas.setText(String.valueOf(zonasActuales.size()));
+        lblCapacidadTotal.setText(String.valueOf(calcularCapacidadTotal(zonasActuales)));
+    }
+
+    @FXML
     private void cargarPlantilla() {
-
-        PlantillaRecinto plantilla = cmbPlantillas.getValue();
-
-        if (plantilla == null) return;
-
-        zonasActuales.clear();
-        zonasActuales.addAll(plantilla.getZonas());
-
-        renderizarMapa();
+        // Funcionalidad deshabilitada temporalmente por cambio de UI
     }
 
+    /**
+     * Toma los datos de los campos de texto y selectores para crear una nueva zona.
+     * Realiza validaciones de selección y de espacio antes de añadirla a la previsualización.
+     * El nombre de la zona se genera automáticamente siguiendo el patrón TIPO-N.
+     */
     @FXML
     private void agregarZona() {
 
@@ -144,6 +173,7 @@ public class CreacionRecintoController {
 
         zonasActuales.add(nuevaZona);
         renderizarMapa();
+        actualizarResumen();
     }
 
     /**
@@ -152,6 +182,7 @@ public class CreacionRecintoController {
      * @return true si cabe, false si excede los límites.
      */
     private boolean validarEspacioZona(PlantillaZona nuevaZona) {
+
         double[] datosEscenario = servicioDibujo.obtenerDatosEscenarioSilencioso(cmbEscenario.getValue());
         double escX = datosEscenario[0];
         double escY = datosEscenario[1];
@@ -187,8 +218,11 @@ public class CreacionRecintoController {
     }
 
 
-
-
+    /**
+     * Ajusta la escala y traslación del panelMapa para que todo el contenido (escenario y zonas)
+     * sea visible y quede centrado dentro del ScrollPane.
+     * Implementa una escala base automática y permite zoom adicional del usuario.
+     */
     private void ajustarEscalaInicial() {
 
         double minX = Double.MAX_VALUE;
@@ -244,6 +278,10 @@ public class CreacionRecintoController {
         panelMapa.setTranslateY(offsetY - (minY * escalaFinal));
     }
 
+    /**
+     * Procesa la información recolectada en la interfaz para generar y registrar
+     * un nuevo objeto Recinto en el sistema.
+     */
     @FXML
     private void crearRecinto() {
 
@@ -257,12 +295,17 @@ public class CreacionRecintoController {
 
         recinto.setEscenario(new Escenario(cmbEscenario.getValue()));
         recinto.setCapacidad(calcularCapacidadTotal(plantillaFinal.getZonas()));
-        recintoController.registrarRecinto(recinto);
+        if(recintoController.registrarRecinto(recinto)){
+            ServicioAlerta.mostrarAlerta("Éxito", "El recinto: " + recinto.getNombre() + " ha sido registrado éxitosamente", Alert.AlertType.INFORMATION);
+        }
         renderizarMapa();
-
-        System.out.println("Recinto creado!");
     }
 
+    /**
+     * Calcula la suma total de asientos disponibles en todas las plantillas de zona proporcionadas.
+     * @param plantillas Lista de plantillas de zona a sumar.
+     * @return Capacidad total entera.
+     */
     private int calcularCapacidadTotal(List<PlantillaZona> plantillas) {
         int numero = 0;
         for(PlantillaZona plantilla : plantillas) {
@@ -272,6 +315,10 @@ public class CreacionRecintoController {
         return numero;
     }
 
+    /**
+     * Crea un objeto PlantillaRecinto consolidando el nombre y las zonas definidas en la UI.
+     * @return Objeto PlantillaRecinto listo para ser procesado por el generador.
+     */
     private PlantillaRecinto construirPlantillaDesdeUI() {
 
         String nombre = txtNombre.getText();
@@ -281,21 +328,5 @@ public class CreacionRecintoController {
         return new PlantillaRecinto(nombre, zonas);
     }
 
-    private List<PlantillaRecinto> cargarPlantillas() {
 
-        PlantillaZona vipSur = new PlantillaZona(
-                "VIP Sur", PosicionZona.SUR, TipoZona.VIP, 5, 10, 200
-        );
-
-        PlantillaZona generalNorte = new PlantillaZona(
-                "General Norte", PosicionZona.NORTE, TipoZona.GENERAL, 10, 15, 100
-        );
-
-        PlantillaRecinto teatro = new PlantillaRecinto(
-                "Teatro",
-                List.of(vipSur, generalNorte)
-        );
-
-        return List.of(teatro);
-    }
 }

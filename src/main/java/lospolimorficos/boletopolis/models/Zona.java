@@ -27,6 +27,12 @@ public class Zona {
         this.asientos = new ArrayList<>();
     }
 
+    public int calcularOcupacion(){
+        return asientos.stream()
+                .filter(a -> a.getEstado() != EstadoAsiento.DISPONIBLE)
+                .toArray().length;
+    }
+
     private String generarId(TipoZona tipoZona) {
         int numero = contadores.getOrDefault(tipoZona, 0) + 1;
         contadores.put(tipoZona, numero);
@@ -63,5 +69,9 @@ public class Zona {
 
     public List<Asiento> getAsientos() {
         return asientos;
+    }
+
+    public void setPrecioZona(double precioZona) {
+        this.precioZona = precioZona;
     }
 }

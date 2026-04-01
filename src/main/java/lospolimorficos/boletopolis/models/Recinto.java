@@ -24,6 +24,12 @@ public class Recinto {
         this.escenario = null;
     }
 
+    public int getOcupacion(){
+        return zonas.stream()
+                .mapToInt(Zona::calcularOcupacion)
+                .sum();
+    }
+
     public String getNombre() {
         return nombre;
     }

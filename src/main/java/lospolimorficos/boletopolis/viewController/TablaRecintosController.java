@@ -8,12 +8,9 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.FlowPane;
-import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import lospolimorficos.boletopolis.controller.RecintoController;
 import lospolimorficos.boletopolis.models.Ciudad;
-import lospolimorficos.boletopolis.models.Cliente;
 import lospolimorficos.boletopolis.models.Recinto;
 
 import java.io.IOException;
@@ -51,10 +48,6 @@ public class TablaRecintosController {
     @FXML
     private TextField txtNombre;
 
-    @FXML private ScrollPane scrollTarjetas;
-    @FXML private FlowPane flowTarjetas;
-
-    private boolean vistaTarjetas = false;
 
     private final RecintoController recintoController = new RecintoController();
 
@@ -85,7 +78,21 @@ public class TablaRecintosController {
 
     @FXML
     private void actualizarRecinto() {
+        Recinto recintoSeleccionado = tblRecinto.getSelectionModel().getSelectedItem();
+        if(recintoSeleccionado == null){
+            mostrarAlertaError("Por favor seleccione un recinto para actualizar");
+            return;
+        }
+        recintoSeleccionado.setNombre(txtNombre.getText());
+        recintoSeleccionado.setDireccion(txtDireccion.getText());
+        recintoSeleccionado.setCiudad(cmbCiudad.getValue());
 
+        if(recintoController.actualizarRecinto(recintoSeleccionado)){
+            limpiarCampos();
+            cargarRecintos();
+            tblRecinto.refresh();
+            mostrarAlerta("Éxito", "Recinto Actualizado Éxitosamente", Alert.AlertType.INFORMATION  );
+        }
     }
 
     @FXML
@@ -145,52 +152,6 @@ public class TablaRecintosController {
         }
     }
 
-    @FXML
-    private void verDetallesRecinto() {
-        vistaTarjetas = !vistaTarjetas;
-
-        tblRecinto.setVisible(!vistaTarjetas);
-        scrollTarjetas.setVisible(vistaTarjetas);
-
-        if (vistaTarjetas) {
-            cargarTarjetas();
-        }
-
-    }
-
-    private void cargarTarjetas() {
-
-        flowTarjetas.getChildren().clear();
-
-        VBox card = crearTarjeta(tblRecinto.getSelectionModel().getSelectedItem());
-        flowTarjetas.getChildren().add(card);
-
-    }
-
-    private VBox crearTarjeta(Recinto recinto) {
-
-        VBox card = new VBox(8);
-        card.setPrefWidth(180);
-        card.setStyle("""
-        -fx-background-color: white;
-        -fx-padding: 10;
-        -fx-border-radius: 10;
-        -fx-background-radius: 10;
-        -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 10,0,0,5);
-    """);
-
-        Label nombre = new Label(recinto.getNombre());
-        nombre.setStyle("-fx-font-weight: bold; -fx-font-size: 14;");
-
-        Label ciudad = new Label("Ciudad: " + recinto.getCiudad());
-        Label capacidad = new Label("Capacidad: " + recinto.getCapacidad());
-
-        Button ver = new Button("Ver");
-
-        card.getChildren().addAll(nombre, ciudad, capacidad, ver);
-
-        return card;
-    }
 
     private void limpiarCampos(){
         txtId.clear();
