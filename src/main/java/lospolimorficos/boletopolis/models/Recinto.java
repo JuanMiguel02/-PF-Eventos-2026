@@ -96,4 +96,11 @@ public class Recinto implements Cloneable {
         }
         return copia;
     }
+
+    @Override
+    public String toString() {
+        return "Recinto: "
+                + nombre +
+                ", dirección: " + direccion;
+    }
 }

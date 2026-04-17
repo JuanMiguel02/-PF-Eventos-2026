@@ -5,7 +5,7 @@
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 
-<ScrollPane fitToWidth="true" prefHeight="700.0" prefWidth="1000.0" stylesheets="@../../styles/dashboardAdmin.css" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lospolimorficos.boletopolis.viewController.DetalleEventoController">
+<ScrollPane fitToWidth="true" prefHeight="700.0" prefWidth="1000.0" stylesheets="@../../styles/dashboardAdmin.css" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lospolimorficos.boletopolis.viewController.viewControllersAdmin.DetalleEventoController">
    <content>
       <AnchorPane prefWidth="980.0">
          <children>

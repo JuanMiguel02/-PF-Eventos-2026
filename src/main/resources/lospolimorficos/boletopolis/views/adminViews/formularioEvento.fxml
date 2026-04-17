@@ -5,7 +5,7 @@
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane prefHeight="500.0" prefWidth="600.0" stylesheets="@../../styles/dashboardAdmin.css" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lospolimorficos.boletopolis.viewController.FormularioEventoController">
+<AnchorPane prefHeight="500.0" prefWidth="600.0" stylesheets="@../../styles/dashboardAdmin.css" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lospolimorficos.boletopolis.viewController.viewControllersAdmin.FormularioEventoController">
    <styleClass>
       <String fx:value="white-bg" />
       <String fx:value="shadow" />

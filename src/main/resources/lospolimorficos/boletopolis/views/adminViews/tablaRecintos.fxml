@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.FlowPane?>
 <?import org.kordamp.ikonli.javafx.FontIcon?>
 
-<AnchorPane prefHeight="628.0" prefWidth="957.0" xmlns="http://javafx.com/javafx/24.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lospolimorficos.boletopolis.viewController.TablaRecintosController">
+<AnchorPane prefHeight="628.0" prefWidth="957.0" xmlns="http://javafx.com/javafx/24.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lospolimorficos.boletopolis.viewController.viewControllersAdmin.TablaRecintosController">
     <children>
         <AnchorPane fx:id="contenedorClientes" layoutX="62.0" layoutY="27.0" prefHeight="575.0" prefWidth="834.0" stylesheets="@../../styles/dashboardAdmin.css">
             <children>

@@ -25,4 +25,8 @@ public final class CompraRepositorio {
     public boolean registrarCompra(Compra compra) {
         return compras.add(compra);
     }
+
+    public int contarCompras(){
+        return compras.size();
+    }
 }

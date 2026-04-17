@@ -1,4 +1,4 @@
-package lospolimorficos.boletopolis.viewController;
+package lospolimorficos.boletopolis.viewController.viewControllersAdmin;
 
 import javafx.application.Platform;
 import javafx.beans.property.SimpleIntegerProperty;

@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.*?>
 <?import org.kordamp.ikonli.javafx.*?>
 
-<AnchorPane prefHeight="628.0" prefWidth="957.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lospolimorficos.boletopolis.viewController.TablaEventosController">
+<AnchorPane prefHeight="628.0" prefWidth="957.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lospolimorficos.boletopolis.viewController.viewControllersAdmin.TablaEventosController">
    <children>
       <AnchorPane layoutX="62.0" layoutY="27.0" prefHeight="575.0" prefWidth="834.0" stylesheets="@../../styles/dashboardAdmin.css">
          <children>

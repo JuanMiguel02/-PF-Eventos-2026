@@ -62,4 +62,8 @@ public final class UsuarioRepositorio {
         }
         return false;
     }
+
+    public int contarUsuarios(){
+        return usuarios.size();
+    }
 }

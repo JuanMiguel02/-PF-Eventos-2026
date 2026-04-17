@@ -1,4 +1,4 @@
-package lospolimorficos.boletopolis.viewController;
+package lospolimorficos.boletopolis.viewController.viewControllersAdmin;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -14,7 +14,6 @@ import java.io.File;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
 
 import static lospolimorficos.boletopolis.services.ServicioAlerta.mostrarAlerta;
 import static lospolimorficos.boletopolis.services.ServicioAlerta.mostrarAlertaError;

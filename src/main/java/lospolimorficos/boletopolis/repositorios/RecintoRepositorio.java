@@ -41,4 +41,8 @@ public final class RecintoRepositorio {
     public ObservableList<Recinto> getRecintos() {
         return recintos;
     }
+
+    public int contarRecintos(){
+        return recintos.size();
+    }
 }

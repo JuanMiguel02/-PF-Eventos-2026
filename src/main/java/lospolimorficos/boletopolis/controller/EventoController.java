@@ -29,20 +29,6 @@ public class EventoController {
     }
 
     public boolean existeConflicto(Recinto recinto, LocalDateTime fechaYHora, Duration duracion) {
-        LocalDateTime inicioNuevo = fechaYHora;
-        LocalDateTime finNuevo = fechaYHora.plus(duracion);
-
-        for (Evento evento : getEventos()) {
-            if (evento.getRecinto().getIdRecinto().equals(recinto.getIdRecinto())) {
-                LocalDateTime inicioExistente = evento.getFechaYHora();
-                LocalDateTime finExistente = evento.getFechaYHora().plus(evento.getDuracion());
-
-                // Se solapan si (inicio1 < fin2) Y (inicio2 < fin1)
-                if (inicioNuevo.isBefore(finExistente) && inicioExistente.isBefore(finNuevo)) {
-                    return true;
-                }
-            }
-        }
-        return false;
+        return eventoRepositorio.existeConflicto(recinto, fechaYHora, duracion);
     }
 }

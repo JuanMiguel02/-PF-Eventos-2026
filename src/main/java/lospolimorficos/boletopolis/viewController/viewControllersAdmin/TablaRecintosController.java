@@ -1,4 +1,4 @@
-package lospolimorficos.boletopolis.viewController;
+package lospolimorficos.boletopolis.viewController.viewControllersAdmin;
 
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
@@ -7,7 +7,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import lospolimorficos.boletopolis.controller.RecintoController;
 import lospolimorficos.boletopolis.models.Ciudad;
