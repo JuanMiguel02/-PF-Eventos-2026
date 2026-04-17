@@ -11,15 +11,18 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 
 //Adaptador que traduce el reporte a la API de PDFBOX
 public class AdaptadorReportePDF implements ConstructorReporte {
 
+    public static final String EXTENSION = ".pdf";
     private PDDocument documento;
     private PDPageContentStream contenido;
     private PDPage pagina;
     private float posicionY;
     private String rutaArchivo;
+    private boolean textoAbierto = false;
 
     @Override
     public void iniciarDocumento(String rutaArchivo) {
@@ -94,9 +97,12 @@ public class AdaptadorReportePDF implements ConstructorReporte {
     }
 
     @Override
-    public void agregarGrafico(BufferedImage imagen) {
+    public void agregarImagen(BufferedImage imagen) {
         try{
-            contenido.endText();
+            if(textoAbierto){
+                contenido.endText();
+                textoAbierto = false;
+            }
 
             File temp = new File("temp.png");
             ImageIO.write(imagen, "png", temp);
@@ -107,6 +113,7 @@ public class AdaptadorReportePDF implements ConstructorReporte {
             posicionY -= 250;
 
             contenido.beginText();
+            textoAbierto = true;
             contenido.newLineAtOffset(50, posicionY);
 
         } catch (Exception e) {
@@ -114,11 +121,17 @@ public class AdaptadorReportePDF implements ConstructorReporte {
         }
     }
 
+
     @Override
     public void finalizarDocumento() {
         try{
-            contenido.endText();
-            contenido.clip();
+
+            if(textoAbierto){
+                contenido.endText();
+                textoAbierto = false;
+            }
+
+            contenido.close();
             documento.save(rutaArchivo);
             documento.close();
         }catch (Exception e) {

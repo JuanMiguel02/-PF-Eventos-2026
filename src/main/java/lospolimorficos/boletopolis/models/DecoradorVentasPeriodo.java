@@ -12,9 +12,9 @@ public class DecoradorVentasPeriodo extends DecoradorReporte{
     }
 
     @Override
-    public void constuirReporte(ConstructorReporte constructorReporte) {
+    public void construirReporte(ConstructorReporte constructorReporte) {
 
-        reporte.constuirReporte(constructorReporte);
+        reporte.construirReporte(constructorReporte);
 
         constructorReporte.agregarSubtitulo("Ventas por periodo:");
         //Falta

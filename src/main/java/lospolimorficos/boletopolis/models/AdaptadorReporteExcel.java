@@ -6,10 +6,12 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import java.awt.image.BufferedImage;
 import java.io.FileOutputStream;
 import java.util.List;
+import java.util.Map;
 
 //Adaptador que traduce el reporte a la API de Apache POI
 public class AdaptadorReporteExcel implements ConstructorReporte {
 
+    public static final String EXTENSION = ".xlsx";
     private Workbook libro;
     private Sheet hoja;
     private int filaActual;
@@ -70,9 +72,10 @@ public class AdaptadorReporteExcel implements ConstructorReporte {
     }
 
     @Override
-    public void agregarGrafico(BufferedImage imagen) {
+    public void agregarImagen(BufferedImage imagen) {
         //más tarde
     }
+
 
     @Override
     public void finalizarDocumento() {

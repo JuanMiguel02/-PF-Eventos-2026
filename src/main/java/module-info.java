@@ -12,16 +12,16 @@ module lospolimorficos.boletopolis {
     requires org.apache.pdfbox;
     requires org.apache.poi.poi;
     requires org.apache.poi.ooxml;
+    requires javafx.swing;
 
     exports lospolimorficos.boletopolis;
     exports lospolimorficos.boletopolis.controller;
     exports lospolimorficos.boletopolis.models;
     exports lospolimorficos.boletopolis.repositorios;
     exports lospolimorficos.boletopolis.services;
-    exports lospolimorficos.boletopolis.viewController;
+    exports lospolimorficos.boletopolis.viewController.viewControllersAdmin;
 
     opens lospolimorficos.boletopolis.controller to javafx.fxml;
-    opens lospolimorficos.boletopolis.viewController to javafx.fxml;
-    exports lospolimorficos.boletopolis.viewController.viewControllersAdmin;
     opens lospolimorficos.boletopolis.viewController.viewControllersAdmin to javafx.fxml;
+
 }

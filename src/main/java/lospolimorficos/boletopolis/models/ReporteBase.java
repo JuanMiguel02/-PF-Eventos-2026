@@ -19,7 +19,7 @@ public class ReporteBase implements Reporte{
     }
 
     @Override
-    public void constuirReporte(ConstructorReporte constructorReporte) {
+    public void construirReporte(ConstructorReporte constructorReporte) {
 
         LocalDate fecha = LocalDate.now();
 

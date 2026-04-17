@@ -2,6 +2,7 @@ package lospolimorficos.boletopolis.models;
 
 import java.awt.image.BufferedImage;
 import java.util.List;
+import java.util.Map;
 
 //Interfaz para construcción de reportes
 public interface ConstructorReporte {
@@ -10,7 +11,7 @@ public interface ConstructorReporte {
     void agregarSubtitulo(String subtitulo);
     void agregarTexto(String texto);
     void agregarTabla(List<String[]> datos);
-    void agregarGrafico(BufferedImage imagen);
+    void agregarImagen(BufferedImage imagen);
     void finalizarDocumento();
 
 }
