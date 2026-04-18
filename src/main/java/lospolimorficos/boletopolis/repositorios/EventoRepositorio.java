@@ -3,10 +3,13 @@ package lospolimorficos.boletopolis.repositorios;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import lospolimorficos.boletopolis.models.Evento;
+import lospolimorficos.boletopolis.models.MetricaEvento;
 import lospolimorficos.boletopolis.models.Recinto;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
+import java.util.Comparator;
+import java.util.List;
 
 public final class EventoRepositorio {
 
@@ -58,6 +61,24 @@ public final class EventoRepositorio {
             }
         }
         return false;
+    }
+
+    public List<MetricaEvento> obtenerTopEventos(int limite){
+
+        return eventos.stream()
+                .map(evento -> {
+
+                    int capacidad = evento.getCapacidad();
+                    int vendidos = 200; //esto viene del repositorio de compras (falta)
+
+                    double ocupacion = capacidad == 0 ? 0 : (double) vendidos / capacidad * 100;
+                    double ganancia = 10000; //viene de los ingresos del repositorio de compras (falta)
+
+                    return new MetricaEvento(evento.getNombre(), ocupacion, ganancia);
+                }).sorted(Comparator.comparingDouble(MetricaEvento::ocupacion).reversed())
+                .limit(limite)
+                .toList();
+
     }
 
     public int contarEventos(){

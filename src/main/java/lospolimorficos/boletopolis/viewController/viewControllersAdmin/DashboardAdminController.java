@@ -46,7 +46,12 @@ public class DashboardAdminController {
 
     @FXML
     private void cargarVistaReportes(){
-        cargarVista("/lospolimorficos/boletopolis/views/adminViews/reportes.fxml");
+        cargarVista("/lospolimorficos/boletopolis/views/adminViews/reportesAdmin.fxml");
+    }
+
+    @FXML
+    private void cargarVistaMetricas(){
+        cargarVista("/lospolimorficos/boletopolis/views/adminViews/metricasAdmin.fxml");
     }
 
     @FXML

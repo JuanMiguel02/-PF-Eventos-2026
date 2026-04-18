@@ -13,5 +13,5 @@ public interface ConstructorReporte {
     void agregarTabla(List<String[]> datos);
     void agregarImagen(BufferedImage imagen);
     void finalizarDocumento();
-
+    void agregarGrafico(String titulo, Map<String, Number> datos);
 }

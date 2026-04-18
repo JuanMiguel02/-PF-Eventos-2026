@@ -26,6 +26,10 @@ public abstract class Evento {
         this.duracion = duracion;
     }
 
+    public int getCapacidad(){
+        return recinto.getCapacidad();
+    }
+
     public UUID getIdEvento() {
         return idEvento;
     }

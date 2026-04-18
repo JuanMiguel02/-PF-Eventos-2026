@@ -4,6 +4,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
 
 <ScrollPane fitToWidth="true" prefHeight="700.0" prefWidth="1000.0" stylesheets="@../../styles/dashboardAdmin.css" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lospolimorficos.boletopolis.viewController.viewControllersAdmin.DetalleEventoController">
    <content>
@@ -68,6 +69,32 @@
                            </styleClass>
                            <children>
                               <Label style="-fx-font-size: 18; -fx-font-weight: bold;" text="Mapa del Recinto" />
+                              <HBox spacing="20.0" alignment="CENTER_LEFT">
+                                 <children>
+                                    <Label text="* Haz clic en un asiento para cambiar su estado" style="-fx-font-style: italic; -fx-text-fill: #555;" />
+                                    <Region HBox.hgrow="ALWAYS" />
+                                    <HBox spacing="10.0" alignment="CENTER_RIGHT">
+                                       <children>
+                                          <HBox spacing="5.0" alignment="CENTER">
+                                             <Rectangle width="15.0" height="15.0" fill="WHITE" stroke="BLACK" />
+                                             <Label text="Libre" />
+                                          </HBox>
+                                          <HBox spacing="5.0" alignment="CENTER">
+                                             <Rectangle width="15.0" height="15.0" fill="RED" stroke="BLACK" />
+                                             <Label text="Ocupado" />
+                                          </HBox>
+                                          <HBox spacing="5.0" alignment="CENTER">
+                                             <Rectangle width="15.0" height="15.0" fill="ORANGE" stroke="BLACK" />
+                                             <Label text="Reservado" />
+                                          </HBox>
+                                          <HBox spacing="5.0" alignment="CENTER">
+                                             <Rectangle width="15.0" height="15.0" fill="GRAY" stroke="BLACK" />
+                                             <Label text="Bloqueado" />
+                                          </HBox>
+                                       </children>
+                                    </HBox>
+                                 </children>
+                              </HBox>
                               <ScrollPane fitToHeight="true" fitToWidth="true" prefHeight="500.0" styleClass="white-bg">
                                  <content>
                                     <AnchorPane fx:id="panelMapa" minHeight="600.0" minWidth="800.0" style="-fx-background-color: #f4f4f4;" />

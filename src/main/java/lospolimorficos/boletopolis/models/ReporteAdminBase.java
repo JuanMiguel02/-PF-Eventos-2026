@@ -1,21 +1,24 @@
 package lospolimorficos.boletopolis.models;
 
+import lospolimorficos.boletopolis.repositorios.CompraRepositorio;
 import lospolimorficos.boletopolis.repositorios.EventoRepositorio;
 import lospolimorficos.boletopolis.repositorios.RecintoRepositorio;
 import lospolimorficos.boletopolis.repositorios.UsuarioRepositorio;
 
 import java.time.LocalDate;
 
-public class ReporteBase implements Reporte{
+public class ReporteAdminBase implements Reporte{
 
     private final UsuarioRepositorio usuarioRepositorio;
     private final EventoRepositorio eventoRepositorio;
     private final RecintoRepositorio recintoRepositorio;
+    private final CompraRepositorio compraRepositorio;
 
-    public ReporteBase(UsuarioRepositorio usuarioRepositorio, EventoRepositorio eventoRepositorio, RecintoRepositorio recintoRepositorio) {
+    public ReporteAdminBase(UsuarioRepositorio usuarioRepositorio, EventoRepositorio eventoRepositorio, RecintoRepositorio recintoRepositorio, CompraRepositorio compraRepositorio) {
         this.usuarioRepositorio = usuarioRepositorio;
         this.eventoRepositorio = eventoRepositorio;
         this.recintoRepositorio = recintoRepositorio;
+        this.compraRepositorio = compraRepositorio;
     }
 
     @Override

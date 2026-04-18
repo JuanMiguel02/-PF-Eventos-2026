@@ -259,18 +259,26 @@ public class ServicioDibujoRecinto {
             case DISPONIBLE -> {
                 r.setFill(null); // Limpiar color sólido previo si existe
                 r.setStyle(tipo.getEstilo());
+                r.setStroke(Color.BLACK);
+                r.setStrokeWidth(0.5);
             }
             case VENDIDO -> {
                 r.setStyle(""); // Limpiar estilo previo
                 r.setFill(Color.RED);
+                r.setStroke(Color.BLACK);
+                r.setStrokeWidth(0.5);
             }
             case RESERVADO -> {
                 r.setStyle(""); // Limpiar estilo previo
                 r.setFill(Color.ORANGE);
+                r.setStroke(Color.BLACK);
+                r.setStrokeWidth(0.5);
             }
             case BLOQUEADO -> {
                 r.setStyle(""); // Limpiar estilo previo
                 r.setFill(Color.GRAY);
+                r.setStroke(Color.BLACK);
+                r.setStrokeWidth(0.5);
             }
         }
     }

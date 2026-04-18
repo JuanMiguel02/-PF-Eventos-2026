@@ -15,7 +15,6 @@ public class DecoradorVentasPeriodo extends DecoradorReporte{
     public void construirReporte(ConstructorReporte constructorReporte) {
 
         reporte.construirReporte(constructorReporte);
-
         constructorReporte.agregarSubtitulo("Ventas por periodo:");
         //Falta
 

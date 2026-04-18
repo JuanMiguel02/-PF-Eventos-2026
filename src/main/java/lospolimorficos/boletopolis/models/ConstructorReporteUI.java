@@ -14,13 +14,14 @@ import javafx.scene.control.TableView;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
+import lospolimorficos.boletopolis.services.ServicioGeneradorGraficos;
 
 import java.awt.image.BufferedImage;
 import java.util.List;
 import java.util.Map;
 
 
-public class ConstructorUIBuilder implements ConstructorReporte, ConstructorReporteConGrafico{
+public class ConstructorReporteUI implements ConstructorReporte{
 
     private VBox contenedor;
 
@@ -78,6 +79,7 @@ public class ConstructorUIBuilder implements ConstructorReporte, ConstructorRepo
         }
 
         tabla.setItems(filas);
+        tabla.columnResizePolicyProperty().setValue(TableView.CONSTRAINED_RESIZE_POLICY);
         contenedor.getChildren().add(tabla);
     }
 
@@ -99,19 +101,7 @@ public class ConstructorUIBuilder implements ConstructorReporte, ConstructorRepo
     @Override
     public void agregarGrafico(String titulo, Map<String, Number> datos) {
 
-        CategoryAxis ejeX = new CategoryAxis();
-        NumberAxis ejeY = new NumberAxis();
-
-        BarChart<String, Number> grafico = new BarChart<>(ejeX, ejeY);
-        grafico.setTitle(titulo);
-
-        XYChart.Series<String, Number> series = new XYChart.Series<>();
-
-        for(Map.Entry<String, Number> entrada : datos.entrySet()){
-            series.getData().add(new XYChart.Data<>(entrada.getKey(), entrada.getValue()));
-        }
-
-        grafico.getData().add(series);
+        BarChart<String, Number> grafico = ServicioGeneradorGraficos.crearBarChart(titulo, datos);
         contenedor.getChildren().add(grafico);
     }
 

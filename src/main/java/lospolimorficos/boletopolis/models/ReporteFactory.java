@@ -7,7 +7,6 @@ public class ReporteFactory {
         return switch (tipo) {
             case PDF -> new AdaptadorReportePDF();
             case EXCEL -> new AdaptadorReporteExcel();
-            default -> throw new IllegalArgumentException("Tipo de exportación no reconocido");
         };
     }
 

@@ -1,8 +1,8 @@
 package lospolimorficos.boletopolis.models;
 
 public enum TipoExportacion {
-    PDF("pdf"),
-    EXCEL("xlsx");
+    PDF(".pdf"),
+    EXCEL(".xlsx");
 
     private final String extension;
 

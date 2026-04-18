@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
 <?import java.lang.String?>
 <?import javafx.scene.chart.BarChart?>
 <?import javafx.scene.chart.CategoryAxis?>
@@ -9,6 +8,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 <?import org.kordamp.ikonli.javafx.FontIcon?>
@@ -55,59 +55,71 @@
                            </font>
                         </Label>
                         <Line endX="100.0" layoutX="118.0" layoutY="186.0" startX="-100.0" />
-                        <Button fx:id="btnInicio" layoutX="42.0" layoutY="213.0" mnemonicParsing="false" onAction="#cargarVistaInicio" prefHeight="40.0" prefWidth="150.0" styleClass="nav-btn" stylesheets="@../../styles/dashboardAdmin.css" text="Inicio">
-                           <graphic>
-                              <FontIcon fill="WHITE" iconLiteral="fas-home" iconSize="15" text="" wrappingWidth="18.5" />
-                           </graphic>
-                           <font>
-                              <Font size="16.0" />
-                           </font>
-                        </Button>
-                        <Button layoutX="42.0" layoutY="268.0" mnemonicParsing="false" onAction="#cargarVistaClientes" prefHeight="40.0" prefWidth="150.0" styleClass="nav-btn" stylesheets="@../../styles/dashboardAdmin.css" text="Añadir Cliente">
-                           <graphic>
-                              <FontIcon fill="WHITE" iconLiteral="fas-user-plus" iconSize="15" />
-                           </graphic>
-                           <font>
-                              <Font size="16.0" />
-                           </font>
-                        </Button>
-                        <Button layoutX="42.0" layoutY="326.0" mnemonicParsing="false" onAction="#cargarVistaEventos" prefHeight="43.0" prefWidth="151.0" styleClass="nav-btn" stylesheets="@../../styles/dashboardAdmin.css" text="Crear Evento">
-                           <graphic>
-                              <FontIcon fill="WHITE" iconLiteral="fas-dollar-sign" iconSize="15" text="" />
-                           </graphic>
-                           <font>
-                              <Font size="16.0" />
-                           </font>
-                        </Button>
-                        <Button layoutX="43.0" layoutY="388.0" mnemonicParsing="false" onAction="#cargarVistaRecintos" prefHeight="40.0" prefWidth="150.0" styleClass="nav-btn" stylesheets="@../../styles/dashboardAdmin.css" text="Añadir Recinto">
-                           <graphic>
-                              <FontIcon fill="WHITE" iconLiteral="fas-dollar-sign" iconSize="15" text="" />
-                           </graphic>
-                           <font>
-                              <Font size="16.0" />
-                           </font>
-                        </Button>
-                        <Button layoutX="43.0" layoutY="486.0" mnemonicParsing="false" onAction="#cargarVistaReportes" prefHeight="40.0" prefWidth="150.0" styleClass="nav-btn" stylesheets="@../../styles/dashboardAdmin.css" text="Ver Reportes">
-                           <graphic>
-                              <FontIcon fill="WHITE" iconLiteral="fas-dollar-sign" iconSize="15" text="" />
-                           </graphic>
-                           <font>
-                              <Font size="16.0" />
-                           </font>
-                        </Button>
+                        <VBox layoutX="40.0" layoutY="205.0" spacing="15.0">
+                           <children>
+                              <Button fx:id="btnInicio" mnemonicParsing="false" onAction="#cargarVistaInicio" prefHeight="40.0" prefWidth="155.0" styleClass="nav-btn" stylesheets="@../../styles/dashboardAdmin.css" text="Inicio">
+                                 <graphic>
+                                    <FontIcon fill="WHITE" iconLiteral="fas-home" iconSize="15" wrappingWidth="18.5" />
+                                 </graphic>
+                                 <font>
+                                    <Font size="16.0" />
+                                 </font>
+                              </Button>
+                              <Button mnemonicParsing="false" onAction="#cargarVistaClientes" prefHeight="40.0" prefWidth="155.0" styleClass="nav-btn" stylesheets="@../../styles/dashboardAdmin.css" text="Añadir Cliente">
+                                 <graphic>
+                                    <FontIcon fill="WHITE" iconLiteral="fas-user-plus" iconSize="15" />
+                                 </graphic>
+                                 <font>
+                                    <Font size="16.0" />
+                                 </font>
+                              </Button>
+                              <Button mnemonicParsing="false" onAction="#cargarVistaEventos" prefHeight="40.0" prefWidth="155.0" styleClass="nav-btn" stylesheets="@../../styles/dashboardAdmin.css" text="Crear Evento">
+                                 <graphic>
+                                    <FontIcon fill="WHITE" iconLiteral="fas-calendar-plus" iconSize="15" />
+                                 </graphic>
+                                 <font>
+                                    <Font size="16.0" />
+                                 </font>
+                              </Button>
+                              <Button mnemonicParsing="false" onAction="#cargarVistaRecintos" prefHeight="40.0" prefWidth="155.0" styleClass="nav-btn" stylesheets="@../../styles/dashboardAdmin.css" text="Añadir Recinto">
+                                 <graphic>
+                                    <FontIcon fill="WHITE" iconLiteral="fas-map-marker-alt" iconSize="15" />
+                                 </graphic>
+                                 <font>
+                                    <Font size="16.0" />
+                                 </font>
+                              </Button>
+                              <Button mnemonicParsing="false" onAction="#cargarVistaTablaRecintos" prefHeight="40.0" prefWidth="155.0" styleClass="nav-btn" stylesheets="@../../styles/dashboardAdmin.css" text="Ver Recintos">
+                                 <graphic>
+                                    <FontIcon fill="WHITE" iconLiteral="fas-city" iconSize="15" />
+                                 </graphic>
+                                 <font>
+                                    <Font size="16.0" />
+                                 </font>
+                              </Button>
+                              <Button mnemonicParsing="false" onAction="#cargarVistaReportes" prefHeight="40.0" prefWidth="155.0" styleClass="nav-btn" stylesheets="@../../styles/dashboardAdmin.css" text="Ver Reportes">
+                                 <graphic>
+                                    <FontIcon fill="WHITE" iconLiteral="fas-file-invoice" iconSize="15" />
+                                 </graphic>
+                                 <font>
+                                    <Font size="16.0" />
+                                 </font>
+                              </Button>
+                              <Button mnemonicParsing="false" onAction="#cargarVistaMetricas" prefHeight="40.0" prefWidth="155.0" styleClass="nav-btn" stylesheets="@../../styles/dashboardAdmin.css" text="Ver Métricas">
+                                 <graphic>
+                                    <FontIcon fill="WHITE" iconLiteral="fas-chart-bar" iconSize="15" />
+                                 </graphic>
+                                 <font>
+                                    <Font size="16.0" />
+                                 </font>
+                              </Button>
+                           </children>
+                        </VBox>
                         <Label alignment="CENTER" layoutX="20.0" layoutY="159.0" prefHeight="20.0" prefWidth="181.0" textAlignment="CENTER" textFill="WHITE">
                            <font>
                               <Font name="Times New Roman" size="18.0" />
                            </font>
                         </Label>
-                        <Button layoutX="42.0" layoutY="435.0" mnemonicParsing="false" onAction="#cargarVistaTablaRecintos" prefHeight="40.0" prefWidth="150.0" styleClass="nav-btn" stylesheets="@../../styles/dashboardAdmin.css" text="Ver Recintos">
-                           <graphic>
-                              <FontIcon fill="WHITE" iconLiteral="fas-dollar-sign" iconSize="15" text="" />
-                           </graphic>
-                           <font>
-                              <Font size="16.0" />
-                           </font>
-                        </Button>
                      </children>
                   </AnchorPane>
                </left>

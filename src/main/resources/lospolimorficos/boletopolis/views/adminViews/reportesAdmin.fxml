@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="600.0" prefWidth="850.0" stylesheets="@../../styles/dashboardAdmin.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lospolimorficos.boletopolis.viewController.viewControllersAdmin.ReportesController">
+<AnchorPane prefHeight="600.0" prefWidth="850.0" stylesheets="@../../styles/dashboardAdmin.css" xmlns="http://javafx.com/javafx/24.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lospolimorficos.boletopolis.viewController.viewControllersAdmin.ReportesAdminViewController">
    <children>
       <AnchorPane layoutX="14.0" layoutY="14.0" prefHeight="572.0" prefWidth="822.0" styleClass="white-bg" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="14.0">
          <children>
@@ -35,6 +35,11 @@
                               <HBox spacing="15.0">
                                  <children>
                                     <CheckBox fx:id="checkVentasPeriodo" mnemonicParsing="false" text="Ventas por Periodo" />
+                                    <HBox spacing="15.0">
+                                       <children>
+                                          <CheckBox fx:id="checkTopEventos" mnemonicParsing="false" text="Top 5 Eventos" />
+                                       </children>
+                                    </HBox>
                                     <!-- Aquí se pueden añadir más CheckBox para otros decoradores si existen -->
                                  </children>
                               </HBox>

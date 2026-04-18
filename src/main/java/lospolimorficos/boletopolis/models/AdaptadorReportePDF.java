@@ -1,5 +1,12 @@
 package lospolimorficos.boletopolis.models;
 
+import javafx.embed.swing.SwingFXUtils;
+import javafx.scene.Scene;
+import javafx.scene.SnapshotParameters;
+import javafx.scene.chart.BarChart;
+import javafx.scene.image.WritableImage;
+import javafx.scene.layout.VBox;
+import lospolimorficos.boletopolis.services.ServicioGeneradorGraficos;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDPage;
 import org.apache.pdfbox.pdmodel.PDPageContentStream;
@@ -8,15 +15,17 @@ import org.apache.pdfbox.pdmodel.graphics.image.PDImageXObject;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
-//Adaptador que traduce el reporte a la API de PDFBOX
+/**
+ * Adaptador que traduce el reporte a la API de PDFBOX para generar documentos PDF.
+ */
 public class AdaptadorReportePDF implements ConstructorReporte {
 
-    public static final String EXTENSION = ".pdf";
     private PDDocument documento;
     private PDPageContentStream contenido;
     private PDPage pagina;
@@ -24,6 +33,10 @@ public class AdaptadorReportePDF implements ConstructorReporte {
     private String rutaArchivo;
     private boolean textoAbierto = false;
 
+    /**
+     * Inicia un nuevo documento PDF en la ruta especificada.
+     * @param rutaArchivo Ruta donde se guardará el archivo.
+     */
     @Override
     public void iniciarDocumento(String rutaArchivo) {
         try{
@@ -34,6 +47,7 @@ public class AdaptadorReportePDF implements ConstructorReporte {
 
             contenido = new PDPageContentStream(documento, pagina);
             contenido.beginText();
+            textoAbierto = true;
             contenido.setLeading(14.5f);
             contenido.newLineAtOffset(50,750);
 
@@ -44,6 +58,10 @@ public class AdaptadorReportePDF implements ConstructorReporte {
         }
     }
 
+    /**
+     * Agrega un título al documento PDF.
+     * @param titulo Texto del título.
+     */
     @Override
     public void agregarTitulo(String titulo) {
         try{
@@ -57,6 +75,10 @@ public class AdaptadorReportePDF implements ConstructorReporte {
         }
     }
 
+    /**
+     * Agrega un subtítulo al documento PDF.
+     * @param subtitulo Texto del subtítulo.
+     */
     @Override
     public void agregarSubtitulo(String subtitulo) {
         try{
@@ -70,6 +92,10 @@ public class AdaptadorReportePDF implements ConstructorReporte {
         }
     }
 
+    /**
+     * Agrega un bloque de texto al documento PDF.
+     * @param texto Contenido textual.
+     */
     @Override
     public void agregarTexto(String texto) {
         try{
@@ -82,6 +108,10 @@ public class AdaptadorReportePDF implements ConstructorReporte {
         }
     }
 
+    /**
+     * Agrega una tabla de datos al documento PDF.
+     * @param datos Lista de arreglos de String que representan las filas de la tabla.
+     */
     @Override
     public void agregarTabla(List<String[]> datos) {
         try{
@@ -96,6 +126,10 @@ public class AdaptadorReportePDF implements ConstructorReporte {
         }
     }
 
+    /**
+     * Agrega una imagen al documento PDF.
+     * @param imagen Imagen en formato BufferedImage.
+     */
     @Override
     public void agregarImagen(BufferedImage imagen) {
         try{
@@ -104,13 +138,13 @@ public class AdaptadorReportePDF implements ConstructorReporte {
                 textoAbierto = false;
             }
 
-            File temp = new File("temp.png");
-            ImageIO.write(imagen, "png", temp);
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            ImageIO.write(imagen, "png", baos);
 
-            PDImageXObject pdImagen = PDImageXObject.createFromFileByContent(temp, documento);
-            contenido.drawImage(pdImagen, 50, posicionY - 200, 400, 200);
+            PDImageXObject pdImagen = PDImageXObject.createFromByteArray(documento, baos.toByteArray(), "Imagen");
+            contenido.drawImage(pdImagen, 50, posicionY - 300, 500, 300);
 
-            posicionY -= 250;
+            posicionY -= 320;
 
             contenido.beginText();
             textoAbierto = true;
@@ -121,11 +155,12 @@ public class AdaptadorReportePDF implements ConstructorReporte {
         }
     }
 
-
+    /**
+     * Finaliza y guarda el documento PDF.
+     */
     @Override
     public void finalizarDocumento() {
         try{
-
             if(textoAbierto){
                 contenido.endText();
                 textoAbierto = false;
@@ -138,4 +173,43 @@ public class AdaptadorReportePDF implements ConstructorReporte {
             throw new RuntimeException(e);
         }
     }
+
+    /**
+     * Genera y agrega un gráfico de barras al documento PDF a partir de un mapa de datos.
+     * @param titulo Título del gráfico.
+     * @param datos Mapa con las categorías y sus valores numéricos.
+     */
+    @Override
+    public void agregarGrafico(String titulo, Map<String, Number> datos) {
+        if (datos == null || datos.isEmpty()) {
+            agregarTexto("No hay datos para el gráfico: " + titulo);
+            return;
+        }
+
+        try {
+            BarChart<String, Number> grafico =
+                    ServicioGeneradorGraficos.crearBarChart(titulo, datos);
+
+            VBox contenedor = new VBox(grafico);
+            contenedor.setStyle("-fx-background-color: white; -fx-padding: 20;");
+            contenedor.setPrefSize(900, 700);
+
+            // Forzar renderizado para que los listeners de ServicioGeneradorGraficos se activen
+            new Scene(contenedor);
+            contenedor.applyCss();
+            contenedor.layout();
+
+            SnapshotParameters params = new SnapshotParameters();
+            params.setTransform(javafx.scene.transform.Transform.scale(1.5, 1.5)); // Escala moderada para evitar pixelado
+
+            WritableImage captura = contenedor.snapshot(params, null);
+            BufferedImage imagen = SwingFXUtils.fromFXImage(captura, null);
+
+            agregarImagen(imagen);
+
+        } catch (Exception e) {
+            throw new RuntimeException("Error generando gráfico en PDF", e);
+        }
+    }
+
 }

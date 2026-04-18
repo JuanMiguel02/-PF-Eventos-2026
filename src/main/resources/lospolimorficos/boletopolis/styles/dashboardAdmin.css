@@ -178,3 +178,7 @@
     -fx-padding: 0px 0px 0px 5px;
 ;
 }
+
+.chart-bar {
+    -fx-bar-fill: #3498db;
+}
