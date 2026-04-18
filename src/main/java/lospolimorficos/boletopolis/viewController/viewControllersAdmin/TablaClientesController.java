@@ -31,7 +31,6 @@ public class TablaClientesController {
     @FXML
     private TableColumn<Cliente, String> colTelefonoCliente;
 
-
     @FXML
     private TableView<Cliente> tblClientes;
 

@@ -88,10 +88,29 @@ public class AdaptadorReporteExcel implements ConstructorReporte {
 
     /**
      * Agrega una tabla de datos a la hoja de Excel.
-     * @param datos Lista de arreglos de String que representan las filas y celdas.
+     *
+     * @param datos    Lista de arreglos de String que representan las filas y celdas.
+     * @param columnas
      */
     @Override
-    public void agregarTabla(List<String[]> datos) {
+    public void agregarTabla(List<String[]> datos, List<String> columnas) {
+
+        if(columnas == null || datos == null || datos.isEmpty()) return;
+
+        Row filaEncabezado = hoja.createRow(filaActual++);
+
+        CellStyle estiloEncabezado = libro.createCellStyle();
+        Font fuenteEncabezado = libro.createFont();
+        fuenteEncabezado.setBold(true);
+        estiloEncabezado.setFont(fuenteEncabezado);
+
+        //Encabezados
+        for(int i = 0; i < columnas.size(); i++){
+            Cell celdaEncabezado = filaEncabezado.createCell(i);
+            celdaEncabezado.setCellValue(columnas.get(i));
+            celdaEncabezado.setCellStyle(estiloEncabezado);
+        }
+        //Filas de datos
         for(String[] fila : datos){
             Row filaExcel = hoja.createRow(filaActual++);
             for(int i = 0; i < fila.length; i++){
@@ -99,6 +118,11 @@ public class AdaptadorReporteExcel implements ConstructorReporte {
                 celda.setCellValue(fila[i]);
             }
         }
+        //Autoajustar columnas
+        for(int i = 0; i < columnas.size(); i++){
+            hoja.autoSizeColumn(i);
+        }
+
     }
 
     /**

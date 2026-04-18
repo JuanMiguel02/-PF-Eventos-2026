@@ -54,21 +54,19 @@ public class ConstructorReporteUI implements ConstructorReporte{
     }
 
     @Override
-    public void agregarTabla(List<String[]> datos) {
+    public void agregarTabla(List<String[]> datos, List<String> columnas) {
         TableView<ObservableList<String>> tabla = new TableView<>();
+        tabla.setEditable(false);
 
-        if(datos == null || datos.isEmpty()) return;
+        if(columnas == null || datos == null || datos.isEmpty()) return;
 
-        int numColumnas = datos.getFirst().length;
+       for(int i = 0; i < columnas.size(); i++){
+           final int indiceColumna = i;
 
-        //crear columnas dinámicamente
-        for(int i=0; i<numColumnas; i++){
-            final int indiceColumna = i;
-
-            TableColumn<ObservableList<String>, String> columna = new TableColumn<>("Columna " + (i+1));
-            columna.setCellValueFactory(data -> new SimpleStringProperty(data.getValue().get(indiceColumna)));
-            tabla.getColumns().add(columna);
-        }
+           TableColumn<ObservableList<String>, String> columna = new TableColumn<>(columnas.get(i));
+           columna.setCellValueFactory(data -> new SimpleStringProperty(data.getValue().get(indiceColumna)));
+           tabla.getColumns().add(columna);
+       }
 
         //Agregar filas
         ObservableList<ObservableList<String>> filas = FXCollections.observableArrayList();

@@ -2,6 +2,6 @@ package lospolimorficos.boletopolis.models;
 
 public interface EstrategiaMetrica {
 
-    ResultadoMetrica calcularMetrica();
+    void generarSeccion(ConstructorReporte constructor);
 
 }

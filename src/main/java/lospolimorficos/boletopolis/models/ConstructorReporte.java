@@ -10,8 +10,8 @@ public interface ConstructorReporte {
     void agregarTitulo(String titulo);
     void agregarSubtitulo(String subtitulo);
     void agregarTexto(String texto);
-    void agregarTabla(List<String[]> datos);
-    void agregarImagen(BufferedImage imagen);
+    void agregarTabla(List<String[]> datos,List<String> columnas);
+    void agregarImagen(BufferedImage image);
     void finalizarDocumento();
     void agregarGrafico(String titulo, Map<String, Number> datos);
 }

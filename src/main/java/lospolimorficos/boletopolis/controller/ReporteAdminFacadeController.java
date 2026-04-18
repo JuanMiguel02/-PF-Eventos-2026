@@ -36,16 +36,12 @@ public class ReporteAdminFacadeController {
 
         Reporte reporte = new ReporteAdminBase(usuarioRepositorio, eventoRepositorio, recintoRepositorio, compraRepositorio);
 
-        List<EstrategiaMetrica> estrategias = new ArrayList<>();
-
         for(TipoSeccionReporte seccion : secciones){
-            estrategias.add(MetricaFactory.crearMetrica(seccion, compraRepositorio, eventoRepositorio));
+            switch (seccion){
+                case TOP_EVENTOS -> reporte = new DecoradorMetricas(reporte, new MetricaTopEventos(eventoRepositorio));
+            }
         }
-
-        if(!estrategias.isEmpty()) reporte = new DecoradorMetricas(reporte, estrategias);
-
         return reporte;
-
     }
 
     public VBox generarVistaPrevia(Set<TipoSeccionReporte> secciones){

@@ -16,7 +16,6 @@ import org.apache.pdfbox.pdmodel.graphics.image.PDImageXObject;
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
-import java.io.File;
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
@@ -110,11 +109,27 @@ public class AdaptadorReportePDF implements ConstructorReporte {
 
     /**
      * Agrega una tabla de datos al documento PDF.
-     * @param datos Lista de arreglos de String que representan las filas de la tabla.
+     *
+     * @param datos    Lista de arreglos de String que representan las filas de la tabla.
+     * @param columnas
      */
     @Override
-    public void agregarTabla(List<String[]> datos) {
+    public void agregarTabla(List<String[]> datos, List<String> columnas) {
+
         try{
+
+            contenido.setFont(PDType1Font.HELVETICA_BOLD, 12);
+            String encabezado = String.join(" | ", columnas);
+            contenido.showText(encabezado);
+            contenido.newLine();
+            posicionY -=15;
+
+            contenido.setFont(PDType1Font.HELVETICA, 12);
+            contenido.showText("----------------------------------");
+            contenido.newLine();
+            posicionY -=15;
+
+
             for(String[] fila : datos){
                 String linea = String.join(" | ", fila);
                 contenido.showText(linea);
