@@ -5,7 +5,7 @@ public enum TipoZona {
     GENERAL("-fx-fill: lightblue;"),
     PREFERENCIAL("-fx-fill: lightgray;");
 
-    private String estilo;
+    private final String estilo;
 
     TipoZona(String estilo) {
         this.estilo = estilo;

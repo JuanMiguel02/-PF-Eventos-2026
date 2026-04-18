@@ -25,6 +25,10 @@ public class Compra {
         this.entradas = new ArrayList<>();
     }
 
+    public int getCantidadEntradas(){
+        return entradas.size();
+    }
+
     public UUID getIdCompra() {
         return idCompra;
     }

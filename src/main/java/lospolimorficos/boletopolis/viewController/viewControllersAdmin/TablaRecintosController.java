@@ -60,7 +60,7 @@ public class TablaRecintosController {
         colCapacidad.setCellValueFactory(cell -> new SimpleIntegerProperty(cell.getValue().getCapacidad()).asObject());
         colDireccion.setCellValueFactory(cell -> new SimpleStringProperty(cell.getValue().getDireccion()));
         colCiudad.setCellValueFactory(cell -> new SimpleStringProperty(cell.getValue().getCiudad().toString()));
-        colRecintoId.setCellValueFactory(cell -> new SimpleStringProperty(cell.getValue().getIdRecinto().toString()));
+        colRecintoId.setCellValueFactory(cell -> new SimpleStringProperty(cell.getValue().getIdRecinto().toString().substring(0, 8)));
     }
 
     private void cargarRecintos(){

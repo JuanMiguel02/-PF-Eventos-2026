@@ -60,7 +60,7 @@ public class Zona implements Cloneable {
     }
 
     public int getCapacidad() {
-        return capacidad;
+        return asientos.size();
     }
 
     public PosicionZona getPosicionZona() {

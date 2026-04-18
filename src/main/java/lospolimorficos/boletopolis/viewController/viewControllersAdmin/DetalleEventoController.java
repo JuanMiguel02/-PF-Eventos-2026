@@ -87,11 +87,27 @@ public class DetalleEventoController {
         txtNombre.setText(evento.getNombre());
         txtFecha.setText(evento.getFechaYHora().format(formatter));
         txtDescripcion.setText(evento.getDescripcion());
+
         cmbEstado.setValue(evento.getEstado());
 
         if (evento.getRutaImagen() != null && !evento.getRutaImagen().isEmpty()) {
             try {
-                ivEvento.setImage(new Image(evento.getRutaImagen()));
+
+                String ruta = evento.getRutaImagen();
+                Image imagen;
+                //Imágenes internas
+                if(ruta.startsWith("/")){
+                    var recurso = getClass().getResource(ruta);
+                    if(recurso != null){
+                        imagen = new Image(recurso.toExternalForm());
+                    }else{
+                        throw new Exception("Recurso no encontrado: " + ruta);
+                    }
+                }else{ //Imágenes externas
+                   imagen = new Image(ruta);
+                }
+
+                ivEvento.setImage(imagen);
             } catch (Exception e) {
                 System.err.println("No se pudo cargar la imagen: " + e.getMessage());
             }

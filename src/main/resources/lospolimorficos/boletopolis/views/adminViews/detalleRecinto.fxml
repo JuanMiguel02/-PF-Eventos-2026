@@ -14,7 +14,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="632.0" prefWidth="934.0" xmlns="http://javafx.com/javafx/24.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lospolimorficos.boletopolis.viewController.viewControllersAdmin.DetalleRecintoController">
+<AnchorPane prefHeight="683.0" prefWidth="1173.0" xmlns="http://javafx.com/javafx/24.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lospolimorficos.boletopolis.viewController.viewControllersAdmin.DetalleRecintoController">
    <children>
       <VBox spacing="15.0" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
          <children>
@@ -28,9 +28,9 @@
                   </Label>
                </children>
             </HBox>
-            <HBox spacing="20.0" VBox.vgrow="ALWAYS">
+            <HBox prefHeight="278.0" prefWidth="936.0" spacing="20.0" VBox.vgrow="ALWAYS">
                <children>
-                  <VBox prefWidth="300.0" spacing="10.0" styleClass="white-bg, shadow" stylesheets="@../../styles/dashboardAdmin.css">
+                  <VBox prefHeight="593.0" prefWidth="503.0" spacing="10.0" styleClass="white-bg, shadow" stylesheets="@../../styles/dashboardAdmin.css">
                      <children>
                         <Label text="Información General">
                            <font>

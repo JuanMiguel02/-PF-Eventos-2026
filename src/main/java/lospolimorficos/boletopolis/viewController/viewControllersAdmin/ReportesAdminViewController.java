@@ -7,7 +7,7 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.VBox;
-import lospolimorficos.boletopolis.controller.ReporteFacadeController;
+import lospolimorficos.boletopolis.controller.ReporteAdminFacadeController;
 import lospolimorficos.boletopolis.models.*;
 import lospolimorficos.boletopolis.repositorios.CompraRepositorio;
 import lospolimorficos.boletopolis.repositorios.EventoRepositorio;
@@ -52,14 +52,14 @@ public class ReportesAdminViewController {
     private final RecintoRepositorio recintoRepositorio = RecintoRepositorio.getInstancia();
     private final CompraRepositorio compraRepositorio = CompraRepositorio.getInstancia();
 
-    private ReporteFacadeController reporteFacadeController;
+    private ReporteAdminFacadeController reporteAdminFacadeController;
 
 
     @FXML
     public void initialize() {
         comboFormato.getItems().setAll(TipoExportacion.values());
 
-        reporteFacadeController = new ReporteFacadeController(usuarioRepositorio, eventoRepositorio, recintoRepositorio, compraRepositorio);
+        reporteAdminFacadeController = new ReporteAdminFacadeController(usuarioRepositorio, eventoRepositorio, recintoRepositorio, compraRepositorio);
     }
 
     @FXML
@@ -72,7 +72,7 @@ public class ReportesAdminViewController {
         }
 
         Set<TipoSeccionReporte> secciones = obtenerSeccionesReporte();
-        String ruta = reporteFacadeController.exportarReporte(formato, secciones);
+        String ruta = reporteAdminFacadeController.exportarReporte(formato, secciones);
         mostrarAlerta("Reporte exportado", "Reporte exportado exitosamente a la ruta: " + ruta, Alert.AlertType.INFORMATION);
     }
 
@@ -81,7 +81,7 @@ public class ReportesAdminViewController {
 
         Set<TipoSeccionReporte> secciones = obtenerSeccionesReporte();
 
-        VBox vistaPrevia = reporteFacadeController.generarVistaPrevia(secciones);
+        VBox vistaPrevia = reporteAdminFacadeController.generarVistaPrevia(secciones);
         scrollReporte.setContent(vistaPrevia);
 
     }

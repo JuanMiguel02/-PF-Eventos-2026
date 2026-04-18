@@ -261,24 +261,28 @@ public class ServicioDibujoRecinto {
                 r.setStyle(tipo.getEstilo());
                 r.setStroke(Color.BLACK);
                 r.setStrokeWidth(0.5);
+                r.getStrokeDashArray().setAll(2.0, 2.0); // Borde punteado para indicar que el color viene de la zona
             }
             case VENDIDO -> {
                 r.setStyle(""); // Limpiar estilo previo
                 r.setFill(Color.RED);
                 r.setStroke(Color.BLACK);
                 r.setStrokeWidth(0.5);
+                r.getStrokeDashArray().clear();
             }
             case RESERVADO -> {
                 r.setStyle(""); // Limpiar estilo previo
                 r.setFill(Color.ORANGE);
                 r.setStroke(Color.BLACK);
                 r.setStrokeWidth(0.5);
+                r.getStrokeDashArray().clear();
             }
             case BLOQUEADO -> {
                 r.setStyle(""); // Limpiar estilo previo
                 r.setFill(Color.GRAY);
                 r.setStroke(Color.BLACK);
                 r.setStrokeWidth(0.5);
+                r.getStrokeDashArray().clear();
             }
         }
     }

@@ -72,7 +72,7 @@ public class TablaClientesController {
         colDocumentoCliente.setCellValueFactory(cell -> new SimpleStringProperty(cell.getValue().getNumDocumento()));
         colTelefonoCliente.setCellValueFactory(cell -> new SimpleStringProperty(cell.getValue().getNumTelefono()));
         colCorreo.setCellValueFactory(cell -> new SimpleStringProperty(cell.getValue().getCorreo()));
-        colClienteId.setCellValueFactory(cell -> new SimpleStringProperty(cell.getValue().getIdUsuario().toString()));
+        colClienteId.setCellValueFactory(cell -> new SimpleStringProperty(cell.getValue().getIdUsuario().toString().substring(0, 8)));
     }
 
     private void cargarClientes(){

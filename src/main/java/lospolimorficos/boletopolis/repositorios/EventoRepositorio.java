@@ -2,9 +2,7 @@ package lospolimorficos.boletopolis.repositorios;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import lospolimorficos.boletopolis.models.Evento;
-import lospolimorficos.boletopolis.models.MetricaEvento;
-import lospolimorficos.boletopolis.models.Recinto;
+import lospolimorficos.boletopolis.models.*;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
@@ -14,9 +12,13 @@ import java.util.List;
 public final class EventoRepositorio {
 
     private final ObservableList<Evento> eventos = FXCollections.observableArrayList();
+    private final CompraRepositorio compras;
     private static EventoRepositorio instancia;
 
-    private EventoRepositorio() {}
+    private EventoRepositorio() {
+        this.compras = CompraRepositorio.getInstancia();
+        cargarDatosEjemplo();
+    }
 
     public static EventoRepositorio getInstance() {
         if (instancia == null) {
@@ -69,10 +71,10 @@ public final class EventoRepositorio {
                 .map(evento -> {
 
                     int capacidad = evento.getCapacidad();
-                    int vendidos = 200; //esto viene del repositorio de compras (falta)
+                    int vendidos = compras.obtenerVentasEvento(evento); //esto viene del repositorio de compras
 
                     double ocupacion = capacidad == 0 ? 0 : (double) vendidos / capacidad * 100;
-                    double ganancia = 10000; //viene de los ingresos del repositorio de compras (falta)
+                    double ganancia = compras.calcularGananciaPorEveneto(evento); //viene de los ingresos del repositorio de compras
 
                     return new MetricaEvento(evento.getNombre(), ocupacion, ganancia);
                 }).sorted(Comparator.comparingDouble(MetricaEvento::ocupacion).reversed())
@@ -83,5 +85,12 @@ public final class EventoRepositorio {
 
     public int contarEventos(){
         return eventos.size();
+    }
+
+    private void cargarDatosEjemplo(){
+        Recinto recinto = RecintoRepositorio.getInstancia().getPrimerRecinto();
+        Concierto concierto = new Concierto("Concierto de los Deftones", "Gira Nuevo Álbum - 2026", Ciudad.ARMENIA, LocalDateTime.now(), EstadoEvento.PUBLICADO, recinto, Duration.ofHours(2), "Deftones", "Rock Alternativo");
+        concierto.setRutaImagen("/lospolimorficos/boletopolis/imagenes/DeftonesConciertoEjemplo.jpg");
+        registrarEvento(concierto);
     }
 }

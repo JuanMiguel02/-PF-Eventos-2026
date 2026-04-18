@@ -30,6 +30,12 @@ public class Recinto implements Cloneable {
                 .sum();
     }
 
+    public int getCapacidad() {
+        return zonas.stream()
+                .mapToInt(Zona::getCapacidad)
+                .sum();
+    }
+
     public String getNombre() {
         return nombre;
     }
@@ -78,9 +84,6 @@ public class Recinto implements Cloneable {
         return escenario;
     }
 
-    public int getCapacidad() {
-        return capacidad;
-    }
 
     public void setCapacidad(int capacidad) {
         this.capacidad = capacidad;

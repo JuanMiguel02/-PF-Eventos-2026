@@ -16,7 +16,7 @@ import java.util.Set;
 import static lospolimorficos.boletopolis.models.ReporteFactory.crearReporte;
 
 //Patrón Facade para simplificar creación de los reportes
-public class ReporteFacadeController {
+public class ReporteAdminFacadeController {
 
     private static final DateTimeFormatter formatoFecha = DateTimeFormatter.ofPattern("dd-MM-yyyy__HH-mm-ss");
 
@@ -25,7 +25,7 @@ public class ReporteFacadeController {
     private final RecintoRepositorio recintoRepositorio;
     private final CompraRepositorio compraRepositorio;
 
-    public ReporteFacadeController(UsuarioRepositorio usuarioRepositorio, EventoRepositorio eventoRepositorio, RecintoRepositorio recintoRepositorio, CompraRepositorio compraRepositorio) {
+    public ReporteAdminFacadeController(UsuarioRepositorio usuarioRepositorio, EventoRepositorio eventoRepositorio, RecintoRepositorio recintoRepositorio, CompraRepositorio compraRepositorio) {
         this.usuarioRepositorio = usuarioRepositorio;
         this.eventoRepositorio = eventoRepositorio;
         this.recintoRepositorio = recintoRepositorio;

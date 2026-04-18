@@ -2,6 +2,7 @@ package lospolimorficos.boletopolis.repositorios;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import lospolimorficos.boletopolis.models.Admin;
 import lospolimorficos.boletopolis.models.Cliente;
 import lospolimorficos.boletopolis.models.Usuario;
 
@@ -12,7 +13,9 @@ public final class UsuarioRepositorio {
     private final ObservableList<Usuario> usuarios = FXCollections.observableArrayList();
     private static UsuarioRepositorio instancia;
 
-    private UsuarioRepositorio() {}
+    private UsuarioRepositorio() {
+        cargarDatosEjemplo();
+    }
 
     public static UsuarioRepositorio getInstancia() {
         if (instancia == null) {
@@ -66,4 +69,17 @@ public final class UsuarioRepositorio {
     public int contarUsuarios(){
         return usuarios.size();
     }
+
+    private void cargarDatosEjemplo(){
+
+        Admin admin1 = new Admin("Sancho", "Panza", "sancho@boletopolis.com", "412321312", "123456");
+        Cliente cliente1 = new Cliente("Paco", "Jones", "paquito@gmail.com", "23123213", "654321", "42132131");
+        Cliente cliente2 = new Cliente("Pedro", "El Escamoso", "pedrito@gmail.com", "313123123", "54321", "3124531");
+
+        registrarUsuario(admin1);
+        registrarUsuario(cliente1);
+        registrarUsuario(cliente2);
+
+    }
+
 }
