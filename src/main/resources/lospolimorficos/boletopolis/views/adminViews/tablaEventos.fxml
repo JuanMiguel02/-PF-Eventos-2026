@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import org.kordamp.ikonli.javafx.*?>
+
+<AnchorPane prefHeight="628.0" prefWidth="957.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lospolimorficos.boletopolis.viewController.TablaEventosController">
+   <children>
+      <AnchorPane layoutX="62.0" layoutY="27.0" prefHeight="575.0" prefWidth="834.0" stylesheets="@../../styles/dashboardAdmin.css">
+         <children>
+            <AnchorPane layoutX="0.0" layoutY="0.0" prefHeight="480.0" prefWidth="834.0" stylesheets="@../../styles/dashboardAdmin.css" AnchorPane.bottomAnchor="95.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+               <styleClass>
+                  <String fx:value="white-bg" />
+                  <String fx:value="shadow" />
+               </styleClass>
+               <children>
+                  <TableView fx:id="tblEventos" layoutX="10.0" layoutY="67.0" prefHeight="400.0" prefWidth="814.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0">
+                     <columns>
+                        <TableColumn fx:id="colId" prefWidth="75.0" text="ID" />
+                        <TableColumn fx:id="colNombre" prefWidth="150.0" text="Nombre" />
+                        <TableColumn fx:id="colFecha" prefWidth="150.0" text="Fecha y Hora" />
+                        <TableColumn fx:id="colCiudad" prefWidth="100.0" text="Ciudad" />
+                        <TableColumn fx:id="colRecinto" prefWidth="150.0" text="Recinto" />
+                        <TableColumn fx:id="colEstado" prefWidth="100.0" text="Estado" />
+                     </columns>
+                     <columnResizePolicy>
+                        <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                     </columnResizePolicy>
+                  </TableView>
+                  <TextField fx:id="txtBuscar" layoutX="14.0" layoutY="14.0" prefHeight="25.0" prefWidth="311.0" promptText="Buscar evento..." styleClass="search" stylesheets="@../../styles/dashboardAdmin.css" />
+                  <FontIcon iconLiteral="fas-search" iconSize="15" layoutX="22.0" layoutY="31.0" wrappingWidth="19.0" />
+               </children>
+            </AnchorPane>
+            <HBox alignment="CENTER" layoutY="500.0" prefHeight="60.0" prefWidth="834.0" spacing="20.0">
+               <children>
+                  <Button fx:id="btnNuevo" mnemonicParsing="false" onAction="#abrirFormularioNuevo" prefHeight="40.0" prefWidth="120.0" styleClass="add-btn" text="Nuevo Evento" />
+                  <Button fx:id="btnDetalles" mnemonicParsing="false" onAction="#verDetallesEvento" prefHeight="40.0" prefWidth="120.0" styleClass="update-btn" text="Ver Detalles" />
+                  <Button fx:id="btnEliminar" mnemonicParsing="false" onAction="#eliminarEvento" prefHeight="40.0" prefWidth="120.0" styleClass="delete-btn" text="Eliminar" />
+               </children>
+            </HBox>
+         </children>
+         <styleClass>
+            <String fx:value="white-bg" />
+            <String fx:value="shadow" />
+         </styleClass>
+      </AnchorPane>
+   </children>
+</AnchorPane>
