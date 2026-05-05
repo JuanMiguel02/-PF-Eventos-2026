@@ -1,24 +1,33 @@
 package lospolimorficos.boletopolis.models;
 
-import javax.xml.datatype.Duration;
+import java.time.Duration;
 import java.time.LocalDateTime;
 
-public class ObraTeatroFactory {
-    public class ObraTeatroFactory implements EventoFactory{
-        @Override
-        public Evento crearEvento(String nombre, String descripcion, Ciudad ciudad,
-                                  String fechaYHora, Recinto recinto, Duration duracion) {
+public class ObraTeatroFactory implements EventoFactory {
 
-            LocalDateTime fecha = LocalDateTime.parse(fechaYHora);
+    private String companiaTeatro;
+    private String director;
+    private int numActos;
 
-            return new ObraTeatro(
-                    nombre,
-                    descripcion,
-                    ciudad,
-                    fecha,
-                    EstadoEvento.PUBLICADO,
-                    recinto,
-                    duracion
-            );
-        }
+    public ObraTeatroFactory(String companiaTeatro, String director, int numActos) {
+        this.companiaTeatro = companiaTeatro;
+        this.director = director;
+        this.numActos = numActos;
+    }
+
+    @Override
+    public Evento crearEvento(String nombre, String descripcion, Ciudad ciudad, LocalDateTime fechaYHora, EstadoEvento estadoEvento, Recinto recinto, Duration duracion) {
+        return new ObraTeatro(
+                nombre,
+                descripcion,
+                ciudad,
+                fechaYHora,
+                estadoEvento,
+                recinto,
+                duracion,
+                companiaTeatro,
+                director,
+                numActos
+        );
+    }
 }

@@ -1,20 +1,30 @@
 package lospolimorficos.boletopolis.models;
 
+import java.time.Duration;
 import java.time.LocalDateTime;
 
-public interface ConciertoFactory implements EventoFactory {
+public class ConciertoFactory implements EventoFactory {
+
+    private String artista;
+    private String generoMusical;
+
+    public ConciertoFactory(String artista, String generoMusical) {
+        this.artista = artista;
+        this.generoMusical = generoMusical;
+    }
+
     @Override
-    public Evento crearEvento(String nombre, String descripcion, Ciudad ciudad,
-                              String fechaYHora, Recinto recinto, Duration duracion){
-        LocalDateTime fecha=LocalDateTime.parse(fechaYHora);
+    public Evento crearEvento(String nombre, String descripcion, Ciudad ciudad, LocalDateTime fechaYHora, EstadoEvento estadoEvento, Recinto recinto, Duration duracion) {
         return new Concierto(
                 nombre,
                 descripcion,
                 ciudad,
-                fecha,
-                EstadoEvento.PUBLICADO,
+                fechaYHora,
+                estadoEvento,
                 recinto,
-                duracion
+                duracion,
+                artista,
+                generoMusical
         );
     }
 }
