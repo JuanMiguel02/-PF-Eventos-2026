@@ -4,6 +4,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.GridPane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import lospolimorficos.boletopolis.controller.EventoController;
@@ -14,6 +15,8 @@ import java.io.File;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.HashMap;
+import java.util.Map;
 
 import static lospolimorficos.boletopolis.services.ServicioAlerta.mostrarAlerta;
 import static lospolimorficos.boletopolis.services.ServicioAlerta.mostrarAlertaError;
@@ -37,6 +40,36 @@ public class FormularioEventoController {
     @FXML
     private ImageView ivImagen;
 
+    // Paneles específicos
+    @FXML
+    private GridPane gridConcierto;
+    @FXML
+    private GridPane gridTeatro;
+    @FXML
+    private GridPane gridConferencia;
+
+    // Campos Concierto
+    @FXML
+    private TextField txtArtista;
+    @FXML
+    private TextField txtGeneroMusical;
+
+    // Campos Teatro
+    @FXML
+    private TextField txtCompania;
+    @FXML
+    private TextField txtDirector;
+    @FXML
+    private TextField txtNumActos;
+
+    // Campos Conferencia
+    @FXML
+    private TextField txtPonente;
+    @FXML
+    private TextField txtTema;
+    @FXML
+    private TextField txtInstitucion;
+
     private final EventoController eventoController = new EventoController();
     private final RecintoController recintoController = new RecintoController();
     private String rutaImagenSeleccionada;
@@ -46,6 +79,19 @@ public class FormularioEventoController {
         cmbCiudad.getItems().setAll(Ciudad.values());
         cmbRecinto.setItems(recintoController.getRecintos());
         cmbTipoEvento.getItems().setAll("Concierto", "Teatro", "Conferencia");
+
+        cmbTipoEvento.valueProperty().addListener((obs, oldVal, newVal) -> actualizaCamposEspecificos(newVal));
+    }
+
+    private void actualizaCamposEspecificos(String tipo) {
+        gridConcierto.setVisible("Concierto".equals(tipo));
+        gridConcierto.setManaged("Concierto".equals(tipo));
+
+        gridTeatro.setVisible("Teatro".equals(tipo));
+        gridTeatro.setManaged("Teatro".equals(tipo));
+
+        gridConferencia.setVisible("Conferencia".equals(tipo));
+        gridConferencia.setManaged("Conferencia".equals(tipo));
     }
 
     @FXML
@@ -80,16 +126,9 @@ public class FormularioEventoController {
                 return;
             }
 
-            Evento nuevoEvento;
-            Recinto copiaRecinto = recinto.copiar();
+            Map<String, String> especificos = obtenerDatosSegunTipo(tipo);
 
-            if ("Concierto".equals(tipo)) {
-                nuevoEvento = new Concierto(nombre, descripcion, ciudad, fechaHora, EstadoEvento.BORRADOR, copiaRecinto, duracionDefault, "Artista Desconocido", "Varios");
-            } else {
-                // Por ahora usamos Concierto como fallback si no hay otras clases concretas listas para instanciar con sus campos específicos
-                nuevoEvento = new Concierto(nombre, descripcion, ciudad, fechaHora, EstadoEvento.BORRADOR, copiaRecinto, Duration.ofHours(1), "N/A", "N/A");
-            }
-
+            Evento nuevoEvento = eventoController.crearEvento(tipo, especificos, nombre, descripcion, ciudad, fechaHora, EstadoEvento.BORRADOR, recinto, duracionDefault);
             nuevoEvento.setRutaImagen(rutaImagenSeleccionada);
 
             if (eventoController.registrarEvento(nuevoEvento)) {
@@ -101,8 +140,26 @@ public class FormularioEventoController {
 
         } catch (Exception e) {
             mostrarAlertaError("Error en los datos: " + e.getMessage());
-            e.printStackTrace();
+            System.err.println("Error en los datos: " + e.getMessage());
         }
+    }
+
+    private Map<String, String> obtenerDatosSegunTipo(String tipo) {
+        Map<String, String> especificos = new HashMap<>();
+
+        if("Concierto".equals(tipo)){
+            especificos.put("artista", txtArtista.getText());
+            especificos.put("generoMusical", txtGeneroMusical.getText());
+        }else if("Teatro".equals(tipo)){
+            especificos.put("compania", txtCompania.getText());
+            especificos.put("director", txtDirector.getText());
+            especificos.put("numActos", txtNumActos.getText());
+        }else if("Conferencia".equals(tipo)){
+            especificos.put("ponente", txtPonente.getText());
+            especificos.put("tema", txtTema.getText());
+            especificos.put("institucion", txtInstitucion.getText());
+        }
+        return especificos;
     }
 
     @FXML
@@ -119,6 +176,31 @@ public class FormularioEventoController {
             mostrarAlertaError("Por favor complete todos los campos");
             return false;
         }
+
+        String tipo = cmbTipoEvento.getValue();
+        if ("Concierto".equals(tipo)) {
+            if (txtArtista.getText().isEmpty() || txtGeneroMusical.getText().isEmpty()) {
+                mostrarAlertaError("Por favor complete los campos del concierto");
+                return false;
+            }
+        } else if ("Teatro".equals(tipo)) {
+            if (txtCompania.getText().isEmpty() || txtDirector.getText().isEmpty() || txtNumActos.getText().isEmpty()) {
+                mostrarAlertaError("Por favor complete los campos de la obra de teatro");
+                return false;
+            }
+            try {
+                Integer.parseInt(txtNumActos.getText());
+            } catch (NumberFormatException e) {
+                mostrarAlertaError("El número de actos debe ser un número entero");
+                return false;
+            }
+        } else if ("Conferencia".equals(tipo)) {
+            if (txtPonente.getText().isEmpty() || txtTema.getText().isEmpty() || txtInstitucion.getText().isEmpty()) {
+                mostrarAlertaError("Por favor complete los campos de la conferencia");
+                return false;
+            }
+        }
+
         try {
             LocalTime.parse(txtHora.getText());
         } catch (Exception e) {

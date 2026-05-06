@@ -89,7 +89,8 @@ public final class EventoRepositorio {
 
     private void cargarDatosEjemplo(){
         Recinto recinto = RecintoRepositorio.getInstancia().getPrimerRecinto();
-        Concierto concierto = new Concierto("Concierto de los Deftones", "Gira Nuevo Álbum - 2026", Ciudad.ARMENIA, LocalDateTime.now(), EstadoEvento.PUBLICADO, recinto, Duration.ofHours(2), "Deftones", "Rock Alternativo");
+        Concierto concierto = new Concierto("Concierto de los Deftones", "Gira Nuevo Álbum - 2026", Ciudad.ARMENIA, LocalDateTime.now(), recinto, Duration.ofHours(2), "Deftones", "Rock Alternativo");
+        concierto.setEstado(EstadoEvento.PUBLICADO);
         concierto.setRutaImagen("/lospolimorficos/boletopolis/imagenes/DeftonesConciertoEjemplo.jpg");
         registrarEvento(concierto);
     }

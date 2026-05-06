@@ -17,14 +17,13 @@ public class ConferenciaFactory implements EventoFactory {
 
     @Override
     public Evento crearEvento(String nombre, String descripcion, Ciudad ciudad,
-                              LocalDateTime fechaYHora, EstadoEvento estadoEvento, Recinto recinto, Duration duracion) {
+                              LocalDateTime fechaYHora, Recinto recinto, Duration duracion) {
 
         return new Conferencia(
                 nombre,
                 descripcion,
                 ciudad,
                 fechaYHora,
-                estadoEvento,
                 recinto,
                 duracion,
                 ponente,

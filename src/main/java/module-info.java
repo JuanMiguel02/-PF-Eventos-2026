@@ -13,6 +13,7 @@ module lospolimorficos.boletopolis {
     requires org.apache.poi.poi;
     requires org.apache.poi.ooxml;
     requires javafx.swing;
+    requires commons.math3;
 
     exports lospolimorficos.boletopolis;
     exports lospolimorficos.boletopolis.controller;

@@ -9,10 +9,12 @@ import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.FileChooser;
 import lospolimorficos.boletopolis.controller.EventoController;
 import lospolimorficos.boletopolis.models.*;
 import lospolimorficos.boletopolis.services.ServicioDibujoRecinto;
 
+import java.io.File;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
@@ -48,6 +50,8 @@ public class DetalleEventoController {
     private final EventoController eventoController = new EventoController();
     private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
     private ServicioDibujoRecinto servicioDibujo;
+    private String rutaImagenSeleccionada;
+
 
     @FXML
     public void initialize() {
@@ -181,12 +185,27 @@ public class DetalleEventoController {
     }
 
     @FXML
+    private void actualizarImagen() {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Seleccionar Imagen del Evento");
+        fileChooser.getExtensionFilters().addAll(
+                new FileChooser.ExtensionFilter("Imágenes", "*.png", "*.jpg", "*.jpeg")
+        );
+        File selectedFile = fileChooser.showOpenDialog(txtNombre.getScene().getWindow());
+        if (selectedFile != null) {
+            rutaImagenSeleccionada = selectedFile.toURI().toString();
+            ivEvento.setImage(new Image(rutaImagenSeleccionada));
+        }
+    }
+
+    @FXML
     private void actualizarInformacion() {
         try {
             evento.setNombre(txtNombre.getText());
             evento.setDescripcion(txtDescripcion.getText());
             evento.setEstado(cmbEstado.getValue());
             evento.setFechaYHora(LocalDateTime.parse(txtFecha.getText(), formatter));
+            evento.setRutaImagen(rutaImagenSeleccionada);
 
             if (eventoController.actualizarEvento(evento)) {
                 mostrarAlerta("Éxito", "Evento actualizado correctamente", Alert.AlertType.INFORMATION);

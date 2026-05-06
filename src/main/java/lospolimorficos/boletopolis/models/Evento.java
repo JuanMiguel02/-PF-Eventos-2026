@@ -15,13 +15,13 @@ public abstract class Evento {
     private Duration duracion;
     private String rutaImagen;
 
-    public Evento(String nombre, String descripcion, Ciudad ciudad, LocalDateTime fechaYHora, EstadoEvento estado, Recinto recinto, Duration duracion) {
+    public Evento(String nombre, String descripcion, Ciudad ciudad, LocalDateTime fechaYHora, Recinto recinto, Duration duracion) {
         this.idEvento = UUID.randomUUID();
         this.descripcion = descripcion;
         this.nombre = nombre;
         this.ciudad = ciudad;
         this.fechaYHora = fechaYHora;
-        this.estado = estado;
+        this.estado = EstadoEvento.BORRADOR;
         this.recinto = recinto;
         this.duracion = duracion;
     }
