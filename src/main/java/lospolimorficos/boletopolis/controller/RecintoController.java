@@ -6,6 +6,7 @@ import lospolimorficos.boletopolis.models.Zona;
 import lospolimorficos.boletopolis.repositorios.RecintoRepositorio;
 
 public class RecintoController {
+
     private final RecintoRepositorio recintoRepositorio = RecintoRepositorio.getInstancia();
 
     public boolean registrarRecinto(Recinto recinto){

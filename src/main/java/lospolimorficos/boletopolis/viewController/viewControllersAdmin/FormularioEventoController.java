@@ -127,8 +127,9 @@ public class FormularioEventoController {
             }
 
             Map<String, String> especificos = obtenerDatosSegunTipo(tipo);
+            Recinto copiaRecinto = recinto.copiar();
 
-            Evento nuevoEvento = eventoController.crearEvento(tipo, especificos, nombre, descripcion, ciudad, fechaHora, EstadoEvento.BORRADOR, recinto, duracionDefault);
+            Evento nuevoEvento = eventoController.crearEvento(tipo, especificos, nombre, descripcion, ciudad, fechaHora, EstadoEvento.BORRADOR, copiaRecinto, duracionDefault);
             nuevoEvento.setRutaImagen(rutaImagenSeleccionada);
 
             if (eventoController.registrarEvento(nuevoEvento)) {

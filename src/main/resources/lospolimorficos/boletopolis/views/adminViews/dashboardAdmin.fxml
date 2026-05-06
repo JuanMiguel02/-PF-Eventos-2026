@@ -113,6 +113,14 @@
                                     <Font size="16.0" />
                                  </font>
                               </Button>
+                              <Button mnemonicParsing="false" onAction="#cargarVistaCompras" prefHeight="40.0" prefWidth="155.0" styleClass="nav-btn" stylesheets="@../../styles/dashboardAdmin.css" text="Ver Compras">
+                                 <graphic>
+                                    <FontIcon fill="WHITE" iconLiteral="fas-shopping-cart" iconSize="15" />
+                                 </graphic>
+                                 <font>
+                                    <Font size="16.0" />
+                                 </font>
+                              </Button>
                            </children>
                         </VBox>
                         <Label alignment="CENTER" layoutX="20.0" layoutY="159.0" prefHeight="20.0" prefWidth="181.0" textAlignment="CENTER" textFill="WHITE">

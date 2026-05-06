@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="700.0" prefWidth="900.0" stylesheets="@../../styles/dashboardAdmin.css" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lospolimorficos.boletopolis.viewController.viewControllersAdmin.NuevaCompraController">
+    <children>
+        <VBox spacing="15.0" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
+            <children>
+                <Label style="-fx-font-size: 24; -fx-font-weight: bold;" text="Proceso de Nueva Compra" />
+                
+                <!-- Buscador de Eventos -->
+                <HBox alignment="CENTER_LEFT" spacing="10.0" styleClass="white-bg, shadow" style="-fx-padding: 10;">
+                    <children>
+                        <Label text="Buscar Evento:" />
+                        <TextField fx:id="txtBusquedaEvento" prefWidth="400.0" promptText="Nombre del evento..." styleClass="search" />
+                    </children>
+                </HBox>
+
+                <!-- Área de Tarjetas o Mapa -->
+                <StackPane fx:id="contenedorFlujo" VBox.vgrow="ALWAYS">
+                    <children>
+                        <!-- Vista 1: Catálogo de Eventos -->
+                        <ScrollPane fx:id="scrollCatalogo" fitToWidth="true" style="-fx-background-color: transparent;">
+                            <content>
+                                <FlowPane fx:id="flowEventos" hgap="20.0" vgap="20.0" style="-fx-padding: 10;" />
+                            </content>
+                        </ScrollPane>
+
+                        <!-- Vista 2: Mapa de Asientos (oculto inicialmente) -->
+                        <VBox fx:id="vboxMapa" spacing="10.0" visible="false" managed="false">
+                            <children>
+                                <HBox spacing="10.0" alignment="CENTER_LEFT">
+                                    <children>
+                                        <Button mnemonicParsing="false" onAction="#volverCatalogo" styleClass="clear-btn" text="Volver al Catálogo" />
+                                        <Label fx:id="lblEventoSeleccionado" style="-fx-font-size: 18; -fx-font-weight: bold;" text="Evento: " />
+                                    </children>
+                                </HBox>
+                                <ScrollPane fitToHeight="true" fitToWidth="true" VBox.vgrow="ALWAYS">
+                                    <content>
+                                        <AnchorPane fx:id="panelMapa" style="-fx-background-color: #f4f4f4;" />
+                                    </content>
+                                </ScrollPane>
+                                <HBox alignment="CENTER_RIGHT" spacing="15.0" styleClass="white-bg, shadow" style="-fx-padding: 10;">
+                                    <children>
+                                        <Label fx:id="lblResumenSeleccion" text="Asientos seleccionados: 0 | Total: $0.00" />
+                                        <Button mnemonicParsing="false" onAction="#finalizarCompra" styleClass="add-btn" text="Finalizar Compra" />
+                                    </children>
+                                </HBox>
+                            </children>
+                        </VBox>
+                    </children>
+                </StackPane>
+            </children>
+        </VBox>
+    </children>
+    <styleClass>
+        <String fx:value="white-bg" />
+    </styleClass>
+</AnchorPane>

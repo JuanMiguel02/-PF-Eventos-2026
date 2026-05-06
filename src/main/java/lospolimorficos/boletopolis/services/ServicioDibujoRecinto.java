@@ -21,7 +21,8 @@ public class ServicioDibujoRecinto {
      */
     public enum ModoInteraccion {
         ADMIN_RECINTO, // Solo permite alternar entre DISPONIBLE y BLOQUEADO
-        ADMIN_EVENTO   // Permite todos los estados (DISPONIBLE, RESERVADO, VENDIDO, BLOQUEADO)
+        ADMIN_EVENTO,  // Permite todos los estados (DISPONIBLE, RESERVADO, VENDIDO, BLOQUEADO)
+        COMPRA         // Para seleccionar asientos disponibles
     }
 
     private final AnchorPane panelMapa;
@@ -30,6 +31,7 @@ public class ServicioDibujoRecinto {
     private boolean interactivo = false;
     private ModoInteraccion modoInteraccion = ModoInteraccion.ADMIN_EVENTO;
     private Runnable onAsientoChanged;
+    private final List<Asiento> asientosSeleccionados = new java.util.ArrayList<>();
 
     /**
      * Constructor del servicio de dibujo.
@@ -46,6 +48,21 @@ public class ServicioDibujoRecinto {
      */
     public void setOnAsientoChanged(Runnable onAsientoChanged) {
         this.onAsientoChanged = onAsientoChanged;
+    }
+
+    /**
+     * Obtiene la lista de asientos actualmente seleccionados (solo en modo COMPRA).
+     * @return Lista de asientos seleccionados.
+     */
+    public List<Asiento> getAsientosSeleccionados() {
+        return asientosSeleccionados;
+    }
+
+    /**
+     * Limpia la selección de asientos.
+     */
+    public void limpiarSeleccion() {
+        asientosSeleccionados.clear();
     }
 
     /**
@@ -202,10 +219,35 @@ public class ServicioDibujoRecinto {
 
         if (interactivo) {
             r.setOnMouseClicked(event -> {
-                toggleEstadoAsiento(asiento);
+                if (modoInteraccion == ModoInteraccion.COMPRA) {
+                    if (asiento.getEstado() == EstadoAsiento.DISPONIBLE) {
+                        toggleSeleccionCompra(asiento);
+                    }
+                } else {
+                    toggleEstadoAsiento(asiento);
+                }
                 actualizarColorAsiento(r, asiento, tipo);
                 actualizarTooltipAsiento(r, asiento);
+
+                // Notificar cambio si existe acción definida
+                if (onAsientoChanged != null) {
+                    onAsientoChanged.run();
+                }
             });
+            if (modoInteraccion == ModoInteraccion.COMPRA && asiento.getEstado() != EstadoAsiento.DISPONIBLE) {
+                // No mostrar mano en asientos no disponibles en modo compra
+                r.setStyle(r.getStyle() + "; -fx-cursor: default;");
+            } else {
+                r.setStyle(r.getStyle() + "; -fx-cursor: hand;");
+            }
+        }
+    }
+
+    private void toggleSeleccionCompra(Asiento asiento) {
+        if (asientosSeleccionados.contains(asiento)) {
+            asientosSeleccionados.remove(asiento);
+        } else {
+            asientosSeleccionados.add(asiento);
         }
     }
 
@@ -238,11 +280,6 @@ public class ServicioDibujoRecinto {
         }
 
         asiento.setEstado(nuevo);
-
-        // Notificar cambio si existe acción definida
-        if (onAsientoChanged != null) {
-            onAsientoChanged.run();
-        }
     }
 
     /**
@@ -254,7 +291,16 @@ public class ServicioDibujoRecinto {
      */
     private void actualizarColorAsiento(Rectangle r, Asiento asiento, TipoZona tipo) {
         if (asiento.getEstado() == null) return;
-        
+
+        if (modoInteraccion == ModoInteraccion.COMPRA && asientosSeleccionados.contains(asiento)) {
+            r.setStyle("");
+            r.setFill(Color.GREEN);
+            r.setStroke(Color.BLACK);
+            r.setStrokeWidth(0.5);
+            r.getStrokeDashArray().clear();
+            return;
+        }
+
         switch (asiento.getEstado()) {
             case DISPONIBLE -> {
                 r.setFill(null); // Limpiar color sólido previo si existe

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox prefWidth="250.0" spacing="10.0" stylesheets="@../../styles/dashboardAdmin.css" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lospolimorficos.boletopolis.viewController.viewControllersAdmin.EventoCardController">
+    <styleClass>
+        <String fx:value="white-bg" />
+        <String fx:value="shadow" />
+    </styleClass>
+    <children>
+        <ImageView fx:id="ivImagen" fitHeight="150.0" fitWidth="250.0" pickOnBounds="true" preserveRatio="false" />
+        <VBox spacing="5.0" style="-fx-padding: 10;">
+            <children>
+                <Label fx:id="lblNombre" style="-fx-font-size: 16; -fx-font-weight: bold;" text="Nombre del Evento" wrapText="true" />
+                <Label fx:id="lblDescripcion" style="-fx-font-size: 12;" text="Descripción corta del evento..." wrapText="true" maxHeight="60.0" minHeight="60.0" />
+                <Label fx:id="lblFecha" style="-fx-font-size: 11; -fx-text-fill: #666;" text="Fecha y Hora" />
+                <Button mnemonicParsing="false" onAction="#comprarEntrada" prefWidth="230.0" styleClass="add-btn" text="Comprar Entrada" />
+            </children>
+        </VBox>
+    </children>
+</VBox>

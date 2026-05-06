@@ -27,6 +27,10 @@ public final class CompraRepositorio {
         return compras.add(compra);
     }
 
+    public boolean eliminarCompra(Compra compra) {
+        return compras.remove(compra);
+    }
+
     public int contarCompras(){
         return compras.size();
     }

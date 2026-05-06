@@ -55,6 +55,11 @@ public class DashboardAdminController {
     }
 
     @FXML
+    private void cargarVistaCompras(){
+        cargarVista("/lospolimorficos/boletopolis/views/adminViews/comprasView.fxml");
+    }
+
+    @FXML
     private void cargarVistaInicio(){
         contenedorCentro.getChildren().clear();
         vistaInicio.setVisible(true);
