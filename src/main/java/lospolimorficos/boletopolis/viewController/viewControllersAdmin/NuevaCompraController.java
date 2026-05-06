@@ -61,7 +61,7 @@ public class NuevaCompraController {
     public void initialize() {
         this.servicioDibujo = new ServicioDibujoRecinto(panelMapa);
         this.servicioDibujo.setInteractivo(true);
-        this.servicioDibujo.setModoInteraccion(ServicioDibujoRecinto.ModoInteraccion.COMPRA);
+        this.servicioDibujo.setStrategy(new CompraInteraccionStrategy());
         this.servicioDibujo.setOnAsientoChanged(this::actualizarResumen);
         configurarCatalogo();
     }
@@ -128,57 +128,8 @@ public class NuevaCompraController {
         }
 
         Platform.runLater(() -> {
-            ajustarDimensionPanelMapa();
             servicioDibujo.renderizar(eventoSeleccionado.getRecinto().getEscenario(), eventoSeleccionado.getRecinto().getZonas());
         });
-    }
-
-    private void ajustarDimensionPanelMapa() {
-        if (eventoSeleccionado == null || eventoSeleccionado.getRecinto() == null) return;
-
-        Recinto recinto = eventoSeleccionado.getRecinto();
-        double minX = Double.MAX_VALUE;
-        double minY = Double.MAX_VALUE;
-        double maxX = Double.MIN_VALUE;
-        double maxY = Double.MIN_VALUE;
-
-        double[] datosEsc = servicioDibujo.obtenerDatosEscenarioSilencioso(recinto.getEscenario() != null ? recinto.getEscenario().posicion() : null);
-        minX = Math.min(minX, datosEsc[0] - 50);
-        minY = Math.min(minY, datosEsc[1] - 50);
-        maxX = Math.max(maxX, datosEsc[0] + datosEsc[2] + 100);
-        maxY = Math.max(maxY, datosEsc[1] + datosEsc[3] + 100);
-
-        Map<PosicionZona, Integer> contadores = new HashMap<>();
-        for (Zona zona : recinto.getZonas()) {
-            int index = contadores.getOrDefault(zona.getPosicionZona(), 0);
-            contadores.put(zona.getPosicionZona(), index + 1);
-
-            double[] base = servicioDibujo.calcularPosicionBaseZona(zona.getPosicionZona(), datosEsc[0], datosEsc[1], datosEsc[2], datosEsc[3], index);
-            int filas = zona.getAsientos().stream().mapToInt(Asiento::getFila).max().orElse(0);
-            int columnas = zona.getAsientos().stream().mapToInt(Asiento::getNumero).max().orElse(0);
-
-            double ancho = columnas * 12;
-            double alto = filas * 12;
-
-            minX = Math.min(minX, base[0] - (ancho / 2) - 50);
-            minY = Math.min(minY, base[1] - (alto / 2) - 50);
-            maxX = Math.max(maxX, base[0] + (ancho / 2) + 100);
-            maxY = Math.max(maxY, base[1] + (alto / 2) + 100);
-        }
-
-        minX = Math.min(minX, 0);
-        minY = Math.min(minY, 0);
-        maxX = Math.max(maxX, 800);
-        maxY = Math.max(maxY, 600);
-
-        double finalWidth = maxX - Math.min(0, minX);
-        double finalHeight = maxY - Math.min(0, minY);
-
-        panelMapa.setPrefWidth(finalWidth);
-        panelMapa.setPrefHeight(finalHeight);
-        panelMapa.setMinWidth(finalWidth);
-        panelMapa.setMinHeight(finalHeight);
-        servicioDibujo.actualizarCentros();
     }
 
     private void actualizarResumen() {

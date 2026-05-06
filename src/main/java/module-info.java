@@ -21,6 +21,7 @@ module lospolimorficos.boletopolis {
     exports lospolimorficos.boletopolis.repositorios;
     exports lospolimorficos.boletopolis.services;
     exports lospolimorficos.boletopolis.viewController.viewControllersAdmin;
+    exports lospolimorficos.boletopolis.plantillas;
 
     opens lospolimorficos.boletopolis.controller to javafx.fxml;
     opens lospolimorficos.boletopolis.viewController.viewControllersAdmin to javafx.fxml;

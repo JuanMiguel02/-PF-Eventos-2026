@@ -69,11 +69,8 @@ public class CreacionRecintoController {
             }
 
             escala *= zoomFactor;
-
             escala = Math.max(0.5, Math.min(escala, 3));
-
-            ajustarEscalaInicial();
-
+            renderizarMapa();
             event.consume();
         });
 
@@ -177,7 +174,7 @@ public class CreacionRecintoController {
     }
 
     /**
-     * Valida si una nueva zona cabe dentro de los límites del panelMapa antes de agregarla.
+     * Válida si una nueva zona cabe dentro de los límites del panelMapa antes de agregarla.
      * @param nuevaZona La zona que se intenta agregar.
      * @return true si cabe, false si excede los límites.
      */
@@ -214,68 +211,8 @@ public class CreacionRecintoController {
      */
     private void renderizarMapa() {
         servicioDibujo.renderizarPlantillas(cmbEscenario.getValue(), zonasActuales);
-        ajustarEscalaInicial();
-    }
-
-
-    /**
-     * Ajusta la escala y traslación del panelMapa para que todo el contenido (escenario y zonas)
-     * sea visible y quede centrado dentro del ScrollPane.
-     * Implementa una escala base automática y permite zoom adicional del usuario.
-     */
-    private void ajustarEscalaInicial() {
-
-        double minX = Double.MAX_VALUE;
-        double minY = Double.MAX_VALUE;
-        double maxX = Double.MIN_VALUE;
-        double maxY = Double.MIN_VALUE;
-
-        // calcular bounds reales del contenido
-        for (Node node : panelMapa.getChildren()) {
-
-            double x = node.getLayoutX();
-            double y = node.getLayoutY();
-
-            double width = node.getBoundsInParent().getWidth();
-            double height = node.getBoundsInParent().getHeight();
-
-            minX = Math.min(minX, x);
-            minY = Math.min(minY, y);
-            maxX = Math.max(maxX, x + width);
-            maxY = Math.max(maxY, y + height);
-        }
-
-        double contentWidth = maxX - minX;
-        double contentHeight = maxY - minY;
-
-        //  escala base automática
-        double scaleX = panelMapa.getPrefWidth() / (contentWidth + 100);
-        double scaleY = panelMapa.getPrefHeight() / (contentHeight + 100);
-
-        double escalaBase = Math.min(scaleX, scaleY);
-
-        // limitar escala
-        escalaBase = Math.max(0.5, Math.min(escalaBase, 1.2));
-
-        //  aplicar escala total
-        double escalaFinal = escalaBase * escala;
-
-        panelMapa.setScaleX(escalaFinal);
-        panelMapa.setScaleY(escalaFinal);
-
-        //  dimensiones escaladas
-        double scaledWidth = contentWidth * escalaFinal;
-        double scaledHeight = contentHeight * escalaFinal;
-
-        double viewportWidth = scrollPane.getViewportBounds().getWidth();
-        double viewportHeight = scrollPane.getViewportBounds().getHeight();
-
-        //  centrar
-        double offsetX = (viewportWidth - scaledWidth) / 2;
-        double offsetY = (viewportHeight - scaledHeight) / 2;
-
-        panelMapa.setTranslateX(offsetX - (minX * escalaFinal));
-        panelMapa.setTranslateY(offsetY - (minY * escalaFinal));
+        panelMapa.setScaleX(escala);
+        panelMapa.setScaleY(escala);
     }
 
     /**

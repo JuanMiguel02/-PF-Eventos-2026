@@ -17,8 +17,6 @@ import lospolimorficos.boletopolis.services.ServicioDibujoRecinto;
 import java.io.File;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.HashMap;
-import java.util.Map;
 
 import static lospolimorficos.boletopolis.services.ServicioAlerta.mostrarAlerta;
 import static lospolimorficos.boletopolis.services.ServicioAlerta.mostrarAlertaError;
@@ -62,7 +60,7 @@ public class DetalleEventoController {
         this.evento = evento;
         this.servicioDibujo = new ServicioDibujoRecinto(panelMapa);
         this.servicioDibujo.setInteractivo(true);
-        this.servicioDibujo.setModoInteraccion(ServicioDibujoRecinto.ModoInteraccion.ADMIN_EVENTO);
+        this.servicioDibujo.setStrategy(new AdminEventoInteraccionStrategy());
         this.servicioDibujo.setOnAsientoChanged(() -> {
             eventoController.actualizarEvento(evento);
             tblZonas.refresh();
@@ -123,65 +121,8 @@ public class DetalleEventoController {
 
         // Ajustamos el tamaño del panel para que el ScrollPane funcione correctamente
         Platform.runLater(() -> {
-            ajustarDimensionPanelMapa();
             servicioDibujo.renderizar(evento.getRecinto().getEscenario(), evento.getRecinto().getZonas());
         });
-    }
-
-    /**
-     * Calcula y establece las dimensiones mínimas y preferidas del panelMapa para asegurar
-     * que todo el contenido (escenario y zonas) sea visible dentro del ScrollPane.
-     * Itera sobre los elementos del recinto para encontrar las coordenadas extremas.
-     */
-    private void ajustarDimensionPanelMapa() {
-        if (evento == null || evento.getRecinto() == null) return;
-
-        Recinto recinto = evento.getRecinto();
-        double minX = Double.MAX_VALUE;
-        double minY = Double.MAX_VALUE;
-        double maxX = Double.MIN_VALUE;
-        double maxY = Double.MIN_VALUE;
-
-        double[] datosEsc = servicioDibujo.obtenerDatosEscenarioSilencioso(recinto.getEscenario() != null ? recinto.getEscenario().posicion() : null);
-        minX = Math.min(minX, datosEsc[0] - 50);
-        minY = Math.min(minY, datosEsc[1] - 50);
-        maxX = Math.max(maxX, datosEsc[0] + datosEsc[2] + 100);
-        maxY = Math.max(maxY, datosEsc[1] + datosEsc[3] + 100);
-
-        Map<PosicionZona, Integer> contadores = new HashMap<>();
-        for (Zona zona : recinto.getZonas()) {
-            int index = contadores.getOrDefault(zona.getPosicionZona(), 0);
-            contadores.put(zona.getPosicionZona(), index + 1);
-
-            double[] base = servicioDibujo.calcularPosicionBaseZona(zona.getPosicionZona(), datosEsc[0], datosEsc[1], datosEsc[2], datosEsc[3], index);
-            int filas = zona.getAsientos().stream().mapToInt(Asiento::getFila).max().orElse(0);
-            int columnas = zona.getAsientos().stream().mapToInt(Asiento::getNumero).max().orElse(0);
-
-            double ancho = columnas * 12;
-            double alto = filas * 12;
-
-            minX = Math.min(minX, base[0] - (ancho / 2) - 50);
-            minY = Math.min(minY, base[1] - (alto / 2) - 50);
-            maxX = Math.max(maxX, base[0] + (ancho / 2) + 100);
-            maxY = Math.max(maxY, base[1] + (alto / 2) + 100);
-        }
-
-        // Aseguramos que siempre haya un espacio mínimo visible
-        minX = Math.min(minX, 0);
-        minY = Math.min(minY, 0);
-        maxX = Math.max(maxX, 800);
-        maxY = Math.max(maxY, 600);
-
-        // Si hay coordenadas negativas importantes (por el escenario arriba/izquierda),
-        // desplazamos el origen sumando el valor absoluto de minX/minY al tamaño total.
-        double finalWidth = maxX - Math.min(0, minX);
-        double finalHeight = maxY - Math.min(0, minY);
-
-        panelMapa.setPrefWidth(finalWidth);
-        panelMapa.setPrefHeight(finalHeight);
-        panelMapa.setMinWidth(finalWidth);
-        panelMapa.setMinHeight(finalHeight);
-        servicioDibujo.actualizarCentros();
     }
 
     @FXML
