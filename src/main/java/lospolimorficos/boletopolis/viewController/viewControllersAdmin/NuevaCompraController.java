@@ -14,15 +14,12 @@ import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import lospolimorficos.boletopolis.controller.ClienteController;
 import lospolimorficos.boletopolis.controller.CompraController;
 import lospolimorficos.boletopolis.models.*;
 import lospolimorficos.boletopolis.repositorios.EventoRepositorio;
-import lospolimorficos.boletopolis.repositorios.UsuarioRepositorio;
 import lospolimorficos.boletopolis.services.ServicioDibujoRecinto;
-
 import java.io.IOException;
-import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -33,6 +30,8 @@ public class NuevaCompraController {
 
     @FXML
     private TextField txtBusquedaEvento;
+    @FXML
+    private TextField txtBusquedaCliente;
     @FXML
     private StackPane contenedorFlujo;
     @FXML
@@ -53,6 +52,8 @@ public class NuevaCompraController {
     private ServicioDibujoRecinto servicioDibujo;
     private final Map<Asiento, Zona> zonaAsientoMap = new HashMap<>();
     private final CompraController compraController = new CompraController();
+    private final ClienteController clienteController = new ClienteController();
+    private Cliente clienteCompra;
 
     @FXML
     public void initialize() {
@@ -64,7 +65,7 @@ public class NuevaCompraController {
     }
 
     private void configurarCatalogo() {
-        filteredEventos = new FilteredList<>(EventoRepositorio.getInstance().getEventos(), p -> p.getEstado() == EstadoEvento.PUBLICADO);
+        filteredEventos = new FilteredList<>(EventoRepositorio.getInstancia().getEventos(), p -> p.getEstado() == EstadoEvento.PUBLICADO);
         
         txtBusquedaEvento.textProperty().addListener((obs, oldVal, newVal) -> {
             filteredEventos.setPredicate(evento -> {
@@ -139,14 +140,12 @@ public class NuevaCompraController {
     @FXML
     private void finalizarCompra() {
         List<Asiento> seleccionados = servicioDibujo.getAsientosSeleccionados();
-        if (seleccionados.isEmpty()) {
-            mostrarAlerta("Error", "Debe seleccionar al menos un asiento", Alert.AlertType.WARNING);
+        if (seleccionados.isEmpty() || clienteCompra == null) {
+            mostrarAlerta("Error", "Debe seleccionar al menos un asiento y un cliente para finalizar la compra", Alert.AlertType.WARNING);
             return;
         }
 
-        // Simulación: Tomamos el primer cliente disponible para simplificar
-        Cliente cliente = UsuarioRepositorio.getInstancia().getClientes().get(0);
-        Compra nuevaCompra = compraController.realizarCompra(cliente, eventoSeleccionado, seleccionados, zonaAsientoMap);
+        Compra nuevaCompra = compraController.realizarCompra(clienteCompra, eventoSeleccionado, seleccionados, zonaAsientoMap);
         
         if (compraController.registrarCompra(nuevaCompra)) {
             mostrarAlerta("Éxito", "Compra finalizada correctamente", Alert.AlertType.INFORMATION);
@@ -156,4 +155,12 @@ public class NuevaCompraController {
         }
     }
 
+    @FXML
+    private void buscarCliente(){
+        String busqueda = txtBusquedaCliente.getText();
+        clienteCompra = clienteController.buscarCliente(busqueda);
+        if(clienteCompra != null){
+            txtBusquedaCliente.setText(clienteCompra.getNombreCompleto() + " - Documento: " + clienteCompra.getDocumento());
+        }
+    }
 }

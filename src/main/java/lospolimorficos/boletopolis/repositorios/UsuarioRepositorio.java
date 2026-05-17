@@ -66,15 +66,24 @@ public final class UsuarioRepositorio {
         return false;
     }
 
+    public Cliente buscarUsuario(String busqueda){
+        return (Cliente) usuarios.stream()
+                .filter(usuario ->
+                        usuario.getCorreo().equals(busqueda)
+                        ||  usuario.getDocumento().equals(busqueda))
+                .findFirst()
+                .orElse(null);
+    }
+
     public int contarUsuarios(){
         return usuarios.size();
     }
 
     private void cargarDatosEjemplo(){
 
-        Admin admin1 = new Admin("Sancho", "Panza", "sancho@boletopolis.com", "412321312", "123456");
-        Cliente cliente1 = new Cliente("Paco", "Jones", "paquito@gmail.com", "23123213", "654321", "42132131");
-        Cliente cliente2 = new Cliente("Pedro", "El Escamoso", "pedrito@gmail.com", "313123123", "54321", "3124531");
+        Admin admin1 = new Admin("Sancho", "Panza", "3123213","sancho@boletopolis.com", "412321312", "123456");
+        Cliente cliente1 = new Cliente("Paco", "Jones", "42132131", "paquito@gmail.com", "654321", "42132131");
+        Cliente cliente2 = new Cliente("Pedro", "El Escamoso", "3124531", "pedrito@gmail.com", "5432142", "3124531");
 
         registrarUsuario(admin1);
         registrarUsuario(cliente1);

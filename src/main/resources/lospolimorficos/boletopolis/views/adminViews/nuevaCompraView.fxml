@@ -1,37 +1,55 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import java.lang.String?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
 
-<AnchorPane prefHeight="700.0" prefWidth="900.0" stylesheets="@../../styles/dashboardAdmin.css" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lospolimorficos.boletopolis.viewController.viewControllersAdmin.NuevaCompraController">
+<AnchorPane prefHeight="700.0" prefWidth="900.0" stylesheets="@../../styles/dashboardAdmin.css" xmlns="http://javafx.com/javafx/24.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lospolimorficos.boletopolis.viewController.viewControllersAdmin.NuevaCompraController">
     <children>
         <VBox spacing="15.0" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
             <children>
                 <Label style="-fx-font-size: 24; -fx-font-weight: bold;" text="Proceso de Nueva Compra" />
                 
                 <!-- Buscador de Eventos -->
-                <HBox alignment="CENTER_LEFT" spacing="10.0" styleClass="white-bg, shadow" style="-fx-padding: 10;">
+                <HBox alignment="CENTER_LEFT" prefWidth="860.0" spacing="10.0" style="-fx-padding: 10;" styleClass="white-bg, shadow">
                     <children>
                         <Label text="Buscar Evento:" />
                         <TextField fx:id="txtBusquedaEvento" prefWidth="400.0" promptText="Nombre del evento..." styleClass="search" />
                     </children>
                 </HBox>
+            <HBox prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <HBox alignment="CENTER_LEFT" prefWidth="860.0" spacing="10.0" style="-fx-padding: 10;" styleClass="white-bg, shadow">
+                     <children>
+                        <Label text="Seleccionar Cliente:" />
+                        <TextField fx:id="txtBusquedaCliente" prefWidth="400.0" promptText="Correo o Documento del Cliente" styleClass="search" />
+                        <Button mnemonicParsing="false" onAction="#buscarCliente" styleClass="add-btn" text="Buscar" />
+                     </children>
+                  </HBox>
+               </children>
+            </HBox>
 
                 <!-- Área de Tarjetas o Mapa -->
                 <StackPane fx:id="contenedorFlujo" VBox.vgrow="ALWAYS">
                     <children>
                         <!-- Vista 1: Catálogo de Eventos -->
-                        <ScrollPane fx:id="scrollCatalogo" fitToWidth="true" style="-fx-background-color: transparent;">
+                        <ScrollPane fx:id="scrollCatalogo" fitToWidth="true" prefHeight="568.0" prefWidth="860.0" style="-fx-background-color: transparent;">
                             <content>
-                                <FlowPane fx:id="flowEventos" hgap="20.0" vgap="20.0" style="-fx-padding: 10;" />
+                                <FlowPane fx:id="flowEventos" hgap="20.0" style="-fx-padding: 10;" vgap="20.0" />
                             </content>
                         </ScrollPane>
 
                         <!-- Vista 2: Mapa de Asientos (oculto inicialmente) -->
-                        <VBox fx:id="vboxMapa" spacing="10.0" visible="false" managed="false">
+                        <VBox fx:id="vboxMapa" managed="false" spacing="10.0" visible="false">
                             <children>
-                                <HBox spacing="10.0" alignment="CENTER_LEFT">
+                                <HBox alignment="CENTER_LEFT" spacing="10.0">
                                     <children>
                                         <Button mnemonicParsing="false" onAction="#volverCatalogo" styleClass="clear-btn" text="Volver al Catálogo" />
                                         <Label fx:id="lblEventoSeleccionado" style="-fx-font-size: 18; -fx-font-weight: bold;" text="Evento: " />
@@ -42,7 +60,7 @@
                                         <AnchorPane fx:id="panelMapa" style="-fx-background-color: #f4f4f4;" />
                                     </content>
                                 </ScrollPane>
-                                <HBox alignment="CENTER_RIGHT" spacing="15.0" styleClass="white-bg, shadow" style="-fx-padding: 10;">
+                                <HBox alignment="CENTER_RIGHT" spacing="15.0" style="-fx-padding: 10;" styleClass="white-bg, shadow">
                                     <children>
                                         <Label fx:id="lblResumenSeleccion" text="Asientos seleccionados: 0 | Total: $0.00" />
                                         <Button mnemonicParsing="false" onAction="#finalizarCompra" styleClass="add-btn" text="Finalizar Compra" />

@@ -145,7 +145,9 @@ public class DetalleEventoController {
             evento.setDescripcion(txtDescripcion.getText());
             evento.cambiarEstado(cmbEstado.getValue());
             evento.setFechaYHora(LocalDateTime.parse(txtFecha.getText(), formatter));
-            evento.setRutaImagen(rutaImagenSeleccionada);
+            if(rutaImagenSeleccionada != null){
+                evento.setRutaImagen(rutaImagenSeleccionada);
+            }
 
             if (eventoController.actualizarEvento(evento)) {
                 mostrarAlerta("Éxito", "Evento actualizado correctamente", Alert.AlertType.INFORMATION);

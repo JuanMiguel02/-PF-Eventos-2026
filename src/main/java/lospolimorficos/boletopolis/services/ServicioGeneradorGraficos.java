@@ -37,7 +37,6 @@ public class ServicioGeneradorGraficos {
         );
 
         // Estilo de ejes
-        ejeX.setTickLabelRotation(30);
         ejeX.setStyle("-fx-font-size: 14px; -fx-font-family: 'Arial'; -fx-font-weight: bold; -fx-text-fill: #34495e;");
         ejeY.setStyle("-fx-font-size: 14px; -fx-font-family: 'Arial'; -fx-font-weight: bold; -fx-text-fill: #34495e;");
 

@@ -20,7 +20,7 @@ public final class EventoRepositorio {
         cargarDatosEjemplo();
     }
 
-    public static EventoRepositorio getInstance() {
+    public static EventoRepositorio getInstancia() {
         if (instancia == null) {
             instancia = new EventoRepositorio();
         }
@@ -74,7 +74,7 @@ public final class EventoRepositorio {
                     int vendidos = compras.obtenerVentasEvento(evento); //esto viene del repositorio de compras
 
                     double ocupacion = capacidad == 0 ? 0 : (double) vendidos / capacidad * 100;
-                    double ganancia = compras.calcularGananciaPorEveneto(evento); //viene de los ingresos del repositorio de compras
+                    double ganancia = compras.calcularGananciaPorEvento(evento); //viene de los ingresos del repositorio de compras
 
                     return new MetricaEvento(evento.getNombre(), ocupacion, ganancia);
                 }).sorted(Comparator.comparingDouble(MetricaEvento::ocupacion).reversed())

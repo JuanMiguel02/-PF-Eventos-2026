@@ -49,7 +49,7 @@ public class ComprasViewController {
     private void configurarTabla() {
         colId.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getIdCompra().toString()));
         colCliente.setCellValueFactory(cellData -> new SimpleStringProperty(
-                cellData.getValue().getCliente().getNombre() + " (" + cellData.getValue().getCliente().getNumDocumento() + ")"
+                cellData.getValue().getCliente().getNombreCompleto() + " (" + cellData.getValue().getCliente().getDocumento() + ")"
         ));
         colEvento.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getEvento().getNombre()));
         colFecha.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getFechaCompra().toString()));
@@ -82,7 +82,7 @@ public class ComprasViewController {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Detalles de Compra");
             alert.setHeaderText("ID: " + seleccionada.getIdCompra());
-            alert.setContentText("Cliente: " + seleccionada.getCliente().getNombre() + "\nEvento: " + seleccionada.getEvento().getNombre() + "\nTotal: " + seleccionada.getTotalCompra());
+            alert.setContentText("Cliente: " + seleccionada.getCliente().getNombreCompleto() + "\nEvento: " + seleccionada.getEvento().getNombre() + "\nTotal: " + seleccionada.getTotalCompra());
             alert.showAndWait();
         }
     }

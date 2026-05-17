@@ -68,7 +68,7 @@ public class TablaClientesController {
     private void inicializarTabla(){
         colNombreCliente.setCellValueFactory(cell -> new SimpleStringProperty(cell.getValue().getNombre()));
         colApellidoCliente.setCellValueFactory(cell -> new SimpleStringProperty(cell.getValue().getApellido()));
-        colDocumentoCliente.setCellValueFactory(cell -> new SimpleStringProperty(cell.getValue().getNumDocumento()));
+        colDocumentoCliente.setCellValueFactory(cell -> new SimpleStringProperty(cell.getValue().getDocumento()));
         colTelefonoCliente.setCellValueFactory(cell -> new SimpleStringProperty(cell.getValue().getNumTelefono()));
         colCorreo.setCellValueFactory(cell -> new SimpleStringProperty(cell.getValue().getCorreo()));
         colClienteId.setCellValueFactory(cell -> new SimpleStringProperty(cell.getValue().getIdUsuario().toString().substring(0, 8)));
@@ -99,7 +99,7 @@ public class TablaClientesController {
             if(clienteController.registrarCliente(cliente)){
 
                 mostrarAlerta("Éxito", "Cliente: " + cliente.getNombreCompleto()
-                        + " " + cliente.getNumDocumento() + " Registrado Éxitosamente", Alert.AlertType.INFORMATION);
+                        + " " + cliente.getDocumento() + " Registrado Éxitosamente", Alert.AlertType.INFORMATION);
                 limpiarCampos();
                 cargarClientes();
             }else{
@@ -121,7 +121,7 @@ public class TablaClientesController {
 
         clienteSeleccionado.setNombre(txtNombreCliente.getText());
         clienteSeleccionado.setApellido(txtApellidoCliente.getText());
-        clienteSeleccionado.setNumDocumento(txtDocumentoCliente.getText());
+        clienteSeleccionado.setDocumento(txtDocumentoCliente.getText());
         clienteSeleccionado.setNumTelefono(txtTelefonoCliente.getText());
         clienteSeleccionado.setCorreo(txtCorreoCliente.getText());
 
@@ -147,7 +147,7 @@ public class TablaClientesController {
         confirmacion.setTitle("Confirmar eliminación");
         confirmacion.setHeaderText("¿Está seguro que desea eliminar este cliente?");
         confirmacion.setContentText("Cliente: " + clienteSeleccionado.getNombre() + " - " + clienteSeleccionado
-                .getNumDocumento());
+                .getDocumento());
 
         confirmacion.showAndWait().ifPresent(respuesta ->{
             if(respuesta == ButtonType.OK){
@@ -182,7 +182,7 @@ public class TablaClientesController {
         }
         txtNombreCliente.setText(cliente.getNombre());
         txtApellidoCliente.setText(cliente.getApellido());
-        txtDocumentoCliente.setText(cliente.getNumDocumento());
+        txtDocumentoCliente.setText(cliente.getDocumento());
         txtTelefonoCliente.setText(cliente.getNumTelefono());
         txtCorreoCliente.setText(cliente.getCorreo());
         txtIdCliente.setText(cliente.getIdUsuario().toString());

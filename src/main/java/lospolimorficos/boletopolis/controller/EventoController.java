@@ -11,7 +11,7 @@ import java.util.Map;
 
 public class EventoController {
 
-    private final EventoRepositorio eventoRepositorio = EventoRepositorio.getInstance();
+    private final EventoRepositorio eventoRepositorio = EventoRepositorio.getInstancia();
 
     public Evento crearEvento(String tipo, Map<String, String> especificos, String nombre, String descripcion, Ciudad ciudad, LocalDateTime fechaYHora, Recinto recinto, Duration duracion){
 
@@ -49,6 +49,7 @@ public class EventoController {
                         || evento.getEstado().toString().toLowerCase().contains(filtroLimpio))
                 .toList();
     }
+
 
 
     public boolean registrarEvento(Evento evento) {

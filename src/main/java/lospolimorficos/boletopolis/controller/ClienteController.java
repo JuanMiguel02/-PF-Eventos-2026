@@ -17,12 +17,16 @@ public class ClienteController {
         String filtroLimpio = filtro.toLowerCase();
         return clientes.stream()
                 .filter(cliente -> cliente.getNombreCompleto().toLowerCase().contains(filtroLimpio)
-                                || cliente.getNumDocumento().contains(filtroLimpio)
+                                || cliente.getDocumento().contains(filtroLimpio)
                                 || cliente.getCorreo().toLowerCase().contains(filtroLimpio)
                                 || cliente.getIdUsuario().toString().contains(filtroLimpio)
                                 || cliente.getNumTelefono().contains(filtroLimpio)
                 )
                 .toList();
+    }
+
+    public Cliente buscarCliente(String busqueda){
+        return usuarioRepositorio.buscarUsuario(busqueda);
     }
 
     public boolean registrarCliente(Cliente cliente){

@@ -3,6 +3,7 @@ package lospolimorficos.boletopolis.viewController.viewControllersAdmin;
 import javafx.fxml.FXML;
 import javafx.scene.chart.BarChart;
 import javafx.scene.layout.VBox;
+import lospolimorficos.boletopolis.controller.CompraController;
 import lospolimorficos.boletopolis.services.ServicioGeneradorGraficos;
 
 import java.util.HashMap;
@@ -17,6 +18,8 @@ public class MetricasAdminController {
     @FXML
     private VBox contenedorGraficos;
 
+    private final CompraController compraController = new CompraController();
+
     @FXML
     public void initialize() {
         cargarMetricasEjemplo();
@@ -26,22 +29,12 @@ public class MetricasAdminController {
      * Carga gráficos de ejemplo utilizando el servicio generador de gráficos.
      */
     private void cargarMetricasEjemplo() {
-        // Datos de ejemplo para ventas por mes
-        Map<String, Number> datosVentas = new HashMap<>();
-        datosVentas.put("Enero", 150);
-        datosVentas.put("Febrero", 200);
-        datosVentas.put("Marzo", 180);
-        datosVentas.put("Abril", 250);
 
+        Map<String, Number> datosVentas = compraController.obtenerVentasPorMes();
         BarChart<String, Number> graficoVentas = ServicioGeneradorGraficos.crearBarChart("Ventas por Mes", datosVentas);
         graficoVentas.setPrefHeight(400);
 
-        // Datos de ejemplo para asistencia por evento
-        Map<String, Number> datosAsistencia = new HashMap<>();
-        datosAsistencia.put("Concierto Rock", 500);
-        datosAsistencia.put("Obra Teatro", 300);
-        datosAsistencia.put("Festival Jazz", 450);
-
+        Map<String, Number> datosAsistencia = compraController.obtenerVentasPorEvento();
         BarChart<String, Number> graficoAsistencia = ServicioGeneradorGraficos.crearBarChart("Asistencia por Evento", datosAsistencia);
         graficoAsistencia.setPrefHeight(400);
 

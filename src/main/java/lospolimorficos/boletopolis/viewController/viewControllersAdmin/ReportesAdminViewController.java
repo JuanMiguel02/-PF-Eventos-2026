@@ -50,7 +50,7 @@ public class ReportesAdminViewController {
 
     private final UsuarioRepositorio usuarioRepositorio = UsuarioRepositorio.getInstancia();
 
-    private final EventoRepositorio eventoRepositorio = EventoRepositorio.getInstance();
+    private final EventoRepositorio eventoRepositorio = EventoRepositorio.getInstancia();
 
     private final RecintoRepositorio recintoRepositorio = RecintoRepositorio.getInstancia();
 

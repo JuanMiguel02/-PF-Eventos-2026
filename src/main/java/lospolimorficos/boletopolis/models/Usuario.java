@@ -6,14 +6,16 @@ public abstract class Usuario {
     private final UUID idUsuario;
     private String nombre;
     private String apellido;
+    private String documento;
     private String correo;
     private String numTelefono;
     private String contrasena;
 
-    public Usuario(String nombre, String apellido, String correo, String numTelefono, String contrasena) {
+    public Usuario(String nombre, String apellido, String documento, String correo, String numTelefono, String contrasena) {
         this.idUsuario = UUID.randomUUID();
         this.nombre = nombre;
         this.apellido = apellido;
+        this.documento = documento;
         this.correo = correo;
         this.numTelefono = numTelefono;
         this.contrasena = contrasena;
@@ -65,5 +67,13 @@ public abstract class Usuario {
 
     public void setContrasena(String contrasena) {
         this.contrasena = contrasena;
+    }
+
+    public String getDocumento() {
+        return documento;
+    }
+
+    public void setDocumento(String documento) {
+        this.documento = documento;
     }
 }

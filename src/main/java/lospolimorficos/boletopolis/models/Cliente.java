@@ -4,21 +4,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Cliente extends Usuario implements EventoObserver{
-    private String numDocumento;
     private List<String> notificaciones = new ArrayList<>();
+    private List<Compra> compras = new ArrayList<>();
 
-    public Cliente(String nombre, String apellido, String correo, String numTelefono, String contrasena, String numDocumento) {
-        super(nombre, apellido, correo, numTelefono, contrasena);
-        this.numDocumento = numDocumento;
+    public Cliente(String nombre, String apellido,String documento, String correo, String numTelefono, String contrasena) {
+        super(nombre, apellido,documento, correo, numTelefono, contrasena);
     }
 
-    public String getNumDocumento() {
-        return numDocumento;
-    }
-
-    public void setNumDocumento(String numDocumento) {
-        this.numDocumento = numDocumento;
-    }
 
     @Override
     public void actualizarEvento(Evento evento, EstadoEvento nuevoEstado) {
@@ -30,5 +22,13 @@ public class Cliente extends Usuario implements EventoObserver{
 
     public List<String> getNotificaciones() {
         return this.notificaciones;
+    }
+
+    public List<Compra> getCompras(){
+        return this.compras;
+    }
+
+    public void agregarCompra(Compra compra){
+        this.compras.add(compra);
     }
 }
