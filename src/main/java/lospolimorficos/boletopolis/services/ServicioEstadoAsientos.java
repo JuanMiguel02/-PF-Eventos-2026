@@ -1,11 +1,9 @@
 package lospolimorficos.boletopolis.services;
 
-import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import lospolimorficos.boletopolis.models.Asiento;
 import lospolimorficos.boletopolis.models.EstadoFactory;
 import lospolimorficos.boletopolis.models.TipoZona;
-import java.util.List;
 
 /**
  * Servicio encargado de gestionar el estado visual de los asientos.

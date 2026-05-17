@@ -16,4 +16,40 @@ public class Entrada {
         this.precioFinal = precioFinal;
         this.estado = estado;
     }
+
+    public UUID getIdEntrada() {
+        return idEntrada;
+    }
+
+    public Zona getZona() {
+        return zona;
+    }
+
+    public void setZona(Zona zona) {
+        this.zona = zona;
+    }
+
+    public Asiento getAsiento() {
+        return asiento;
+    }
+
+    public void setAsiento(Asiento asiento) {
+        this.asiento = asiento;
+    }
+
+    public EstadoEntrada getEstado() {
+        return estado;
+    }
+
+    public void setEstado(EstadoEntrada estado) {
+        this.estado = estado;
+    }
+
+    public double getPrecioFinal() {
+        return precioFinal;
+    }
+
+    public void setPrecioFinal(double precioFinal) {
+        this.precioFinal = precioFinal;
+    }
 }

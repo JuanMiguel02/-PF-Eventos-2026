@@ -6,11 +6,10 @@ import lospolimorficos.boletopolis.repositorios.CompraRepositorio;
 import lospolimorficos.boletopolis.repositorios.EventoRepositorio;
 import lospolimorficos.boletopolis.repositorios.RecintoRepositorio;
 import lospolimorficos.boletopolis.repositorios.UsuarioRepositorio;
+import lospolimorficos.boletopolis.models.FiltroReporte;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Set;
 
 import static lospolimorficos.boletopolis.models.ReporteFactory.crearReporte;
@@ -32,20 +31,21 @@ public class ReporteAdminFacadeController {
         this.compraRepositorio = compraRepositorio;
     }
 
-    private Reporte construirReporte(Set<TipoSeccionReporte> secciones){
+    private Reporte construirReporte(Set<TipoSeccionReporte> secciones, FiltroReporte filtro){
 
         Reporte reporte = new ReporteAdminBase(usuarioRepositorio, eventoRepositorio, recintoRepositorio, compraRepositorio);
 
         for(TipoSeccionReporte seccion : secciones){
             switch (seccion){
                 case TOP_EVENTOS -> reporte = new DecoradorMetricas(reporte, new MetricaTopEventos(eventoRepositorio));
+                case VENTAS_POR_PERIODO -> reporte = new DecoradorMetricas(reporte, new MetricaVentasPorPeriodo(compraRepositorio, filtro));
             }
         }
         return reporte;
     }
 
-    public VBox generarVistaPrevia(Set<TipoSeccionReporte> secciones){
-        Reporte reporte = construirReporte(secciones);
+    public VBox generarVistaPrevia(Set<TipoSeccionReporte> secciones, FiltroReporte filtro){
+        Reporte reporte = construirReporte(secciones, filtro);
 
         ConstructorReporteUI uiBuilder = new ConstructorReporteUI();
         uiBuilder.iniciarDocumento(null);
@@ -56,7 +56,7 @@ public class ReporteAdminFacadeController {
         return uiBuilder.getVista();
     }
 
-    public String exportarReporte(TipoExportacion tipoExportacion, Set<TipoSeccionReporte> secciones){
+    public String exportarReporte(TipoExportacion tipoExportacion, Set<TipoSeccionReporte> secciones, FiltroReporte filtro){
 
        ConstructorReporte constructorReporte = crearReporte(tipoExportacion);
        String fechaExportacion = LocalDateTime.now().format(formatoFecha);
@@ -64,7 +64,7 @@ public class ReporteAdminFacadeController {
 
        constructorReporte.iniciarDocumento(rutaArchivo);
 
-       Reporte reporte = construirReporte(secciones);
+       Reporte reporte = construirReporte(secciones, filtro);
        reporte.construirReporte(constructorReporte);
        constructorReporte.finalizarDocumento();
 

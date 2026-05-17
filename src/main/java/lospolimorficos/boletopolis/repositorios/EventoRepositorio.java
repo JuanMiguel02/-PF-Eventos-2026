@@ -89,9 +89,14 @@ public final class EventoRepositorio {
 
     private void cargarDatosEjemplo(){
         Recinto recinto = RecintoRepositorio.getInstancia().getPrimerRecinto();
-        Concierto concierto = new Concierto("Concierto de los Deftones", "Gira Nuevo Álbum - 2026", Ciudad.ARMENIA, LocalDateTime.now(), recinto, Duration.ofHours(2), "Deftones", "Rock Alternativo");
-        concierto.setEstado(EstadoEvento.PUBLICADO);
-        concierto.setRutaImagen("/lospolimorficos/boletopolis/imagenes/DeftonesConciertoEjemplo.jpg");
-        registrarEvento(concierto);
+        try {
+            Recinto recintoCopia = recinto.copiar();
+            Concierto concierto = new Concierto("Concierto de los Deftones", "Gira Nuevo Álbum - 2026", Ciudad.ARMENIA, LocalDateTime.now(), recintoCopia, Duration.ofHours(2), "Deftones", "Rock Alternativo");
+            concierto.setEstado(EstadoEvento.PUBLICADO);
+            concierto.setRutaImagen("/lospolimorficos/boletopolis/imagenes/DeftonesConciertoEjemplo.jpg");
+            registrarEvento(concierto);
+        } catch (CloneNotSupportedException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

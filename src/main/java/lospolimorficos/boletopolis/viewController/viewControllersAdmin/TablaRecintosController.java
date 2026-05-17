@@ -2,6 +2,7 @@ package lospolimorficos.boletopolis.viewController.viewControllersAdmin;
 
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
+import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -11,14 +12,12 @@ import javafx.stage.Stage;
 import lospolimorficos.boletopolis.controller.RecintoController;
 import lospolimorficos.boletopolis.models.Ciudad;
 import lospolimorficos.boletopolis.models.Recinto;
-
 import java.io.IOException;
-
+import java.util.List;
 import static lospolimorficos.boletopolis.services.ServicioAlerta.mostrarAlerta;
 import static lospolimorficos.boletopolis.services.ServicioAlerta.mostrarAlertaError;
 
 public class TablaRecintosController {
-
 
     @FXML
     private TableColumn<Recinto, Integer> colCapacidad;
@@ -53,6 +52,7 @@ public class TablaRecintosController {
                 observable, oldValue, newValue) -> mostrarDatosRecinto(newValue));
         inicializarTabla();
         cargarRecintos();
+        configurarFiltro();
     }
 
     private void inicializarTabla(){
@@ -65,6 +65,13 @@ public class TablaRecintosController {
 
     private void cargarRecintos(){
         tblRecinto.setItems(recintoController.getRecintos());
+    }
+
+    private void configurarFiltro(){
+        txtBuscarRecinto.textProperty().addListener((observable, oldValue, newValue) -> {
+            List<Recinto> recintosFiltrados = recintoController.filtrarRecintos(recintoController.getRecintos(), newValue);
+            tblRecinto.setItems(FXCollections.observableList(recintosFiltrados));
+        });
     }
 
     @FXML
@@ -143,7 +150,7 @@ public class TablaRecintosController {
             mostrarDatosRecinto(recintoSeleccionado);
 
         } catch (IOException e) {
-            e.printStackTrace();
+            System.err.println(e.getMessage());
             mostrarAlertaError("No se pudo abrir la vista de detalles");
         }
     }

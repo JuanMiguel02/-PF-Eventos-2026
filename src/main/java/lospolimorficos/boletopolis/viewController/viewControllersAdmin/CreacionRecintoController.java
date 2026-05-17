@@ -1,7 +1,6 @@
 package lospolimorficos.boletopolis.viewController.viewControllersAdmin;
 
 import javafx.fxml.FXML;
-import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import lospolimorficos.boletopolis.controller.RecintoController;
@@ -44,7 +43,7 @@ public class CreacionRecintoController {
     private double centroX;
     private double centroY;
 
-    private List<PlantillaZona> zonasActuales = new ArrayList<>();
+    private final List<PlantillaZona> zonasActuales = new ArrayList<>();
     private final RecintoController recintoController = new RecintoController();
     private ServicioDibujoRecinto servicioDibujo;
 
@@ -144,23 +143,8 @@ public class CreacionRecintoController {
         }
 
         // 1. Generar nombre dinámico (Tipo-N)
-        long count = zonasActuales.stream()
-                .filter(z -> z.getTipoZona() == tipoSeleccionado)
-                .count();
-        String nombreGenerado = tipoSeleccionado.name() + "-" + (count + 1) + " " + posicionSeleccionada.name();
-
-        int filas = Integer.parseInt(txtFilas.getText());
-        int columnas = Integer.parseInt(txtColumnas.getText());
-        double precio = Double.parseDouble(txtPrecio.getText());
-
-        PlantillaZona nuevaZona = new PlantillaZona(
-                nombreGenerado,
-                posicionSeleccionada,
-                tipoSeleccionado,
-                filas,
-                columnas,
-                precio
-        );
+        long cuenta= recintoController.generarNumeroZona(zonasActuales, tipoSeleccionado);
+        PlantillaZona nuevaZona = obtenerPlantillaZona(tipoSeleccionado, cuenta, posicionSeleccionada);
 
         // 2. Validación de límites: ¿Cabe la nueva zona?
         if (!validarEspacioZona(nuevaZona)) {
@@ -171,6 +155,23 @@ public class CreacionRecintoController {
         zonasActuales.add(nuevaZona);
         renderizarMapa();
         actualizarResumen();
+    }
+
+    private PlantillaZona obtenerPlantillaZona(TipoZona tipoSeleccionado, long cuenta, PosicionZona posicionSeleccionada) {
+        String nombreGenerado = tipoSeleccionado.name() + "-" + (cuenta + 1) + " " + posicionSeleccionada.name();
+
+        int filas = Integer.parseInt(txtFilas.getText());
+        int columnas = Integer.parseInt(txtColumnas.getText());
+        double precio = Double.parseDouble(txtPrecio.getText());
+
+        return new PlantillaZona(
+                nombreGenerado,
+                posicionSeleccionada,
+                tipoSeleccionado,
+                filas,
+                columnas,
+                precio
+        );
     }
 
     /**
@@ -244,12 +245,7 @@ public class CreacionRecintoController {
      * @return Capacidad total entera.
      */
     private int calcularCapacidadTotal(List<PlantillaZona> plantillas) {
-        int numero = 0;
-        for(PlantillaZona plantilla : plantillas) {
-            numero += plantilla.calcularCapacidad();
-        }
-        System.out.println("Capacidad de: " + numero);
-        return numero;
+       return recintoController.calcularCapacidadTotal(plantillas);
     }
 
     /**

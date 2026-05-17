@@ -5,7 +5,7 @@ import lospolimorficos.boletopolis.services.ServicioInteraccionAsientos;
 public class CompraInteraccionStrategy implements InteraccionStrategy {
     @Override
     public void onClick(Asiento asiento, ServicioInteraccionAsientos servicio) {
-        if (asiento.getEstado() == EstadoAsiento.DISPONIBLE) {
+        if (esInteractuable(asiento)) {
             servicio.toggleSeleccionCompra(asiento);
             servicio.notifyAsientoChanged();
         }

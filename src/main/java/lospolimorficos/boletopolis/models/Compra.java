@@ -1,6 +1,7 @@
 package lospolimorficos.boletopolis.models;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -10,20 +11,21 @@ public class Compra {
     private final UUID idCompra;
     private Cliente cliente;
     private Evento evento;
-    private LocalDate fechaCompra;
+    private LocalDateTime fechaCompra;
     private double totalCompra;
     private EstadoCompra estadoCompra;
     private List<Entrada> entradas;
 
-    public Compra(Cliente cliente, Evento evento, LocalDate fechaCompra, double totalCompra) {
+    public Compra(Cliente cliente, Evento evento, double totalCompra) {
         this.idCompra = UUID.randomUUID();
         this.cliente = cliente;
         this.evento = evento;
-        this.fechaCompra = fechaCompra;
+        this.fechaCompra = LocalDateTime.now();
         this.totalCompra = totalCompra;
         this.estadoCompra = EstadoCompra.CREADA;
         this.entradas = new ArrayList<>();
     }
+
 
     public int getCantidadEntradas(){
         return entradas.size();
@@ -41,7 +43,7 @@ public class Compra {
         return evento;
     }
 
-    public LocalDate getFechaCompra() {
+    public LocalDateTime getFechaCompra() {
         return fechaCompra;
     }
 
@@ -65,7 +67,7 @@ public class Compra {
         this.evento = evento;
     }
 
-    public void setFechaCompra(LocalDate fechaCompra) {
+    public void setFechaCompra(LocalDateTime fechaCompra) {
         this.fechaCompra = fechaCompra;
     }
 

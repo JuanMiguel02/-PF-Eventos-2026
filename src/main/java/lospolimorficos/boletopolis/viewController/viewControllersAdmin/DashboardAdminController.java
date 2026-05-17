@@ -20,7 +20,7 @@ public class DashboardAdminController {
             Parent vista = FXMLLoader.load(Objects.requireNonNull(getClass().getResource(fxml)));
             contenedorCentro.getChildren().setAll(vista);
         }catch(Exception e){
-            e.printStackTrace();
+            System.err.println(e.getMessage());
         }
     }
 

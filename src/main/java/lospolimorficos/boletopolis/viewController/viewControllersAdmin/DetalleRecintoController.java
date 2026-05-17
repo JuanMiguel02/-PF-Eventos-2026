@@ -12,14 +12,11 @@ import lospolimorficos.boletopolis.controller.RecintoController;
 import lospolimorficos.boletopolis.models.*;
 import lospolimorficos.boletopolis.services.ServicioAlerta;
 import lospolimorficos.boletopolis.services.ServicioDibujoRecinto;
-
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Optional;
 
 public class DetalleRecintoController {
 
-    @FXML private Label lblTitulo, lblNombre, lblCiudad, lblDireccion, lblCapacidad, lblOcupacion;
+    @FXML private Label lblNombre, lblCiudad, lblDireccion, lblCapacidad, lblOcupacion;
     @FXML private TableView<Zona> tblZonas;
     @FXML private TableColumn<Zona, String> colZonaNombre;
     @FXML private TableColumn<Zona, Integer> colZonaCapacidad;
@@ -53,9 +50,7 @@ public class DetalleRecintoController {
         cargarZonas();
 
         // Dibujar el mapa (esperamos a que el panel esté listo)
-        Platform.runLater(() -> {
-            servicioDibujo.renderizar(recinto.getEscenario(), recinto.getZonas());
-        });
+        Platform.runLater(() -> servicioDibujo.renderizar(recinto.getEscenario(), recinto.getZonas()));
     }
 
     private void cargarDatosRecinto(){

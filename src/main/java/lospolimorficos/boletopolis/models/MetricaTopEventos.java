@@ -29,10 +29,12 @@ public class MetricaTopEventos implements EstrategiaMetrica {
 
         Map<String, Number> datos = new LinkedHashMap<>();
         List<String[]> tabla = new ArrayList<>();
-        List<String> columnas = List.of("Nombre", "Ocupación", "Ganancia");
+        List<String> columnas = List.of("Nombre", "Ocupación (%)", "Ganancia");
 
         for(MetricaEvento evento : topEventos){
-            datos.put(evento.nombre(), evento.ocupacion());
+            double eventoRedondeado = Math.round(evento.ocupacion() * 100.0) / 100.0;
+
+            datos.put(evento.nombre(), eventoRedondeado);
             tabla.add(new String[]{evento.nombre(), String.format("%.2f", evento.ocupacion()), String.format("%.2f", evento.ganancia())});
         }
         constructor.agregarGrafico("Top 5 Eventos por ocupación", datos);

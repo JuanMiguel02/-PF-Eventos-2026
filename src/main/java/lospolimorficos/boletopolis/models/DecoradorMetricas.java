@@ -1,6 +1,5 @@
 package lospolimorficos.boletopolis.models;
 
-import java.util.List;
 
 public class DecoradorMetricas extends DecoradorReporte {
 

@@ -6,13 +6,14 @@ import lospolimorficos.boletopolis.repositorios.EventoRepositorio;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Map;
 
 public class EventoController {
 
     private final EventoRepositorio eventoRepositorio = EventoRepositorio.getInstance();
 
-    public Evento crearEvento(String tipo, Map<String, String> especificos, String nombre, String descripcion, Ciudad ciudad, LocalDateTime fechaYHora, EstadoEvento estado, Recinto recinto, Duration duracion){
+    public Evento crearEvento(String tipo, Map<String, String> especificos, String nombre, String descripcion, Ciudad ciudad, LocalDateTime fechaYHora, Recinto recinto, Duration duracion){
 
         EventoFactory fabrica;
 
@@ -34,6 +35,19 @@ public class EventoController {
             default -> throw new IllegalArgumentException("Tipo no válido");
         }
         return fabrica.crearEvento(nombre, descripcion, ciudad, fechaYHora, recinto, duracion);
+    }
+
+    public List<Evento> filtrarEventos(List<Evento> eventos, String filtro){
+        if(filtro == null || filtro.isEmpty()){
+            return eventos;
+        }
+        String filtroLimpio = filtro.toLowerCase();
+        return eventos.stream()
+                .filter(evento -> evento.getNombre().toLowerCase().contains(filtroLimpio)
+                        ||  evento.getCiudad().toString().toLowerCase().contains(filtroLimpio)
+                        || evento.getRecinto().getNombre().toLowerCase().contains(filtroLimpio)
+                        || evento.getEstado().toString().toLowerCase().contains(filtroLimpio))
+                .toList();
     }
 
 

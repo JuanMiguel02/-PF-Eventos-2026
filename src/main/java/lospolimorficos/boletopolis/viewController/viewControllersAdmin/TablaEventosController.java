@@ -1,7 +1,7 @@
 package lospolimorficos.boletopolis.viewController.viewControllersAdmin;
 
 import javafx.beans.property.SimpleStringProperty;
-import javafx.collections.transformation.FilteredList;
+import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -11,10 +11,9 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import lospolimorficos.boletopolis.controller.EventoController;
 import lospolimorficos.boletopolis.models.Evento;
-
 import java.io.IOException;
 import java.time.format.DateTimeFormatter;
-
+import java.util.List;
 import static lospolimorficos.boletopolis.services.ServicioAlerta.mostrarAlerta;
 import static lospolimorficos.boletopolis.services.ServicioAlerta.mostrarAlertaError;
 
@@ -61,24 +60,13 @@ public class TablaEventosController {
     }
 
     private void configurarFiltro() {
-        FilteredList<Evento> filteredData = new FilteredList<>(eventoController.getEventos(), p -> true);
         txtBuscar.textProperty().addListener((observable, oldValue, newValue) -> {
-            filteredData.setPredicate(evento -> {
-                if (newValue == null || newValue.isEmpty()) {
-                    return true;
-                }
-                String lowerCaseFilter = newValue.toLowerCase();
-                if (evento.getNombre().toLowerCase().contains(lowerCaseFilter)) {
-                    return true;
-                } else if (evento.getCiudad().toString().toLowerCase().contains(lowerCaseFilter)) {
-                    return true;
-                } else if (evento.getRecinto().getNombre().toLowerCase().contains(lowerCaseFilter)) {
-                    return true;
-                } else return evento.getEstado().toString().toLowerCase().contains(lowerCaseFilter);
-            });
+            List<Evento> listaFiltrada = eventoController.filtrarEventos(eventoController.getEventos(), newValue);
+            tblEventos.setItems(FXCollections.observableArrayList(listaFiltrada));
         });
-        tblEventos.setItems(filteredData);
+
     }
+
 
     @FXML
     private void abrirFormularioNuevo() {
@@ -95,7 +83,7 @@ public class TablaEventosController {
 
             tblEventos.refresh();
         } catch (IOException e) {
-            e.printStackTrace();
+            System.err.println(e.getMessage());
             mostrarAlertaError("No se pudo abrir el formulario de creación");
         }
     }
@@ -124,7 +112,7 @@ public class TablaEventosController {
 
             tblEventos.refresh();
         } catch (IOException e) {
-            e.printStackTrace();
+            System.err.println(e.getMessage());
             mostrarAlertaError("No se pudo abrir la vista de detalles");
         }
     }

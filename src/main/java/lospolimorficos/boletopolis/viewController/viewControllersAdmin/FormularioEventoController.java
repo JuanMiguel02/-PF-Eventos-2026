@@ -10,7 +10,6 @@ import javafx.stage.Stage;
 import lospolimorficos.boletopolis.controller.EventoController;
 import lospolimorficos.boletopolis.controller.RecintoController;
 import lospolimorficos.boletopolis.models.*;
-
 import java.io.File;
 import java.time.Duration;
 import java.time.LocalDateTime;
@@ -129,7 +128,7 @@ public class FormularioEventoController {
             Map<String, String> especificos = obtenerDatosSegunTipo(tipo);
             Recinto copiaRecinto = recinto.copiar();
 
-            Evento nuevoEvento = eventoController.crearEvento(tipo, especificos, nombre, descripcion, ciudad, fechaHora, EstadoEvento.BORRADOR, copiaRecinto, duracionDefault);
+            Evento nuevoEvento = eventoController.crearEvento(tipo, especificos, nombre, descripcion, ciudad, fechaHora, copiaRecinto, duracionDefault);
             nuevoEvento.setRutaImagen(rutaImagenSeleccionada);
 
             if (eventoController.registrarEvento(nuevoEvento)) {

@@ -2,7 +2,6 @@ package lospolimorficos.boletopolis.viewController.viewControllersAdmin;
 
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
-import javafx.collections.transformation.FilteredList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -12,7 +11,6 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import lospolimorficos.boletopolis.controller.CompraController;
 import lospolimorficos.boletopolis.models.Compra;
-import lospolimorficos.boletopolis.repositorios.CompraRepositorio;
 
 import java.io.IOException;
 import java.util.List;
@@ -57,9 +55,7 @@ public class ComprasViewController {
         colFecha.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getFechaCompra().toString()));
         colTotal.setCellValueFactory(cellData -> new SimpleStringProperty(String.format("$%.2f", cellData.getValue().getTotalCompra())));
 
-        tblCompras.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
-            btnVerDetalles.setDisable(newSelection == null);
-        });
+        tblCompras.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> btnVerDetalles.setDisable(newSelection == null));
     }
 
     private void cargarDatos() {

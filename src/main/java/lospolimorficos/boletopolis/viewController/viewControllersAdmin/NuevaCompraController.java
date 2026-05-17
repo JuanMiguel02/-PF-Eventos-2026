@@ -13,12 +13,9 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import lospolimorficos.boletopolis.controller.CompraController;
 import lospolimorficos.boletopolis.models.*;
-import lospolimorficos.boletopolis.repositorios.CompraRepositorio;
 import lospolimorficos.boletopolis.repositorios.EventoRepositorio;
 import lospolimorficos.boletopolis.repositorios.UsuarioRepositorio;
 import lospolimorficos.boletopolis.services.ServicioDibujoRecinto;
@@ -90,7 +87,7 @@ public class NuevaCompraController {
                 controller.setEvento(evento, this::seleccionarEventoParaCompra);
                 flowEventos.getChildren().add(card);
             } catch (IOException e) {
-                e.printStackTrace();
+                System.err.println(e.getMessage());
             }
         }
     }
@@ -127,9 +124,7 @@ public class NuevaCompraController {
             }
         }
 
-        Platform.runLater(() -> {
-            servicioDibujo.renderizar(eventoSeleccionado.getRecinto().getEscenario(), eventoSeleccionado.getRecinto().getZonas());
-        });
+        Platform.runLater(() -> servicioDibujo.renderizar(eventoSeleccionado.getRecinto().getEscenario(), eventoSeleccionado.getRecinto().getZonas()));
     }
 
     private void actualizarResumen() {
@@ -151,20 +146,7 @@ public class NuevaCompraController {
 
         // Simulación: Tomamos el primer cliente disponible para simplificar
         Cliente cliente = UsuarioRepositorio.getInstancia().getClientes().get(0);
-        
-        double total = 0;
-        List<Entrada> entradas = new ArrayList<>();
-        for (Asiento a : seleccionados) {
-            Zona z = zonaAsientoMap.get(a);
-            total += z.getPrecioZona();
-            Entrada entrada = new Entrada(z, a, z.getPrecioZona(), EstadoEntrada.ACTIVA);
-            entradas.add(entrada);
-            a.setEstado(EstadoAsiento.VENDIDO); // Marcar como vendido
-        }
-        
-        Compra nuevaCompra = new Compra(cliente, eventoSeleccionado, LocalDate.now(), total);
-        nuevaCompra.setEntradas(entradas);
-        nuevaCompra.setEstadoCompra(EstadoCompra.PAGADA);
+        Compra nuevaCompra = compraController.realizarCompra(cliente, eventoSeleccionado, seleccionados, zonaAsientoMap);
         
         if (compraController.registrarCompra(nuevaCompra)) {
             mostrarAlerta("Éxito", "Compra finalizada correctamente", Alert.AlertType.INFORMATION);

@@ -1,13 +1,12 @@
 package lospolimorficos.boletopolis.viewController.viewControllersAdmin;
 
 import javafx.beans.property.SimpleStringProperty;
+import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-
 import lospolimorficos.boletopolis.controller.ClienteController;
 import lospolimorficos.boletopolis.models.Cliente;
-
-
+import java.util.List;
 import static lospolimorficos.boletopolis.services.ServicioAlerta.mostrarAlerta;
 import static lospolimorficos.boletopolis.services.ServicioAlerta.mostrarAlertaError;
 
@@ -63,6 +62,7 @@ public class TablaClientesController {
                 observable, oldValue, newValue) -> mostrarDatosCliente(newValue));
         inicializarTabla();
         cargarClientes();
+        configurarFiltro();
     }
 
     private void inicializarTabla(){
@@ -76,6 +76,13 @@ public class TablaClientesController {
 
     private void cargarClientes(){
         tblClientes.setItems(clienteController.getClientes());
+    }
+
+    private void configurarFiltro(){
+        txtBuscarCliente.textProperty().addListener((observable, oldValue, newValue) -> {
+            List<Cliente> clientesFiltrados = clienteController.filtrarClientes(clienteController.getClientes(), newValue);
+            tblClientes.setItems(FXCollections.observableArrayList(clientesFiltrados));
+        });
     }
 
     @FXML

@@ -5,6 +5,9 @@ import javafx.collections.ObservableList;
 import lospolimorficos.boletopolis.models.Compra;
 import lospolimorficos.boletopolis.models.Evento;
 
+import java.time.LocalDateTime;
+import java.util.List;
+
 public final class CompraRepositorio {
 
     private final ObservableList<Compra> compras = FXCollections.observableArrayList();
@@ -48,4 +51,14 @@ public final class CompraRepositorio {
                 .mapToDouble(Compra::getTotalCompra)
                 .sum();
     }
+
+    public List<Compra> obtenerComprasPorPeriodo(LocalDateTime fechaInicio, LocalDateTime fechaFin){
+        return compras.stream()
+                .filter(compra ->
+                        !compra.getFechaCompra().isBefore(fechaInicio)
+                        &&
+                        !compra.getFechaCompra().isAfter(fechaFin)
+                ).toList();
+    }
+
 }

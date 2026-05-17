@@ -50,7 +50,6 @@ public class DetalleEventoController {
     private ServicioDibujoRecinto servicioDibujo;
     private String rutaImagenSeleccionada;
 
-
     @FXML
     public void initialize() {
         cmbEstado.getItems().setAll(EstadoEvento.values());
@@ -144,7 +143,7 @@ public class DetalleEventoController {
         try {
             evento.setNombre(txtNombre.getText());
             evento.setDescripcion(txtDescripcion.getText());
-            evento.setEstado(cmbEstado.getValue());
+            evento.cambiarEstado(cmbEstado.getValue());
             evento.setFechaYHora(LocalDateTime.parse(txtFecha.getText(), formatter));
             evento.setRutaImagen(rutaImagenSeleccionada);
 
