@@ -1,6 +1,5 @@
 package lospolimorficos.boletopolis.models;
 
-import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -14,11 +13,10 @@ public abstract class Evento {
     private LocalDateTime fechaYHora;
     private EstadoEvento estado;
     private Recinto recinto;
-    private Duration duracion;
     private String rutaImagen;
     private List<EventoObserver> observadores = new ArrayList<>();
 
-    public Evento(String nombre, String descripcion, Ciudad ciudad, LocalDateTime fechaYHora, Recinto recinto, Duration duracion) {
+    public Evento(String nombre, String descripcion, Ciudad ciudad, LocalDateTime fechaYHora, Recinto recinto) {
         this.idEvento = UUID.randomUUID();
         this.descripcion = descripcion;
         this.nombre = nombre;
@@ -26,7 +24,6 @@ public abstract class Evento {
         this.fechaYHora = fechaYHora;
         this.estado = EstadoEvento.BORRADOR;
         this.recinto = recinto;
-        this.duracion = duracion;
     }
 
     public void agregarObservador(EventoObserver observador){
@@ -104,14 +101,6 @@ public abstract class Evento {
 
     public void setRecinto(Recinto recinto) {
         this.recinto = recinto;
-    }
-
-    public Duration getDuracion() {
-        return duracion;
-    }
-
-    public void setDuracion(Duration duracion) {
-        this.duracion = duracion;
     }
 
     public String getRutaImagen() {

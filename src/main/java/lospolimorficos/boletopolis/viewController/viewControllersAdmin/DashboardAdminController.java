@@ -1,12 +1,24 @@
 package lospolimorficos.boletopolis.viewController.viewControllersAdmin;
 
+import javafx.collections.ListChangeListener;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
+import javafx.scene.chart.BarChart;
+import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import lospolimorficos.boletopolis.controller.ClienteController;
+import lospolimorficos.boletopolis.controller.CompraController;
+import lospolimorficos.boletopolis.controller.EventoController;
+import lospolimorficos.boletopolis.models.Cliente;
+import lospolimorficos.boletopolis.models.Compra;
+import lospolimorficos.boletopolis.models.Evento;
+import lospolimorficos.boletopolis.services.ServicioGeneradorGraficos;
 
+import java.util.Map;
 import java.util.Objects;
 
 public class DashboardAdminController {
@@ -14,6 +26,49 @@ public class DashboardAdminController {
     private StackPane contenedorCentro;
     @FXML
     private AnchorPane vistaInicio;
+    @FXML
+    private VBox contenedorGrafico;
+    @FXML
+    private Label lblTotalClientes;
+    @FXML
+    private Label lblTotalEventos;
+    @FXML
+    private Label lblTotalCompras;
+
+    private final ClienteController clienteController = new ClienteController();
+    private final EventoController eventoController = new EventoController();
+    private final CompraController compraController = new CompraController();
+
+    @FXML
+    public void initialize(){
+        actualizarTotales();
+        cargarMetricas();
+        clienteController.getClientes().addListener((ListChangeListener<Cliente>) c -> actualizarDashboard());
+        eventoController.getEventos().addListener((ListChangeListener<Evento>) e -> actualizarDashboard());
+        compraController.getCompras().addListener((ListChangeListener<Compra>) c -> actualizarDashboard());
+
+    }
+
+    private void actualizarDashboard(){
+
+        actualizarTotales();
+        cargarMetricas();
+    }
+
+    private void actualizarTotales(){
+        lblTotalClientes.setText(String.valueOf(clienteController.getClientes().size()));
+        lblTotalEventos.setText(String.valueOf(eventoController.getEventos().size()));
+        lblTotalCompras.setText(String.valueOf(compraController.getCompras().size()));
+    }
+
+    private void cargarMetricas() {
+        contenedorGrafico.getChildren().clear();
+        Map<String, Number> datosVentas = compraController.obtenerVentasPorMes();
+        BarChart<String, Number> graficoVentas = ServicioGeneradorGraficos.crearBarChart("Ventas por Mes", datosVentas);
+        graficoVentas.setPrefHeight(400);
+        contenedorGrafico.getChildren().add(graficoVentas);
+    }
+
 
     public void cargarVista(String fxml){
         try{

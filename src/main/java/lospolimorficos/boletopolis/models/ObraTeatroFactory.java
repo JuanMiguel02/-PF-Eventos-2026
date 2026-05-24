@@ -16,14 +16,13 @@ public class ObraTeatroFactory implements EventoFactory {
     }
 
     @Override
-    public Evento crearEvento(String nombre, String descripcion, Ciudad ciudad, LocalDateTime fechaYHora,  Recinto recinto, Duration duracion) {
+    public Evento crearEvento(String nombre, String descripcion, Ciudad ciudad, LocalDateTime fechaYHora,  Recinto recinto) {
         return new ObraTeatro(
                 nombre,
                 descripcion,
                 ciudad,
                 fechaYHora,
                 recinto,
-                duracion,
                 companiaTeatro,
                 director,
                 numActos

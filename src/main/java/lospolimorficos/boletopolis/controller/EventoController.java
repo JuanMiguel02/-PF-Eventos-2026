@@ -13,7 +13,7 @@ public class EventoController {
 
     private final EventoRepositorio eventoRepositorio = EventoRepositorio.getInstancia();
 
-    public Evento crearEvento(String tipo, Map<String, String> especificos, String nombre, String descripcion, Ciudad ciudad, LocalDateTime fechaYHora, Recinto recinto, Duration duracion){
+    public Evento crearEvento(String tipo, Map<String, String> especificos, String nombre, String descripcion, Ciudad ciudad, LocalDateTime fechaYHora, Recinto recinto){
 
         EventoFactory fabrica;
 
@@ -34,7 +34,7 @@ public class EventoController {
             );
             default -> throw new IllegalArgumentException("Tipo no válido");
         }
-        return fabrica.crearEvento(nombre, descripcion, ciudad, fechaYHora, recinto, duracion);
+        return fabrica.crearEvento(nombre, descripcion, ciudad, fechaYHora, recinto);
     }
 
     public List<Evento> filtrarEventos(List<Evento> eventos, String filtro){
@@ -68,7 +68,7 @@ public class EventoController {
         return eventoRepositorio.getEventos();
     }
 
-    public boolean existeConflicto(Recinto recinto, LocalDateTime fechaYHora, Duration duracion) {
-        return eventoRepositorio.existeConflicto(recinto, fechaYHora, duracion);
+    public boolean existeConflicto(Recinto recinto, LocalDateTime fechaYHora) {
+        return eventoRepositorio.existeConflicto(recinto, fechaYHora);
     }
 }

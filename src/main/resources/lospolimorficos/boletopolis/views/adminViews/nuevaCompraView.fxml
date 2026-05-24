@@ -53,6 +53,7 @@
                                     <children>
                                         <Button mnemonicParsing="false" onAction="#volverCatalogo" styleClass="clear-btn" text="Volver al Catálogo" />
                                         <Label fx:id="lblEventoSeleccionado" style="-fx-font-size: 18; -fx-font-weight: bold;" text="Evento: " />
+                              <Label fx:id="lblLugarEvento" layoutX="49.0" layoutY="10.0" style="-fx-font-size: 18; -fx-font-weight: bold;" text="Evento: " />
                                     </children>
                                 </HBox>
                                 <ScrollPane fitToHeight="true" fitToWidth="true" VBox.vgrow="ALWAYS">
@@ -63,7 +64,8 @@
                                 <HBox alignment="CENTER_RIGHT" spacing="15.0" style="-fx-padding: 10;" styleClass="white-bg, shadow">
                                     <children>
                                         <Label fx:id="lblResumenSeleccion" text="Asientos seleccionados: 0 | Total: $0.00" />
-                                        <Button mnemonicParsing="false" onAction="#finalizarCompra" styleClass="add-btn" text="Finalizar Compra" />
+                                        <Button mnemonicParsing="false" onAction="#mostrarResumenPreCompra" styleClass="add-btn" text="Mostrar Resumen Compra" />
+                                        <Button mnemonicParsing="false" onAction="#finalizarCompra" styleClass="update-btn" text="Finalizar Compra" />
                                     </children>
                                 </HBox>
                             </children>

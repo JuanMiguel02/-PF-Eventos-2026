@@ -1,6 +1,5 @@
 package lospolimorficos.boletopolis.models;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -12,20 +11,39 @@ public class Compra {
     private Cliente cliente;
     private Evento evento;
     private LocalDateTime fechaCompra;
-    private double totalCompra;
     private EstadoCompra estadoCompra;
     private List<Entrada> entradas;
+    private List<ServicioAdicional> servicios;
 
-    public Compra(Cliente cliente, Evento evento, double totalCompra) {
+    public Compra(Cliente cliente, Evento evento) {
         this.idCompra = UUID.randomUUID();
         this.cliente = cliente;
         this.evento = evento;
         this.fechaCompra = LocalDateTime.now();
-        this.totalCompra = totalCompra;
         this.estadoCompra = EstadoCompra.CREADA;
         this.entradas = new ArrayList<>();
+        this.servicios = new ArrayList<>();
     }
 
+    public void agregarServicio(ServicioAdicional servicio){
+        this.servicios.add(servicio);
+    }
+
+    public double calcularTotalServicios(){
+        return servicios.stream()
+                .mapToDouble(ServicioAdicional::getPrecio)
+                .sum();
+    }
+
+    public double calcularTotalEntradas(){
+        return entradas.stream()
+                .mapToDouble(Entrada::getPrecioFinal)
+                .sum();
+    }
+
+    public double calcularTotalCompra(){
+        return calcularTotalServicios() + calcularTotalEntradas();
+    }
 
     public int getCantidadEntradas(){
         return entradas.size();
@@ -48,7 +66,7 @@ public class Compra {
     }
 
     public double getTotalCompra() {
-        return totalCompra;
+        return calcularTotalCompra();
     }
 
     public EstadoCompra getEstadoCompra() {
@@ -57,6 +75,10 @@ public class Compra {
 
     public List<Entrada> getEntradas() {
         return entradas;
+    }
+
+    public List<ServicioAdicional> getServicios() {
+        return servicios;
     }
 
     public void setCliente(Cliente cliente) {
@@ -71,9 +93,6 @@ public class Compra {
         this.fechaCompra = fechaCompra;
     }
 
-    public void setTotalCompra(double totalCompra) {
-        this.totalCompra = totalCompra;
-    }
 
     public void setEstadoCompra(EstadoCompra estadoCompra) {
         this.estadoCompra = estadoCompra;

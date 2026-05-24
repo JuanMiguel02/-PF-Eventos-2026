@@ -5,14 +5,12 @@ import javafx.collections.transformation.FilteredList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Label;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TextField;
+import javafx.scene.Scene;
+import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.FlowPane;
-import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import lospolimorficos.boletopolis.controller.ClienteController;
 import lospolimorficos.boletopolis.controller.CompraController;
@@ -33,8 +31,6 @@ public class NuevaCompraController {
     @FXML
     private TextField txtBusquedaCliente;
     @FXML
-    private StackPane contenedorFlujo;
-    @FXML
     private ScrollPane scrollCatalogo;
     @FXML
     private FlowPane flowEventos;
@@ -42,6 +38,8 @@ public class NuevaCompraController {
     private VBox vboxMapa;
     @FXML
     private Label lblEventoSeleccionado;
+    @FXML
+    private Label lblLugarEvento;
     @FXML
     private AnchorPane panelMapa;
     @FXML
@@ -55,18 +53,23 @@ public class NuevaCompraController {
     private final ClienteController clienteController = new ClienteController();
     private Cliente clienteCompra;
 
+    private Compra compraTemporal;
+
     @FXML
     public void initialize() {
         this.servicioDibujo = new ServicioDibujoRecinto(panelMapa);
         this.servicioDibujo.setInteractivo(true);
         this.servicioDibujo.setStrategy(new CompraInteraccionStrategy());
-        this.servicioDibujo.setOnAsientoChanged(this::actualizarResumen);
+        this.servicioDibujo.setOnAsientoChanged(() -> {
+            compraTemporal = null;
+            actualizarResumen();
+        });
         configurarCatalogo();
     }
 
     private void configurarCatalogo() {
         filteredEventos = new FilteredList<>(EventoRepositorio.getInstancia().getEventos(), p -> p.getEstado() == EstadoEvento.PUBLICADO);
-        
+
         txtBusquedaEvento.textProperty().addListener((obs, oldVal, newVal) -> {
             filteredEventos.setPredicate(evento -> {
                 if (newVal == null || newVal.isEmpty()) return evento.getEstado() == EstadoEvento.PUBLICADO;
@@ -96,7 +99,7 @@ public class NuevaCompraController {
     private void seleccionarEventoParaCompra(Evento evento) {
         this.eventoSeleccionado = evento;
         lblEventoSeleccionado.setText("Evento: " + evento.getNombre());
-        
+        lblLugarEvento.setText(" | Lugar: " + evento.getCiudad().toString() + ", " + evento.getRecinto().getNombre());
         scrollCatalogo.setVisible(false);
         scrollCatalogo.setManaged(false);
         vboxMapa.setVisible(true);
@@ -134,21 +137,27 @@ public class NuevaCompraController {
         for (Asiento a : seleccionados) {
             total += zonaAsientoMap.get(a).getPrecioZona();
         }
+
+        if (compraTemporal != null) {
+            total += compraTemporal.calcularTotalServicios();
+        }
+
         lblResumenSeleccion.setText(String.format("Asientos seleccionados: %d | Total: $%.2f", seleccionados.size(), total));
     }
 
     @FXML
     private void finalizarCompra() {
-        List<Asiento> seleccionados = servicioDibujo.getAsientosSeleccionados();
-        if (seleccionados.isEmpty() || clienteCompra == null) {
-            mostrarAlerta("Error", "Debe seleccionar al menos un asiento y un cliente para finalizar la compra", Alert.AlertType.WARNING);
-            return;
+        if (compraTemporal == null) {
+            List<Asiento> seleccionados = servicioDibujo.getAsientosSeleccionados();
+            if (seleccionados.isEmpty() || clienteCompra == null) {
+                mostrarAlerta("Error", "Debe seleccionar al menos un asiento y un cliente para finalizar la compra", Alert.AlertType.WARNING);
+                return;
+            }
+            compraTemporal = compraController.realizarCompra(clienteCompra, eventoSeleccionado, seleccionados, zonaAsientoMap);
         }
 
-        Compra nuevaCompra = compraController.realizarCompra(clienteCompra, eventoSeleccionado, seleccionados, zonaAsientoMap);
-        
-        if (compraController.registrarCompra(nuevaCompra)) {
-            mostrarAlerta("Éxito", "Compra finalizada correctamente", Alert.AlertType.INFORMATION);
+        if (compraController.registrarCompra(compraTemporal)) {
+            mostrarResumenFinal(compraTemporal);
             ((Stage) panelMapa.getScene().getWindow()).close();
         } else {
             mostrarAlertaError( "No se pudo registrar la compra");
@@ -156,11 +165,62 @@ public class NuevaCompraController {
     }
 
     @FXML
+    private void mostrarResumenPreCompra() {
+        List<Asiento> seleccionados = servicioDibujo.getAsientosSeleccionados();
+        if (seleccionados.isEmpty() || clienteCompra == null) {
+            mostrarAlerta("Error", "Debe seleccionar al menos un asiento y un cliente para ver el resumen", Alert.AlertType.WARNING);
+            return;
+        }
+
+        if (compraTemporal == null) {
+            compraTemporal = compraController.realizarCompra(clienteCompra, eventoSeleccionado, seleccionados, zonaAsientoMap);
+        }
+
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/lospolimorficos/boletopolis/views/adminViews/serviciosAdicionalesView.fxml"));
+            Parent root = loader.load();
+            
+            ServiciosAdicionalesController controller = loader.getController();
+            controller.setCompra(compraTemporal, this::actualizarResumen);
+            
+            Stage stage = new Stage();
+            stage.setTitle("Servicios Adicionales - Boletopolis");
+            stage.setScene(new Scene(root));
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.show();
+        } catch (IOException e) {
+            System.err.println(e.getMessage());
+            mostrarAlertaError("Error al mostrar los servicios adicionales");
+        }
+    }
+
+    private void mostrarResumenFinal(Compra compra) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/lospolimorficos/boletopolis/views/adminViews/resumenCompraView.fxml"));
+            Parent root = loader.load();
+            
+            ResumenCompraController controller = loader.getController();
+            controller.setCompra(compra);
+            
+            Stage stage = new Stage();
+            stage.setTitle("Resumen de Compra - Boletopolis");
+            stage.setScene(new Scene(root));
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.show();
+        } catch (IOException e) {
+            System.err.println(e.getMessage());
+            mostrarAlertaError("Error al mostrar el resumen de la compra");
+        }
+    }
+
+    @FXML
     private void buscarCliente(){
+        compraTemporal = null;
         String busqueda = txtBusquedaCliente.getText();
         clienteCompra = clienteController.buscarCliente(busqueda);
         if(clienteCompra != null){
             txtBusquedaCliente.setText(clienteCompra.getNombreCompleto() + " - Documento: " + clienteCompra.getDocumento());
         }
+        actualizarResumen();
     }
 }

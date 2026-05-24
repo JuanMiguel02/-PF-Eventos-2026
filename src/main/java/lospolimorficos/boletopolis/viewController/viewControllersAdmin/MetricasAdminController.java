@@ -22,16 +22,16 @@ public class MetricasAdminController {
 
     @FXML
     public void initialize() {
-        cargarMetricasEjemplo();
+        cargarListaDeMetricas();
     }
 
     /**
-     * Carga gráficos de ejemplo utilizando el servicio generador de gráficos.
+     * Carga gráficos utilizando el servicio generador de gráficos.
      */
-    private void cargarMetricasEjemplo() {
+    private void cargarListaDeMetricas() {
 
-        Map<String, Number> datosVentas = compraController.obtenerVentasPorMes();
-        BarChart<String, Number> graficoVentas = ServicioGeneradorGraficos.crearBarChart("Ventas por Mes", datosVentas);
+        Map<String, Number> datosVentas = compraController.obtenerTopEventos();
+        BarChart<String, Number> graficoVentas = ServicioGeneradorGraficos.crearBarChart("Top 5 Eventos por Porcentaje de Ocupación", datosVentas);
         graficoVentas.setPrefHeight(400);
 
         Map<String, Number> datosAsistencia = compraController.obtenerVentasPorEvento();

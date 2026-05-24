@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Cliente extends Usuario implements EventoObserver{
-    private List<String> notificaciones = new ArrayList<>();
-    private List<Compra> compras = new ArrayList<>();
+    private final List<String> notificaciones = new ArrayList<>();
+    private final List<Compra> compras = new ArrayList<>();
 
     public Cliente(String nombre, String apellido,String documento, String correo, String numTelefono, String contrasena) {
         super(nombre, apellido,documento, correo, numTelefono, contrasena);

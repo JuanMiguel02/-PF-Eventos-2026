@@ -35,6 +35,15 @@ public class CompraController {
         return datos;
     }
 
+    public Map<String, Number> obtenerTopEventos(){
+        Map<String, Number> datos = new LinkedHashMap<>();
+        for(MetricaEvento evento : eventoRepositorio.obtenerTopEventos(5)){
+            double ocupacionRedondeada = Math.round(evento.ocupacion() * 100.0) / 100.0;
+            datos.put(evento.nombre(), ocupacionRedondeada);
+        }
+        return datos;
+    }
+
     public Map<String, Number> obtenerVentasPorMes(){
         return compraRepositorio.obtenerVentasPorMes();
     }
@@ -57,7 +66,6 @@ public class CompraController {
 
         for(Asiento asiento: asientos){
             Zona zona = zonaAsientoMap.get(asiento);
-            total += zona.getPrecioZona();
 
             Entrada entrada = new Entrada(zona, asiento, zona.getPrecioZona(), EstadoEntrada.ACTIVA);
             entradas.add(entrada);
@@ -65,7 +73,7 @@ public class CompraController {
             asiento.setEstado(EstadoAsiento.VENDIDO);
 
         }
-        Compra compra = new Compra(cliente, evento, total);
+        Compra compra = new Compra(cliente, evento);
         compra.setEntradas(entradas);
         compra.setEstadoCompra(EstadoCompra.PAGADA);
         cliente.agregarCompra(compra);

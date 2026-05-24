@@ -19,6 +19,8 @@ public class EventoCardController {
     private Label lblDescripcion;
     @FXML
     private Label lblFecha;
+    @FXML
+    private Label lblLugar;
 
     private Evento evento;
     private Consumer<Evento> onComprarAction;
@@ -27,10 +29,11 @@ public class EventoCardController {
     public void setEvento(Evento evento, Consumer<Evento> onComprarAction) {
         this.evento = evento;
         this.onComprarAction = onComprarAction;
-        
+
         lblNombre.setText(evento.getNombre());
         lblDescripcion.setText(evento.getDescripcion());
         lblFecha.setText(evento.getFechaYHora().format(formatter));
+        lblLugar.setText(evento.getCiudad().toString() + ", " + evento.getRecinto().getNombre());
         
         if (evento.getRutaImagen() != null && !evento.getRutaImagen().isEmpty()) {
             try {

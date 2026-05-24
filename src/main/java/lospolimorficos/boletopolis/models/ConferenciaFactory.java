@@ -16,8 +16,7 @@ public class ConferenciaFactory implements EventoFactory {
     }
 
     @Override
-    public Evento crearEvento(String nombre, String descripcion, Ciudad ciudad,
-                              LocalDateTime fechaYHora, Recinto recinto, Duration duracion) {
+    public Evento crearEvento(String nombre, String descripcion, Ciudad ciudad, LocalDateTime fechaYHora, Recinto recinto) {
 
         return new Conferencia(
                 nombre,
@@ -25,10 +24,33 @@ public class ConferenciaFactory implements EventoFactory {
                 ciudad,
                 fechaYHora,
                 recinto,
-                duracion,
                 ponente,
                 tema,
                 institucion
         );
+    }
+
+    public String getTema() {
+        return tema;
+    }
+
+    public void setTema(String tema) {
+        this.tema = tema;
+    }
+
+    public String getInstitucion() {
+        return institucion;
+    }
+
+    public void setInstitucion(String institucion) {
+        this.institucion = institucion;
+    }
+
+    public String getPonente() {
+        return ponente;
+    }
+
+    public void setPonente(String ponente) {
+        this.ponente = ponente;
     }
 }

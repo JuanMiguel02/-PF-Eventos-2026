@@ -11,7 +11,6 @@ import lospolimorficos.boletopolis.controller.EventoController;
 import lospolimorficos.boletopolis.controller.RecintoController;
 import lospolimorficos.boletopolis.models.*;
 import java.io.File;
-import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.HashMap;
@@ -119,8 +118,7 @@ public class FormularioEventoController {
             LocalDateTime fechaHora = LocalDateTime.of(dpFecha.getValue(), LocalTime.parse(txtHora.getText()));
             String tipo = cmbTipoEvento.getValue();
 
-            Duration duracionDefault = Duration.ofHours(2);
-            if (eventoController.existeConflicto(recinto, fechaHora, duracionDefault)) {
+            if (eventoController.existeConflicto(recinto, fechaHora)) {
                 mostrarAlertaError("Ya existe un evento en este recinto durante el horario seleccionado");
                 return;
             }
@@ -128,7 +126,7 @@ public class FormularioEventoController {
             Map<String, String> especificos = obtenerDatosSegunTipo(tipo);
             Recinto copiaRecinto = recinto.copiar();
 
-            Evento nuevoEvento = eventoController.crearEvento(tipo, especificos, nombre, descripcion, ciudad, fechaHora, copiaRecinto, duracionDefault);
+            Evento nuevoEvento = eventoController.crearEvento(tipo, especificos, nombre, descripcion, ciudad, fechaHora, copiaRecinto);
             nuevoEvento.setRutaImagen(rutaImagenSeleccionada);
 
             if (eventoController.registrarEvento(nuevoEvento)) {

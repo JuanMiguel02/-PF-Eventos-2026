@@ -48,21 +48,14 @@ public final class EventoRepositorio {
         return false;
     }
 
-    public boolean existeConflicto(Recinto recinto, LocalDateTime fechaYHora, Duration duracion) {
-        LocalDateTime finNuevo = fechaYHora.plus(duracion);
+    public boolean existeConflicto(Recinto recinto, LocalDateTime fechaYHora) {
+        return eventos.stream()
+                .anyMatch(evento ->
+                        evento.getRecinto()
+                                .getIdRecinto()
+                                .equals(recinto.getIdRecinto()) &&
+                                evento.getFechaYHora().equals(fechaYHora));
 
-        for (Evento evento : getEventos()) {
-            if (evento.getRecinto().getIdRecinto().equals(recinto.getIdRecinto())) {
-                LocalDateTime inicioExistente = evento.getFechaYHora();
-                LocalDateTime finExistente = evento.getFechaYHora().plus(evento.getDuracion());
-
-                // Se solapan si (inicio1 < fin2) Y (inicio2 < fin1)
-                if (fechaYHora.isBefore(finExistente) && inicioExistente.isBefore(finNuevo)) {
-                    return true;
-                }
-            }
-        }
-        return false;
     }
 
     public List<MetricaEvento> obtenerTopEventos(int limite){
@@ -91,7 +84,7 @@ public final class EventoRepositorio {
         Recinto recinto = RecintoRepositorio.getInstancia().getPrimerRecinto();
         try {
             Recinto recintoCopia = recinto.copiar();
-            Concierto concierto = new Concierto("Concierto de los Deftones", "Gira Nuevo Álbum - 2026", Ciudad.ARMENIA, LocalDateTime.now(), recintoCopia, Duration.ofHours(2), "Deftones", "Rock Alternativo");
+            Concierto concierto = new Concierto("Concierto de los Deftones", "Gira Nuevo Álbum - 2026", Ciudad.ARMENIA, LocalDateTime.now(), recintoCopia,"Deftones", "Rock Alternativo");
             concierto.setEstado(EstadoEvento.PUBLICADO);
             concierto.setRutaImagen("/lospolimorficos/boletopolis/imagenes/DeftonesConciertoEjemplo.jpg");
             registrarEvento(concierto);

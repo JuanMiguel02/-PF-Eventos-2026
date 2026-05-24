@@ -31,10 +31,12 @@ public class ReporteAdminBase implements Reporte{
         int totalUsuarios = usuarioRepositorio.contarUsuarios();
         int totalRecintos = recintoRepositorio.contarRecintos();
         int totalEventos = eventoRepositorio.contarEventos();
+        int totalCompras = compraRepositorio.contarCompras();
 
         constructorReporte.agregarTexto("Total de Usuarios: " + totalUsuarios + " ");
         constructorReporte.agregarTexto("Total de Recintos: " + totalRecintos + " ");
         constructorReporte.agregarTexto("Total de Eventos: " + totalEventos + " ");
+        constructorReporte.agregarTexto("Total de Compras: " + totalCompras + " ");
 
     }
 }
