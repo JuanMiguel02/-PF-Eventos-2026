@@ -90,7 +90,6 @@ public class CompraController {
         }
 
         cliente.agregarCompra(compra);
-        registrarCompra(compra);
         return compra;
     }
 }

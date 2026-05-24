@@ -2,10 +2,7 @@ package lospolimorficos.boletopolis.repositorios;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import lospolimorficos.boletopolis.models.Admin;
-import lospolimorficos.boletopolis.models.Cliente;
-import lospolimorficos.boletopolis.models.Usuario;
-
+import lospolimorficos.boletopolis.models.*;
 import java.util.stream.Collectors;
 
 public final class UsuarioRepositorio {
@@ -82,8 +79,18 @@ public final class UsuarioRepositorio {
     private void cargarDatosEjemplo(){
 
         Admin admin1 = new Admin("Sancho", "Panza", "3123213","sancho@boletopolis.com", "412321312", "123456");
+
         Cliente cliente1 = new Cliente("Paco", "Jones", "42132131", "paquito@gmail.com", "654321", "42132131");
+        CuentaSimulada cuenta1 = new CuentaSimulada(cliente1, 400000000);
+        cliente1.agregarCuenta(cuenta1);
+        MetodoPago metodoPago1 = new PagoTarjeta(cuenta1, "Débito");
+        cliente1.agregarMetodoPago(metodoPago1);
+
         Cliente cliente2 = new Cliente("Pedro", "El Escamoso", "3124531", "pedrito@gmail.com", "5432142", "3124531");
+        CuentaSimulada cuenta2 = new CuentaSimulada(cliente2, 100000000);
+        cliente2.agregarCuenta(cuenta2);
+        MetodoPago metodoPago2 = new PagoNequi(cuenta2, cliente2.getNumTelefono());
+        cliente2.agregarMetodoPago(metodoPago2);
 
         registrarUsuario(admin1);
         registrarUsuario(cliente1);

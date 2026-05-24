@@ -30,6 +30,10 @@ public class Cliente extends Usuario implements EventoObserver{
         cuentas.add(cuenta);
     }
 
+    public List<MetodoPago> getMetodosPago() {
+        return this.metodosPago;
+    }
+
     public List<String> getNotificaciones() {
         return this.notificaciones;
     }

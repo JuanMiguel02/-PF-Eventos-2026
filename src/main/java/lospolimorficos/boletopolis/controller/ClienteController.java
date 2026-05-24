@@ -36,7 +36,7 @@ public class ClienteController {
 
         CuentaSimulada cuentaPrincipal = new CuentaSimulada(cliente, 500000000);
         cliente.agregarCuenta(cuentaPrincipal);
-        MetodoPago tarjeta = new PagoTarjeta(cuentaPrincipal);
+        MetodoPago tarjeta = new PagoTarjeta(cuentaPrincipal, "VISA");
         cliente.agregarMetodoPago(tarjeta);
 
         return usuarioRepositorio.registrarUsuario(cliente);

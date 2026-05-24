@@ -2,28 +2,35 @@ package lospolimorficos.boletopolis.models;
 
 import java.util.Random;
 
-public class PagoTarjeta implements MetodoPago{
+public class PagoNequi implements MetodoPago {
 
-    private final String numeroTarjeta;
+    private final String numeroCelular;
     private final CuentaSimulada cuenta;
-    private String tipoTarjeta;
 
-    public PagoTarjeta(CuentaSimulada cuenta, String tipoTarjeta){
-        this.numeroTarjeta = generarNumeroTarjeta();
+    public PagoNequi(CuentaSimulada cuenta) {
+        this.numeroCelular = generarNumeroCelular();
         this.cuenta = cuenta;
-        this.tipoTarjeta = tipoTarjeta;
     }
 
-    private String generarNumeroTarjeta() {
+    public PagoNequi(CuentaSimulada cuenta, String numeroCelular) {
+        this.numeroCelular = numeroCelular;
+        this.cuenta = cuenta;
+    }
+
+    private String generarNumeroCelular() {
+
         Random random = new Random();
-        StringBuilder numero = new StringBuilder();
-        for (int i = 0; i < 16; i++) {
+
+        StringBuilder numero = new StringBuilder("3");
+
+        for(int i = 0; i < 9; i++){
             numero.append(random.nextInt(10));
         }
+
         return numero.toString();
     }
 
-        @Override
+    @Override
     public boolean pagar(double monto) {
         return cuenta.retirar(monto);
     }
@@ -40,6 +47,7 @@ public class PagoTarjeta implements MetodoPago{
 
     @Override
     public String getDescripcion() {
-        return "Tarjeta " + tipoTarjeta + " terminada en " + numeroTarjeta.substring(numeroTarjeta.length() -4 );
+        return "Nequi asociado al número " + numeroCelular;
     }
 }
+

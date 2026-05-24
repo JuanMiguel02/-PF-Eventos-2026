@@ -51,9 +51,10 @@ public class ResumenCompraController {
     }
 
     private void actualizarInfo() {
-        lblInfoCompra.setText(String.format("Cliente: %s | Entradas: %d",
+        lblInfoCompra.setText(String.format("Cliente: %s | Entradas: %d | Pago: %s",
                 compra.getCliente().getNombreCompleto(),
-                compra.getCantidadEntradas()));
+                compra.getCantidadEntradas(),
+                compra.getPago() != null ? compra.getPago().getMetodoPago().getDescripcion() : "N/A"));
         lblTotalResumen.setText(String.format("Total: $%.2f", compra.getTotalCompra()));
     }
 

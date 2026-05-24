@@ -7,6 +7,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.util.Callback;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.VBox;
@@ -44,6 +45,8 @@ public class NuevaCompraController {
     private AnchorPane panelMapa;
     @FXML
     private Label lblResumenSeleccion;
+    @FXML
+    private ComboBox<MetodoPago> cbMetodosPago;
 
     private FilteredList<Evento> filteredEventos;
     private Evento eventoSeleccionado;
@@ -64,6 +67,22 @@ public class NuevaCompraController {
             compraTemporal = null;
             actualizarResumen();
         });
+
+        cbMetodosPago.setCellFactory(lv -> new ListCell<>() {
+            @Override
+            protected void updateItem(MetodoPago item, boolean empty) {
+                super.updateItem(item, empty);
+                setText(empty ? null : item.getDescripcion());
+            }
+        });
+        cbMetodosPago.setButtonCell(new ListCell<>() {
+            @Override
+            protected void updateItem(MetodoPago item, boolean empty) {
+                super.updateItem(item, empty);
+                setText(empty ? null : item.getDescripcion());
+            }
+        });
+
         configurarCatalogo();
     }
 
@@ -149,11 +168,12 @@ public class NuevaCompraController {
     private void finalizarCompra() {
         if (compraTemporal == null) {
             List<Asiento> seleccionados = servicioDibujo.getAsientosSeleccionados();
-            if (seleccionados.isEmpty() || clienteCompra == null) {
-                mostrarAlerta("Error", "Debe seleccionar al menos un asiento y un cliente para finalizar la compra", Alert.AlertType.WARNING);
+            MetodoPago metodoPago = cbMetodosPago.getValue();
+            if (seleccionados.isEmpty() || clienteCompra == null || metodoPago == null) {
+                mostrarAlerta("Error", "Debe seleccionar al menos un asiento, un cliente y un método de pago para finalizar la compra", Alert.AlertType.WARNING);
                 return;
             }
-            compraTemporal = compraController.realizarCompra(clienteCompra, eventoSeleccionado, seleccionados, zonaAsientoMap);
+            compraTemporal = compraController.realizarCompra(clienteCompra, eventoSeleccionado, seleccionados, zonaAsientoMap, metodoPago);
         }
 
         if (compraController.registrarCompra(compraTemporal)) {
@@ -167,13 +187,14 @@ public class NuevaCompraController {
     @FXML
     private void mostrarResumenPreCompra() {
         List<Asiento> seleccionados = servicioDibujo.getAsientosSeleccionados();
-        if (seleccionados.isEmpty() || clienteCompra == null) {
-            mostrarAlerta("Error", "Debe seleccionar al menos un asiento y un cliente para ver el resumen", Alert.AlertType.WARNING);
+        MetodoPago metodoPago = cbMetodosPago.getValue();
+        if (seleccionados.isEmpty() || clienteCompra == null || metodoPago == null) {
+            mostrarAlerta("Error", "Debe seleccionar al menos un asiento, un cliente y un método de pago para ver el resumen", Alert.AlertType.WARNING);
             return;
         }
 
         if (compraTemporal == null) {
-            compraTemporal = compraController.realizarCompra(clienteCompra, eventoSeleccionado, seleccionados, zonaAsientoMap);
+            compraTemporal = compraController.realizarCompra(clienteCompra, eventoSeleccionado, seleccionados, zonaAsientoMap, metodoPago);
         }
 
         try {
@@ -218,8 +239,13 @@ public class NuevaCompraController {
         compraTemporal = null;
         String busqueda = txtBusquedaCliente.getText();
         clienteCompra = clienteController.buscarCliente(busqueda);
+        cbMetodosPago.getItems().clear();
         if(clienteCompra != null){
             txtBusquedaCliente.setText(clienteCompra.getNombreCompleto() + " - Documento: " + clienteCompra.getDocumento());
+            cbMetodosPago.getItems().addAll(clienteCompra.getMetodosPago());
+            if (!cbMetodosPago.getItems().isEmpty()) {
+                cbMetodosPago.getSelectionModel().selectFirst();
+            }
         }
         actualizarResumen();
     }
