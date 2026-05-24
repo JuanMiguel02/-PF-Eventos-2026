@@ -57,4 +57,7 @@ public class Pago {
         return fechaPago;
     }
 
+    public UUID getIdPago() {
+        return idPago;
+    }
 }

@@ -32,6 +32,8 @@
                         <TableColumn fx:id="colId" prefWidth="150.0" text="ID de Compra" />
                         <TableColumn fx:id="colCliente" prefWidth="200.0" text="Cliente" />
                         <TableColumn fx:id="colEvento" prefWidth="150.0" text="Evento" />
+                        <TableColumn fx:id="colReembolsable" prefWidth="100.0" text="Reembolsable" />
+                        <TableColumn fx:id="colEstado" prefWidth="100.0" text="Estado" />
                         <TableColumn fx:id="colFecha" prefWidth="120.0" text="Fecha de Compra" />
                         <TableColumn fx:id="colTotal" prefWidth="100.0" text="Total ($)" />
                     </columns>
@@ -43,6 +45,7 @@
                 <!-- Parte Inferior: Barra de Acciones -->
                 <HBox alignment="CENTER_RIGHT" spacing="15.0" style="-fx-padding: 10;" styleClass="white-bg, shadow">
                     <children>
+                        <Button fx:id="btnReembolsar" disable="true" mnemonicParsing="false" onAction="#reembolsar" styleClass="delete-btn" text="Reembolsar" />
                         <Button fx:id="btnVerDetalles" disable="true" mnemonicParsing="false" onAction="#verDetalles" styleClass="update-btn" text="Ver Detalles / Asignar" />
                         <Button mnemonicParsing="false" onAction="#nuevaCompra" styleClass="add-btn" text="Nueva Compra" />
                     </children>

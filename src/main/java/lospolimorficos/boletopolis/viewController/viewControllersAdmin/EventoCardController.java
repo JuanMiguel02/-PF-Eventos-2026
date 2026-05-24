@@ -21,6 +21,8 @@ public class EventoCardController {
     private Label lblFecha;
     @FXML
     private Label lblLugar;
+    @FXML
+    private Label lblReembolsable;
 
     private Evento evento;
     private Consumer<Evento> onComprarAction;
@@ -34,6 +36,9 @@ public class EventoCardController {
         lblDescripcion.setText(evento.getDescripcion());
         lblFecha.setText(evento.getFechaYHora().format(formatter));
         lblLugar.setText(evento.getCiudad().toString() + ", " + evento.getRecinto().getNombre());
+        
+        lblReembolsable.setVisible(evento.permiteReembolso());
+        lblReembolsable.setManaged(evento.permiteReembolso());
         
         if (evento.getRutaImagen() != null && !evento.getRutaImagen().isEmpty()) {
             try {

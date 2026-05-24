@@ -19,6 +19,7 @@
             <Label fx:id="lblLugar" prefHeight="17.0" prefWidth="154.0" text="Lugar Evento" />
                 <Label fx:id="lblDescripcion" maxHeight="60.0" minHeight="60.0" style="-fx-font-size: 12;" text="Descripción corta del evento..." wrapText="true" />
                 <Label fx:id="lblFecha" style="-fx-font-size: 11; -fx-text-fill: #666;" text="Fecha y Hora" />
+                <Label fx:id="lblReembolsable" style="-fx-font-size: 11; -fx-text-fill: #327252; -fx-font-weight: bold;" text="Reembolsable" visible="false" />
                 <Button mnemonicParsing="false" onAction="#comprarEntrada" prefWidth="230.0" styleClass="add-btn" text="Comprar Entrada" />
             </children>
         </VBox>

@@ -45,6 +45,8 @@
                   </HBox>
                   <Label text="Tipo de Evento:" GridPane.rowIndex="5" />
                   <ComboBox fx:id="cmbTipoEvento" prefWidth="250.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                  <Label text="Permite Reembolso:" GridPane.rowIndex="6" />
+                  <CheckBox fx:id="chkPermiteReembolso" mnemonicParsing="false" GridPane.columnIndex="1" GridPane.rowIndex="6" />
                </children>
             </GridPane>
 

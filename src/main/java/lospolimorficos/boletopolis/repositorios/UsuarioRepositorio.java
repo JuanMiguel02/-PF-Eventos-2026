@@ -76,26 +76,108 @@ public final class UsuarioRepositorio {
         return usuarios.size();
     }
 
-    private void cargarDatosEjemplo(){
+    private void cargarDatosEjemplo() {
 
-        Admin admin1 = new Admin("Sancho", "Panza", "3123213","sancho@boletopolis.com", "412321312", "123456");
-
-        Cliente cliente1 = new Cliente("Paco", "Jones", "42132131", "paquito@gmail.com", "654321", "42132131");
-        CuentaSimulada cuenta1 = new CuentaSimulada(cliente1, 400000000);
-        cliente1.agregarCuenta(cuenta1);
-        MetodoPago metodoPago1 = new PagoTarjeta(cuenta1, "Débito");
-        cliente1.agregarMetodoPago(metodoPago1);
-
-        Cliente cliente2 = new Cliente("Pedro", "El Escamoso", "3124531", "pedrito@gmail.com", "5432142", "3124531");
-        CuentaSimulada cuenta2 = new CuentaSimulada(cliente2, 100000000);
-        cliente2.agregarCuenta(cuenta2);
-        MetodoPago metodoPago2 = new PagoNequi(cuenta2, cliente2.getNumTelefono());
-        cliente2.agregarMetodoPago(metodoPago2);
+        Admin admin1 = new Admin(
+                "Sancho",
+                "Panza",
+                "3123213",
+                "sancho@boletopolis.com",
+                "412321312",
+                "123456"
+        );
 
         registrarUsuario(admin1);
-        registrarUsuario(cliente1);
-        registrarUsuario(cliente2);
 
+        crearClienteEjemplo(
+                "Paco",
+                "Jones",
+                "42132131",
+                "paquito@gmail.com",
+                "654321",
+                400000000,
+                "TARJETA"
+        );
+
+        crearClienteEjemplo(
+                "Pedro",
+                "El Escamoso",
+                "3124531",
+                "pedrito@gmail.com",
+                "5432142",
+                100000000,
+                "NEQUI"
+        );
+
+        crearClienteEjemplo(
+                "Ana",
+                "Martinez",
+                "987654",
+                "ana@gmail.com",
+                "3001112233",
+                5000000,
+                "TARJETA"
+        );
+
+        crearClienteEjemplo(
+                "Laura",
+                "Gomez",
+                "741852",
+                "laura@gmail.com",
+                "3015558899",
+                800000,
+                "NEQUI"
+        );
+
+        crearClienteEjemplo(
+                "Tom",
+                "Yorke",
+                "9876122",
+                "tom@gmail.com",
+                "3201412233",
+                8000000,
+                "TARJETA"
+        );
+
+        crearClienteEjemplo(
+                "Armando",
+                "Casas",
+                "42139123",
+                "casas@gmail.com",
+                "301578879",
+                850000,
+                "NEQUI"
+        );
+
+        crearClienteEjemplo(
+                "Julian",
+                "Casablancas",
+                "09172321",
+                "casablancas@gmail.com",
+                "301578000",
+                9050000,
+                "NEQUI"
+        );
+    }
+
+    private void crearClienteEjemplo(String nombre, String apellido, String documento, String correo, String telefono, double saldoInicial, String tipoPago) {
+
+        Cliente cliente = new Cliente(nombre, apellido, documento, correo, telefono, documento);
+        CuentaSimulada cuenta = new CuentaSimulada(cliente, saldoInicial);
+
+        cliente.agregarCuenta(cuenta);
+
+        MetodoPago metodoPago;
+
+        if(tipoPago.equals("TARJETA")) {
+            metodoPago = new PagoTarjeta(cuenta, "Débito");
+        } else {
+            metodoPago = new PagoNequi(cuenta, telefono);
+        }
+
+        cliente.agregarMetodoPago(metodoPago);
+
+        registrarUsuario(cliente);
     }
 
 }

@@ -30,8 +30,12 @@ public class ResumenCompraController {
     private Compra compra;
 
     public void setCompra(Compra compra) {
+        setCompra(compra, "¡Compra Exitosa!");
+    }
+
+    public void setCompra(Compra compra, String titulo) {
         this.compra = compra;
-        lblTitulo.setText("¡Compra Exitosa!");
+        lblTitulo.setText(titulo);
         actualizarInfo();
 
         flowEntradas.getChildren().clear();

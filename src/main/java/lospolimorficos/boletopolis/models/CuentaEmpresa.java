@@ -1,6 +1,9 @@
 package lospolimorficos.boletopolis.models;
 
 public final class CuentaEmpresa {
+
+    private static final String NUM_CUENTA = "123456789";
+
     private double saldo;
     private static CuentaEmpresa instancia;
 
@@ -29,6 +32,10 @@ public final class CuentaEmpresa {
         }
 
         return false;
+    }
+
+    public String getNumCuenta(){
+        return NUM_CUENTA;
     }
 
 }

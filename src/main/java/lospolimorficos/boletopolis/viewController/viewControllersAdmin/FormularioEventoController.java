@@ -37,6 +37,8 @@ public class FormularioEventoController {
     @FXML
     private ComboBox<String> cmbTipoEvento;
     @FXML
+    private CheckBox chkPermiteReembolso;
+    @FXML
     private ImageView ivImagen;
 
     // Paneles específicos
@@ -142,6 +144,7 @@ public class FormularioEventoController {
             Recinto copiaRecinto = recinto.copiar();
 
             Evento nuevoEvento = eventoController.crearEvento(tipo, especificos, nombre, descripcion, ciudad, fechaHora, copiaRecinto);
+            nuevoEvento.setPermiteReembolso(chkPermiteReembolso.isSelected());
             nuevoEvento.setRutaImagen(rutaImagenSeleccionada);
 
             if (eventoController.registrarEvento(nuevoEvento)) {

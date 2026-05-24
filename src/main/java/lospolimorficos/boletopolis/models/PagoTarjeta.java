@@ -14,6 +14,12 @@ public class PagoTarjeta implements MetodoPago{
         this.tipoTarjeta = tipoTarjeta;
     }
 
+    public PagoTarjeta(CuentaSimulada cuenta, String tipoTarjeta, String numeroTarjeta){
+        this.numeroTarjeta = numeroTarjeta;
+        this.cuenta = cuenta;
+        this.tipoTarjeta = tipoTarjeta;
+    }
+
     private String generarNumeroTarjeta() {
         Random random = new Random();
         StringBuilder numero = new StringBuilder();

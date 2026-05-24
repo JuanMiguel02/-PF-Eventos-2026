@@ -8,17 +8,16 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
 import java.io.IOException;
-import java.net.URL;
 import java.util.Objects;
 
-public class HelloApplication extends Application {
+public class App extends Application {
 
     private double x =0;
     private double y = 0;
 
     @Override
     public void start(Stage stage) throws IOException {
-        Parent root = FXMLLoader.load(Objects.requireNonNull(HelloApplication.class.getResource("/lospolimorficos/boletopolis/views/adminViews/dashboardAdmin.fxml")));
+        Parent root = FXMLLoader.load(Objects.requireNonNull(App.class.getResource("/lospolimorficos/boletopolis/views/adminViews/dashboardAdmin.fxml")));
 
         Scene scene = new Scene(root, 1200,720);
 
@@ -41,7 +40,7 @@ public class HelloApplication extends Application {
 
         stage.initStyle(StageStyle.TRANSPARENT);
 
-        stage.setTitle("Sistema de Gestión de Bicicletas");
+        stage.setTitle("Boletopolis");
         stage.setScene(scene);
         stage.show();
     }
