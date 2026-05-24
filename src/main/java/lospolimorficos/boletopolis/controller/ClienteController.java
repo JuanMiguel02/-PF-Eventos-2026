@@ -2,6 +2,9 @@ package lospolimorficos.boletopolis.controller;
 
 import javafx.collections.ObservableList;
 import lospolimorficos.boletopolis.models.Cliente;
+import lospolimorficos.boletopolis.models.CuentaSimulada;
+import lospolimorficos.boletopolis.models.MetodoPago;
+import lospolimorficos.boletopolis.models.PagoTarjeta;
 import lospolimorficos.boletopolis.repositorios.UsuarioRepositorio;
 
 import java.util.List;
@@ -30,6 +33,12 @@ public class ClienteController {
     }
 
     public boolean registrarCliente(Cliente cliente){
+
+        CuentaSimulada cuentaPrincipal = new CuentaSimulada(cliente, 500000000);
+        cliente.agregarCuenta(cuentaPrincipal);
+        MetodoPago tarjeta = new PagoTarjeta(cuentaPrincipal);
+        cliente.agregarMetodoPago(tarjeta);
+
         return usuarioRepositorio.registrarUsuario(cliente);
     }
 

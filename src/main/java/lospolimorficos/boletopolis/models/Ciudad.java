@@ -5,7 +5,7 @@ public enum Ciudad {
     PEREIRA("Pereira"),
     ;
 
-    private String nombre;
+    private final String nombre;
 
     Ciudad(String nombre) {
         this.nombre = nombre;

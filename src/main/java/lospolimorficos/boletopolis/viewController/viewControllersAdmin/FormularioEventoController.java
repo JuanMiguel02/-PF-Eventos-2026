@@ -1,5 +1,6 @@
 package lospolimorficos.boletopolis.viewController.viewControllersAdmin;
 
+import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
@@ -79,6 +80,20 @@ public class FormularioEventoController {
         cmbTipoEvento.getItems().setAll("Concierto", "Teatro", "Conferencia");
 
         cmbTipoEvento.valueProperty().addListener((obs, oldVal, newVal) -> actualizaCamposEspecificos(newVal));
+
+        cmbCiudad.valueProperty().addListener((obs, anteriorCiudad, nuevaCiudad) -> {
+            if (nuevaCiudad == null) {
+                cmbRecinto.getItems().clear();
+                return;
+            }
+            cmbRecinto.setItems(FXCollections.observableArrayList(recintoController.getRecintos()
+                    .stream().filter(recinto -> recinto.getCiudad() == nuevaCiudad)
+                    .toList()
+            ));
+            cmbRecinto.getSelectionModel().clearSelection();
+        });
+
+
     }
 
     private void actualizaCamposEspecificos(String tipo) {

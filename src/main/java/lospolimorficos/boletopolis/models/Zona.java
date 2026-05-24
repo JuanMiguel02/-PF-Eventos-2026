@@ -39,6 +39,10 @@ public class Zona implements Cloneable {
         return tipoZona.name() + "-" + numero;
     }
 
+    public void setNombre(String nombre){
+        this.nombre = nombre;
+    }
+
     public void agregarAsiento(Asiento asiento) {
         this.asientos.add(asiento);
     }

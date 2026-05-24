@@ -4,6 +4,8 @@ import javafx.collections.ObservableList;
 import lospolimorficos.boletopolis.models.*;
 import lospolimorficos.boletopolis.repositorios.CompraRepositorio;
 import lospolimorficos.boletopolis.repositorios.EventoRepositorio;
+import lospolimorficos.boletopolis.services.ServicioPago;
+
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -60,23 +62,35 @@ public class CompraController {
                 .toList();
     }
 
-    public Compra realizarCompra(Cliente cliente, Evento evento, List<Asiento> asientos, Map<Asiento, Zona> zonaAsientoMap){
-        double total = 0;
+    public Compra realizarCompra(Cliente cliente, Evento evento, List<Asiento> asientos, Map<Asiento, Zona> zonaAsientoMap, MetodoPago metodoPago){
         List<Entrada> entradas = new ArrayList<>();
 
-        for(Asiento asiento: asientos){
-            Zona zona = zonaAsientoMap.get(asiento);
+        double total = 0;
 
+        for(Asiento asiento : asientos){
+            Zona zona = zonaAsientoMap.get(asiento);
+            total += zona.getPrecioZona();
             Entrada entrada = new Entrada(zona, asiento, zona.getPrecioZona(), EstadoEntrada.ACTIVA);
             entradas.add(entrada);
-
-            asiento.setEstado(EstadoAsiento.VENDIDO);
-
         }
         Compra compra = new Compra(cliente, evento);
         compra.setEntradas(entradas);
-        compra.setEstadoCompra(EstadoCompra.PAGADA);
+        Pago pago = new Pago(compra, metodoPago, total);
+        ServicioPago servicioPago = new ServicioPago();
+        boolean pagoExitoso = servicioPago.procesarPago(pago);
+
+        if(!pagoExitoso){
+            return null;
+        }
+
+        compra.setPago(pago);
+
+        for(Asiento asiento : asientos){
+            asiento.setEstado(EstadoAsiento.VENDIDO);
+        }
+
         cliente.agregarCompra(compra);
+        registrarCompra(compra);
         return compra;
     }
 }

@@ -14,6 +14,7 @@ public class Compra {
     private EstadoCompra estadoCompra;
     private List<Entrada> entradas;
     private List<ServicioAdicional> servicios;
+    private Pago pago;
 
     public Compra(Cliente cliente, Evento evento) {
         this.idCompra = UUID.randomUUID();
@@ -39,6 +40,14 @@ public class Compra {
         return entradas.stream()
                 .mapToDouble(Entrada::getPrecioFinal)
                 .sum();
+    }
+
+    public Pago getPago() {
+        return pago;
+    }
+
+    public void setPago(Pago pago) {
+        this.pago = pago;
     }
 
     public double calcularTotalCompra(){

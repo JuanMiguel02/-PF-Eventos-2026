@@ -15,6 +15,7 @@ public abstract class Evento {
     private Recinto recinto;
     private String rutaImagen;
     private List<EventoObserver> observadores = new ArrayList<>();
+    private boolean permiteReembolso;
 
     public Evento(String nombre, String descripcion, Ciudad ciudad, LocalDateTime fechaYHora, Recinto recinto) {
         this.idEvento = UUID.randomUUID();
@@ -24,6 +25,15 @@ public abstract class Evento {
         this.fechaYHora = fechaYHora;
         this.estado = EstadoEvento.BORRADOR;
         this.recinto = recinto;
+        this.permiteReembolso = false;
+    }
+
+    public boolean permiteReembolso() {
+        return permiteReembolso;
+    }
+
+    public void setPermiteReembolso(boolean permiteReembolso) {
+        this.permiteReembolso = permiteReembolso;
     }
 
     public void agregarObservador(EventoObserver observador){

@@ -81,7 +81,7 @@
                         </TableView>
                         <HBox spacing="10.0">
                            <children>
-                              <Button mnemonicParsing="false" onAction="#agregarNuevaZona" styleClass="add-btn" text="Nueva" />
+
                               <Button mnemonicParsing="false" onAction="#actualizarZona" styleClass="update-btn" text="Actualizar" />
                               <Button mnemonicParsing="false" onAction="#eliminarZona" styleClass="delete-btn" text="Eliminar" />
                            </children>

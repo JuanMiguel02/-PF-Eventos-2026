@@ -90,7 +90,7 @@ public class AdaptadorReporteExcel implements ConstructorReporte {
      * Agrega una tabla de datos a la hoja de Excel.
      *
      * @param datos    Lista de arreglos de String que representan las filas y celdas.
-     * @param columnas
+     * @param columnas Lista de nombres de columnas.
      */
     @Override
     public void agregarTabla(List<String[]> datos, List<String> columnas) {
@@ -150,7 +150,7 @@ public class AdaptadorReporteExcel implements ConstructorReporte {
             Picture imagenExcel = dibujo.createPicture(anchor, imagenPosicion);
             imagenExcel.resize();
 
-            // Desplazar filaActual basándonos en el tamaño aproximado de la imagen (aprox 15 filas)
+            // Desplazar filaActual basándonos en el tamaño aproximado de la imagen (aprox. 15 filas)
             filaActual += 20;
 
         }catch (Exception e){

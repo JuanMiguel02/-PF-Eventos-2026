@@ -117,11 +117,6 @@ public class DetalleRecintoController {
     }
 
     @FXML
-    private void agregarNuevaZona() {
-
-    }
-
-    @FXML
     private void regresar() {
         panelMapa.getScene().getWindow().hide();
     }

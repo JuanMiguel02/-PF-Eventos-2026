@@ -43,7 +43,7 @@ public final class RecintoRepositorio {
                 return true;
             }
         }
-        throw new IllegalArgumentException("Usuario no encontrado");
+        throw new IllegalArgumentException("Recinto no encontrado");
     }
 
     public ObservableList<Recinto> getRecintos() {
