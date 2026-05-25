@@ -10,7 +10,7 @@ import lospolimorficos.boletopolis.repositorios.UsuarioRepositorio;
 import java.util.List;
 
 /**
- * Controlador para la gestión de clientes en el sistema Boletopolis.
+ * Controlador para la gestión de clientes en el sistema.
  * Proporciona métodos para filtrar, buscar, registrar, eliminar y actualizar información de clientes.
  * Interactúa con {@link UsuarioRepositorio} para la persistencia de datos.
  */
