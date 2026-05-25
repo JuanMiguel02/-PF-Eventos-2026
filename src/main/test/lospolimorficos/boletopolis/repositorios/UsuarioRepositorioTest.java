@@ -149,10 +149,7 @@ class UsuarioRepositorioTest {
 
         usuarioRepositorio.registrarUsuario(cliente);
 
-        boolean existe =
-                usuarioRepositorio.existeUsuario(
-                        "juan@gmail.com"
-                );
+        boolean existe = usuarioRepositorio.existeUsuario("juan@gmail.com");
 
         assertTrue(existe);
     }
