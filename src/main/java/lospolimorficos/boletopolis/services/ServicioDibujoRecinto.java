@@ -288,11 +288,11 @@ public class ServicioDibujoRecinto {
         Map<PosicionZona, Integer> contadorZonas = new HashMap<>();
 
         for (PlantillaZona pZona : plantillas) {
-            int index = contadorZonas.getOrDefault(pZona.getPosicionZona(), 0);
-            contadorZonas.put(pZona.getPosicionZona(), index + 1);
+            int index = contadorZonas.getOrDefault(pZona.posicionZona(), 0);
+            contadorZonas.put(pZona.posicionZona(), index + 1);
 
-            double[] base = layout.calcularPosicionBaseZona(pZona.getPosicionZona(), escX, escY, escW, escH, index);
-            dibujarZonaGenerica(pZona.getNombre(), pZona.getTipoZona(), pZona.getFilas(), pZona.getColumnas(), base[0], base[1], null);
+            double[] base = layout.calcularPosicionBaseZona(pZona.posicionZona(), escX, escY, escW, escH, index);
+            dibujarZonaGenerica(pZona.nombre(), pZona.tipoZona(), pZona.filas(), pZona.columnas(), base[0], base[1], null);
         }
     }
 

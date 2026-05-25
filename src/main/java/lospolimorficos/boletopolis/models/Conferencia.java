@@ -64,7 +64,7 @@ public class Conferencia extends Evento{
      *
      * @param tema El nuevo tema de la conferencia.
      */
-    public void void setTema(String tema) {
+    public void setTema(String tema) {
         this.tema = tema;
     }
 

@@ -35,7 +35,7 @@ public class RecintoController {
                                   TipoZona tipoSeleccionado) {
         // Paso 1: Filtrar las plantillas de zona para contar cuántas son del tipo seleccionado.
         return plantillas.stream()
-                .filter(z -> z.getTipoZona() == tipoSeleccionado)
+                .filter(z -> z.tipoZona() == tipoSeleccionado)
                 .count(); // Devolver el conteo de zonas que coinciden con el tipo.
     }
 

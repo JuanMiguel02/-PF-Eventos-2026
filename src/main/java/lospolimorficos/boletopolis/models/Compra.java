@@ -15,7 +15,7 @@ public class Compra {
     private final UUID idCompra;
     private Cliente cliente;
     private Evento evento;
-    private final LocalDateTime fechaCompra;
+    private LocalDateTime fechaCompra;
     private EstadoCompra estadoCompra;
     private List<Entrada> entradas;
     private final List<ServicioAdicional> servicios;
@@ -194,6 +194,14 @@ public class Compra {
         this.evento = evento;
     }
 
+    /**
+     * Establece la fecha y hora en que se realizó la compra.
+     *
+     * @param fechaCompra La nueva {@link LocalDateTime} de la compra.
+     */
+    public void setFechaCompra(LocalDateTime fechaCompra) {
+        this.fechaCompra = fechaCompra;
+    }
 
     /**
      * Establece el estado actual de la compra.

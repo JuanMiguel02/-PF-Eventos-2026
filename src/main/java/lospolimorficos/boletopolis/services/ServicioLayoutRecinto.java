@@ -258,12 +258,12 @@ public class ServicioLayoutRecinto {
         // Incluir plantillas de zona
         if (plantillas != null) {
             for (PlantillaZona p : plantillas) {
-                int index = contadores.getOrDefault(p.getPosicionZona(), 0);
-                contadores.put(p.getPosicionZona(), index + 1);
+                int index = contadores.getOrDefault(p.posicionZona(), 0);
+                contadores.put(p.posicionZona(), index + 1);
 
-                double[] base = calcularPosicionBaseZona(p.getPosicionZona(), datosEsc[0], datosEsc[1], datosEsc[2], datosEsc[3], index);
-                double ancho = p.getColumnas() * 12;
-                double alto = p.getFilas() * 12;
+                double[] base = calcularPosicionBaseZona(p.posicionZona(), datosEsc[0], datosEsc[1], datosEsc[2], datosEsc[3], index);
+                double ancho = p.columnas() * 12;
+                double alto = p.filas() * 12;
 
                 minX = Math.min(minX, base[0] - (ancho / 2) - 50);
                 minY = Math.min(minY, base[1] - (alto / 2) - 50);

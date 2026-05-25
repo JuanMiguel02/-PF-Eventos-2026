@@ -3,47 +3,28 @@ package lospolimorficos.boletopolis.plantillas;
 import lospolimorficos.boletopolis.models.PosicionZona;
 import lospolimorficos.boletopolis.models.TipoZona;
 
-public class PlantillaZona {
-    private String nombre;
-    private TipoZona tipoZona;
-    private PosicionZona posicionZona;
-    private int filas;
-    private int columnas;
-    private double precioBase;
+/**
+ * Clase que representa una plantilla para la creación de una zona dentro de un recinto.
+ * Define las características estructurales y de precio de una zona.
+ */
+public record PlantillaZona(String nombre, PosicionZona posicionZona, TipoZona tipoZona, int filas, int columnas, double precioBase) {
+    /**
+     * Constructor para crear una nueva PlantillaZona.
+     *
+     * @param nombre       El nombre de la zona.
+     * @param posicionZona La {@link PosicionZona} de la zona dentro del recinto.
+     * @param tipoZona     El {@link TipoZona} de la zona (e.g., VIP, General).
+     * @param filas        El número de filas de asientos en esta zona.
+     * @param columnas     El número de columnas de asientos en esta zona.
+     * @param precioBase   El precio base de un asiento en esta zona.
+     */
 
-    public PlantillaZona(String nombre, PosicionZona posicion, TipoZona tipoZona, int filas, int columnas, double precioBase) {
-        this.nombre = nombre;
-        this.posicionZona = posicion;
-        this.tipoZona = tipoZona;
-        this.filas = filas;
-        this.columnas = columnas;
-        this.precioBase = precioBase;
-    }
 
-    public String getNombre() {
-        return nombre;
-    }
-
-    public int getFilas() {
-        return filas;
-    }
-
-    public int getColumnas() {
-        return columnas;
-    }
-
-    public double getPrecioBase() {
-        return precioBase;
-    }
-
-    public TipoZona getTipoZona() {
-        return tipoZona;
-    }
-
-    public PosicionZona getPosicionZona() {
-        return posicionZona;
-    }
-
+    /**
+     * Calcula la capacidad total de la zona (número total de asientos).
+     *
+     * @return La capacidad total de la zona.
+     */
     public int calcularCapacidad() {
         return filas * columnas;
     }

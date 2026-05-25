@@ -189,13 +189,13 @@ public class CreacionRecintoController {
 
         // Contamos cuántas zonas hay ya en esa posición para calcular el index de la nueva
         int index = (int) zonasActuales.stream()
-                .filter(z -> z.getPosicionZona() == nuevaZona.getPosicionZona())
+                .filter(z -> z.posicionZona() == nuevaZona.posicionZona())
                 .count();
 
-        double[] base = servicioDibujo.calcularPosicionBaseZona(nuevaZona.getPosicionZona(), escX, escY, escW, escH, index);
+        double[] base = servicioDibujo.calcularPosicionBaseZona(nuevaZona.posicionZona(), escX, escY, escW, escH, index);
 
-        double ancho = nuevaZona.getColumnas() * 12;
-        double alto = nuevaZona.getFilas() * 12;
+        double ancho = nuevaZona.columnas() * 12;
+        double alto = nuevaZona.filas() * 12;
 
         double inicioX = base[0] - ancho / 2;
         double inicioY = base[1] - alto / 2;
@@ -232,7 +232,7 @@ public class CreacionRecintoController {
         );
 
         recinto.setEscenario(new Escenario(cmbEscenario.getValue()));
-        recinto.setCapacidad(calcularCapacidadTotal(plantillaFinal.getZonas()));
+        recinto.setCapacidad(calcularCapacidadTotal(plantillaFinal.zonas()));
         if(recintoController.registrarRecinto(recinto)){
             ServicioAlerta.mostrarAlerta("Éxito", "El recinto: " + recinto.getNombre() + " ha sido registrado éxitosamente", Alert.AlertType.INFORMATION);
         }

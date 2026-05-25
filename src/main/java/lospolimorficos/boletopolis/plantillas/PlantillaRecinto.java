@@ -2,20 +2,16 @@ package lospolimorficos.boletopolis.plantillas;
 
 import java.util.List;
 
-public class PlantillaRecinto {
-    private String nombre;
-    private List<PlantillaZona> zonas;
+/**
+ * Clase que representa una plantilla para la creación de un recinto.
+ * Contiene el nombre del recinto y una lista de plantillas de zona que lo componen.
+ */
+public record PlantillaRecinto(String nombre, List<PlantillaZona> zonas) {
+    /**
+     * Constructor para crear una nueva PlantillaRecinto.
+     *
+     * @param nombre El nombre de la plantilla de recinto.
+     * @param zonas  Una lista de {@link PlantillaZona} que definen las zonas de este recinto.
+     */
 
-    public PlantillaRecinto(String nombre, List<PlantillaZona> zonas) {
-        this.nombre = nombre;
-        this.zonas = zonas;
-    }
-
-    public String getNombre() {
-        return nombre;
-    }
-
-    public List<PlantillaZona> getZonas() {
-        return zonas;
-    }
 }
