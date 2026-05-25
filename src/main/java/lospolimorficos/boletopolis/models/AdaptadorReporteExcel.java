@@ -205,9 +205,9 @@ public class AdaptadorReporteExcel implements ConstructorReporte {
             // Paso 8: Redimensionar la imagen para que se ajuste a su tamaño original.
             imagenExcel.resize();
 
-            // Paso 9: Desplazar el contador de fila actual basándose en un tamaño aproximado de la imagen (20 filas).
+            // Paso 9: Desplazar el contador de fila actual basándose en un tamaño aproximado de la imagen (60 filas).
             // Esto asegura que el contenido posterior no se superponga con la imagen.
-            filaActual += 20;
+            filaActual += 60;
 
         }catch (Exception e){
             // Paso 10: En caso de error, lanzar una RuntimeException con un mensaje descriptivo.

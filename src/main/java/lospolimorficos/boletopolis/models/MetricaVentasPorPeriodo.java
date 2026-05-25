@@ -49,9 +49,9 @@ public class MetricaVentasPorPeriodo implements EstrategiaMetrica{
         // Paso 7: Construir el contenido textual del reporte con las métricas calculadas.
         String contenido =
                 "Período: " + filtro.getFechaInicio().format(formato)+
-                        " - " + filtro.getFechaFin().format(formato) + "\n" +
-                        "Compras realizadas: " + totalCompras + "\n" +
-                        "Entradas vendidas: " + entradasVendidas + "\n" +
+                        " - " + filtro.getFechaFin().format(formato) + " " +
+                        "Compras realizadas: " + totalCompras + " - " +
+                        "Entradas vendidas: " + entradasVendidas + " -  " +
                         "Total vendido: $" + totalVentas;
         // Paso 8: Agregar el contenido textual al constructor del reporte.
         constructor.agregarTexto(contenido);
