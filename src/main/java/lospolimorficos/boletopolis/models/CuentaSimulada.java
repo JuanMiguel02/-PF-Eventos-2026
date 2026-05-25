@@ -24,6 +24,9 @@ public class CuentaSimulada {
     }
 
     public boolean retirar(double monto){
+        if(monto < 0){
+            return false;
+        }
         if(saldo >= monto){
             saldo -= monto;
             return true;

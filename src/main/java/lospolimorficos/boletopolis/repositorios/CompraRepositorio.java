@@ -37,20 +37,15 @@ public final class CompraRepositorio {
         return compras.remove(compra);
     }
 
-    public boolean actualizarCompra(Compra compraActualizada) {
+    public void actualizarCompra(Compra compraActualizada) {
 
         for (int i = 0; i < compras.size(); i++) {
 
-            if (compras.get(i).getIdCompra()
-                    .equals(compraActualizada.getIdCompra())) {
-
+            if (compras.get(i).getIdCompra().equals(compraActualizada.getIdCompra())) {
                 compras.set(i, compraActualizada);
-
-                return true;
             }
         }
 
-        return false;
     }
 
     public int contarCompras(){
