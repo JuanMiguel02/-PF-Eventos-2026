@@ -41,23 +41,37 @@ public class ReporteAdminBase implements Reporte{
      */
     @Override
     public void construirReporte(ConstructorReporte constructorReporte) {
-        // Paso 1: Obtener la fecha actual para incluirla en el título del reporte.
         LocalDate fecha = LocalDate.now();
+        // ======= ENCABEZADO ESTILIZADO =======
+        constructorReporte.agregarTitulo("📊REPORTE OPERATIVO E INDUSTRIAL: BOLETÓPOLIS");
+        constructorReporte.agregarTexto("Fecha de Emisión: " + fecha);
+        constructorReporte.agregarTexto("Generado por: Módulo de Auditoría Automatizado - Grupo 'Los Polimórficos'");
+        constructorReporte.agregarTexto("---------------------------------------------------------------------------------");
 
-        // Paso 2: Agregar un título al reporte con el nombre del sistema y la fecha actual.
-        constructorReporte.agregarTitulo("Reporte Operativo: Boletoplis " + " - Fecha: " + fecha);
-
-        // Paso 3: Obtener el conteo de usuarios, recintos, eventos y compras desde sus respectivos repositorios.
+        // ======= 1. VOLUMETRÍA GENERAL =======
+        constructorReporte.agregarTitulo("1. Inventario de Datos Generales");
         int totalUsuarios = usuarioRepositorio.contarUsuarios();
         int totalRecintos = recintoRepositorio.contarRecintos();
         int totalEventos = eventoRepositorio.contarEventos();
         int totalCompras = compraRepositorio.contarCompras();
 
-        // Paso 4: Agregar cada estadística como una línea de texto al reporte.
-        constructorReporte.agregarTexto("Total de Usuarios: " + totalUsuarios + " ");
-        constructorReporte.agregarTexto("Total de Recintos: " + totalRecintos + " ");
-        constructorReporte.agregarTexto("Total de Eventos: " + totalEventos + " ");
-        constructorReporte.agregarTexto("Total de Compras: " + totalCompras + " ");
+        constructorReporte.agregarTexto("Total de Usuarios Registrados: " + totalUsuarios);
+        constructorReporte.agregarTexto("Total de Recintos Configurados: " + totalRecintos);
+        constructorReporte.agregarTexto("Total de Eventos Históricos: " + totalEventos);
+        constructorReporte.agregarTexto("Transacciones de Compra Procesadas: " + totalCompras);
+
+        // ======= 2. RENDIMIENTO FINANCIERO (STREAMS) =======
+        constructorReporte.agregarTitulo("2. Balance Financiero Simulado");
+
+        // Calcular el dinero total recaudado sumando el total de cada objeto Compra
+        double ingresosTotales = compraRepositorio.getCompras().stream()
+                .mapToDouble(Compra::getTotalCompra)
+                .sum();
+
+        double ticketPromedio = totalCompras > 0 ? (ingresosTotales / totalCompras) : 0.0;
+
+        constructorReporte.agregarTexto(String.format(" Ingresos Brutos Totales: $%,.2f ", ingresosTotales));
+        constructorReporte.agregarTexto(String.format(" Valor del Ticket Promedio de Compra: $%,.2f ", ticketPromedio));
 
     }
 }

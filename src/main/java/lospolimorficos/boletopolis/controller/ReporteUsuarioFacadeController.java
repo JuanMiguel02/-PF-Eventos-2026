@@ -2,11 +2,9 @@ package lospolimorficos.boletopolis.controller;
 
 import javafx.scene.layout.VBox;
 import lospolimorficos.boletopolis.models.*;
-import lospolimorficos.boletopolis.repositorios.CompraRepositorio;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 
 import static lospolimorficos.boletopolis.models.ReporteFactory.crearReporte;
@@ -47,8 +45,8 @@ public class ReporteUsuarioFacadeController {
             EstadoCompra estado
     ) {
 
-        ReporteUsuario reporte =
-                new ReporteUsuario(
+        ReporteCliente reporte =
+                new ReporteCliente(
                         cliente
                 );
 

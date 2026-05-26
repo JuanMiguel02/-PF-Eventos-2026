@@ -13,7 +13,7 @@ import java.util.List;
  * - Evento
  * - Estado
  */
-public class ReporteUsuario implements Reporte {
+public class ReporteCliente implements Reporte {
 
     private final Cliente cliente;
 
@@ -29,7 +29,7 @@ public class ReporteUsuario implements Reporte {
      *
      * @param cliente Cliente dueño del reporte.
      */
-    public ReporteUsuario(
+    public ReporteCliente(
             Cliente cliente
     ) {
 
