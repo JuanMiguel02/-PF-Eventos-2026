@@ -5,13 +5,16 @@ import lospolimorficos.boletopolis.repositorios.EventoRepositorio;
 import lospolimorficos.boletopolis.repositorios.RecintoRepositorio;
 import lospolimorficos.boletopolis.repositorios.UsuarioRepositorio;
 
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
 import java.time.LocalDate;
+import java.util.Locale;
 
 /**
  * Implementación base de la interfaz {@link Reporte} para generar un reporte administrativo.
  * Este reporte incluye información general y estadísticas básicas del sistema.
  */
-public class ReporteAdminBase implements Reporte{
+public class ReporteAdminBase implements Reporte {
 
     private final UsuarioRepositorio usuarioRepositorio;
     private final EventoRepositorio eventoRepositorio;
@@ -20,11 +23,6 @@ public class ReporteAdminBase implements Reporte{
 
     /**
      * Constructor para {@code ReporteAdminBase}.
-     *
-     * @param usuarioRepositorio El repositorio de usuarios para obtener datos de clientes.
-     * @param eventoRepositorio El repositorio de eventos para obtener datos de eventos.
-     * @param recintoRepositorio El repositorio de recintos para obtener datos de recintos.
-     * @param compraRepositorio El repositorio de compras para obtener datos de ventas.
      */
     public ReporteAdminBase(UsuarioRepositorio usuarioRepositorio, EventoRepositorio eventoRepositorio, RecintoRepositorio recintoRepositorio, CompraRepositorio compraRepositorio) {
         this.usuarioRepositorio = usuarioRepositorio;
@@ -42,8 +40,9 @@ public class ReporteAdminBase implements Reporte{
     @Override
     public void construirReporte(ConstructorReporte constructorReporte) {
         LocalDate fecha = LocalDate.now();
+
         // ======= ENCABEZADO ESTILIZADO =======
-        constructorReporte.agregarTitulo("📊REPORTE OPERATIVO E INDUSTRIAL: BOLETÓPOLIS");
+        constructorReporte.agregarTitulo("REPORTE OPERATIVO E INDUSTRIAL: BOLETÓPOLIS");
         constructorReporte.agregarTexto("Fecha de Emisión: " + fecha);
         constructorReporte.agregarTexto("Generado por: Módulo de Auditoría Automatizado - Grupo 'Los Polimórficos'");
         constructorReporte.agregarTexto("---------------------------------------------------------------------------------");
@@ -70,8 +69,29 @@ public class ReporteAdminBase implements Reporte{
 
         double ticketPromedio = totalCompras > 0 ? (ingresosTotales / totalCompras) : 0.0;
 
-        constructorReporte.agregarTexto(String.format(" Ingresos Brutos Totales: $%,.2f ", ingresosTotales));
-        constructorReporte.agregarTexto(String.format(" Valor del Ticket Promedio de Compra: $%,.2f ", ticketPromedio));
+        // CORRECCIÓN PARA PDFBOX: Convertimos los decimales a String plano formateado usando DecimalFormat
+        String ingresosFormateados = formatearMoneda(ingresosTotales);
+        String ticketFormateado = formatearMoneda(ticketPromedio);
 
+        // Pasamos strings limpios y concatenados tradicionalmente para evitar fallos de PDFBox
+        constructorReporte.agregarTexto("Ingresos Brutos Totales: " + ingresosFormateados);
+        constructorReporte.agregarTexto("Valor del Ticket Promedio de Compra: " + ticketFormateado);
+    }
+
+    /**
+     * Formatea un valor numérico a formato moneda estándar sin usar String.format.
+     * Garantiza compatibilidad absoluta con motores de PDF (PDFBox, iText, etc.).
+     * * @param valor Número decimal a formatear.
+     * @return String con formato "$#,##0.00" (ej: $9,050,000.00)
+     */
+    private String formatearMoneda(double valor) {
+        // Forzamos símbolos estándar (punto para decimales, coma para miles) independientemente del SO
+        DecimalFormatSymbols simbolos = new DecimalFormatSymbols(Locale.US);
+        simbolos.setDecimalSeparator('.');
+        simbolos.setGroupingSeparator(',');
+
+        // Definimos el patrón de dos decimales fijos y agrupación de miles
+        DecimalFormat df = new DecimalFormat("$#,##0.00", simbolos);
+        return df.format(valor);
     }
 }
