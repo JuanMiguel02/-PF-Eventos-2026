@@ -51,7 +51,7 @@ public class InicioUsuarioController {
     private void mostrarCompras() {
 
         cargarVista(
-                "/lospolimorficos/boletopolis/view.userViews/comprasUsuario.fxml"
+                "/lospolimorficos/boletopolis/view.userViews/detallesComprasUsuarios.fxml"
         );
     }
 

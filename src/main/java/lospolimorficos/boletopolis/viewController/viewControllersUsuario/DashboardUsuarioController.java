@@ -77,7 +77,7 @@ public class DashboardUsuarioController {
      */
     @FXML
     private void mostrarCompras() {
-        cargarVista("/lospolimorficos/boletopolis/view.userViews/metodosPago.fxml");
+        cargarVista("/lospolimorficos/boletopolis/view.userViews/detallesComprasUsuarios.fxml");
     }
 
     /**

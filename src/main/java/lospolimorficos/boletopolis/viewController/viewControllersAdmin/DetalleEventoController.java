@@ -105,7 +105,7 @@ public class DetalleEventoController {
                         throw new Exception("Recurso no encontrado: " + ruta);
                     }
                 }else{ //Imágenes externas
-                   imagen = new Image(ruta);
+                    imagen = new Image(ruta);
                 }
 
                 ivEvento.setImage(imagen);

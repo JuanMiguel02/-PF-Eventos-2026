@@ -108,15 +108,22 @@ public class ServicioRenderizadorRecinto {
      */
     public void dibujarEtiquetaZona(String nombre, double inicioX, double inicioY, double anchoZona) {
         Label label = new Label(nombre);
+
+        // 1. Forzamos un estilo visual claro para asegurarnos de que no sea invisible por CSS
+        label.setStyle("-fx-text-fill: #333333; -fx-font-weight: bold; -fx-font-size: 12px;");
+
         label.setLayoutY(inicioY - 20);
+
+        // 2. Centrado seguro: Eliminamos el Math.min con el prefWidth inestable del panel.
+        // Simplemente centramos respecto al inicioX y el ancho de la propia zona.
         label.widthProperty().addListener((obs, oldVal, newVal) -> {
             double labelX = (inicioX + anchoZona / 2) - newVal.doubleValue() / 2;
-            label.setLayoutX(Math.max(5, Math.min(labelX, panelMapa.getPrefWidth() - newVal.doubleValue() - 5)));
+            label.setLayoutX(Math.max(5, labelX));
         });
-        label.setLayoutX(inicioX); // Posición inicial antes del listener
+
+        label.setLayoutX(inicioX); // Posición inicial de respaldo
         panelMapa.getChildren().add(label);
     }
-
     /**
      * Crea un objeto {@link Rectangle} que representa visualmente un asiento.
      * El rectángulo se configura con un tamaño fijo y se posiciona

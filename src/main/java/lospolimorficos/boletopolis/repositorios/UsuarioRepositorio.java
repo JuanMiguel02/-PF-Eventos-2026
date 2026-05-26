@@ -238,7 +238,7 @@ public final class UsuarioRepositorio {
         crearClienteEjemplo(
                 "Julian",
                 "Casablancas",
-                "09172321",
+                "12345",
                 "casablancas@gmail.com",
                 "301578000",
                 9050000,
