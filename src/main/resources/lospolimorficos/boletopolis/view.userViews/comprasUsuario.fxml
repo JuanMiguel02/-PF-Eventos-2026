@@ -6,9 +6,42 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="lospolimorficos.boletopolis.viewController.viewControllersAdmin.Usuario.CompraUsuarioController"
-            prefHeight="400.0" prefWidth="600.0">
+<VBox spacing="10" xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="lospolimorficos.boletopolis.viewController.viewControllersUsuario.CompraUsuarioController"
+      prefHeight="600.0" prefWidth="800.0" style="-fx-padding: 20;">
 
-</AnchorPane>
+    <Label fx:id="lblEvento" style="-fx-font-size: 20; -fx-font-weight: bold;"/>
+
+    <HBox spacing="20" VBox.vgrow="ALWAYS">
+        <VBox spacing="10" HBox.hgrow="ALWAYS">
+            <Label text="Seleccione sus asientos:"/>
+            <ScrollPane fitToHeight="true" fitToWidth="true" VBox.vgrow="ALWAYS" style="-fx-background-color: transparent;">
+                <content>
+                    <AnchorPane fx:id="panelMapa" style="-fx-border-color: #ccc; -fx-background-color: white;"/>
+                </content>
+            </ScrollPane>
+        </VBox>
+
+        <VBox spacing="15" prefWidth="250">
+            <Label text="Resumen de Selección" style="-fx-font-weight: bold;"/>
+            <Label fx:id="lblResumen" text="Asientos: 0 | Total: $0.00"/>
+
+            <Separator/>
+
+            <Label text="Método de Pago:"/>
+            <ComboBox fx:id="cbMetodosPago" maxWidth="Infinity"/>
+
+            <CheckBox fx:id="chkNotificaciones" text="Recibir notificaciones del evento" selected="true"/>
+
+            <Button text="Finalizar Compra" onAction="#finalizarCompra" maxWidth="Infinity"
+                    style="-fx-background-color: #4CAF50; -fx-text-fill: white; -fx-font-weight: bold;"/>
+
+            <Separator/>
+
+            <Label text="Tus Entradas:" fx:id="lblTituloEntradas" visible="false"/>
+            <TextArea fx:id="txtResumenEntradas" editable="false" visible="false" prefHeight="200" wrapText="true"/>
+        </VBox>
+    </HBox>
+
+</VBox>

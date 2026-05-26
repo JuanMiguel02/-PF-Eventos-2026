@@ -87,4 +87,9 @@ public class PagoNequi implements MetodoPago {
     public String getDescripcion() {
         return "Nequi asociado al número " + numeroCelular;
     }
+
+    @Override
+    public String toString(){
+        return  getDescripcion();
+    }
 }

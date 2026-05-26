@@ -22,10 +22,10 @@ module lospolimorficos.boletopolis {
     exports lospolimorficos.boletopolis.services;
     exports lospolimorficos.boletopolis.viewController.viewControllersAdmin;
     exports lospolimorficos.boletopolis.plantillas;
-    exports lospolimorficos.boletopolis.viewController.viewControllersAdmin.Usuario;
+    exports lospolimorficos.boletopolis.viewController.viewControllersUsuario;
 
     opens lospolimorficos.boletopolis.controller to javafx.fxml;
     opens lospolimorficos.boletopolis.viewController.viewControllersAdmin to javafx.fxml;
-    opens lospolimorficos.boletopolis.viewController.viewControllersAdmin.Usuario to javafx.fxml;
+    opens lospolimorficos.boletopolis.viewController.viewControllersUsuario to javafx.fxml;
 
 }

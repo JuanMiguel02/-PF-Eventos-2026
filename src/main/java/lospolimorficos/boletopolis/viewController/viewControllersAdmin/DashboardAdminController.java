@@ -16,6 +16,8 @@ import lospolimorficos.boletopolis.controller.EventoController;
 import lospolimorficos.boletopolis.models.Cliente;
 import lospolimorficos.boletopolis.models.Compra;
 import lospolimorficos.boletopolis.models.Evento;
+import lospolimorficos.boletopolis.services.GestorNavegacion;
+import lospolimorficos.boletopolis.services.GestorSesion;
 import lospolimorficos.boletopolis.services.ServicioGeneradorGraficos;
 
 import java.util.Map;
@@ -129,6 +131,12 @@ public class DashboardAdminController {
     public void minimizar() {
         Stage stage = (Stage) contenedorCentro.getScene().getWindow();
         stage.setIconified(true);
+    }
 
+    @FXML
+    public void cerrarSesion() {
+        GestorSesion.getInstancia().cerrarSesion();
+        Stage stage = (Stage) contenedorCentro.getScene().getWindow();
+        GestorNavegacion.cambiarVista(stage, "/lospolimorficos/boletopolis/view.userViews/loginView.fxml");
     }
 }

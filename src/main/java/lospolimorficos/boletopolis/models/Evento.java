@@ -89,6 +89,7 @@ public abstract class Evento {
 
     /**
      * Cambia el estado del evento y notifica a todos los observadores si el estado ha cambiado.
+     * Si el estado es CANCELADO, se reembolsa el dinero a todos los compradores.
      *
      * @param nuevoEstado El nuevo {@link EstadoEvento} para el evento.
      */
@@ -96,6 +97,31 @@ public abstract class Evento {
         if(this.estado != nuevoEstado){
             this.estado = nuevoEstado;
             notificarObservadores();
+
+            if (nuevoEstado == EstadoEvento.CANCELADO) {
+                reembolsarATodos();
+            }
+        }
+    }
+
+    /**
+     * Reembolsa el dinero a todos los clientes que compraron entradas para este evento.
+     */
+    private void reembolsarATodos() {
+        // Obtenemos el repositorio de compras para encontrar todas las compras de este evento.
+        // Nota: CompraRepositorio es un singleton.
+        lospolimorficos.boletopolis.repositorios.CompraRepositorio repo =
+                lospolimorficos.boletopolis.repositorios.CompraRepositorio.getInstancia();
+
+        lospolimorficos.boletopolis.services.ServicioCompra servicioCompra =
+                new lospolimorficos.boletopolis.services.ServicioCompra();
+
+        for (Compra compra : repo.getCompras()) {
+            if (compra.getEvento().getIdEvento().equals(this.idEvento) &&
+                    compra.getEstadoCompra() == EstadoCompra.PAGADA) {
+                servicioCompra.reembolsarCompra(compra);
+                repo.actualizarCompra(compra);
+            }
         }
     }
 

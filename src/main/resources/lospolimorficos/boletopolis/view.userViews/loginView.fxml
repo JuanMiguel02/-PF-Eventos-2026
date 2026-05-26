@@ -10,7 +10,23 @@
             stylesheets="@../styles/login.css"
             xmlns="http://javafx.com/javafx/17"
             xmlns:fx="http://javafx.com/fxml"
-            fx:controller="lospolimorficos.boletopolis.viewController.viewControllersAdmin.Usuario.LoginController">
+            fx:controller="lospolimorficos.boletopolis.viewController.viewControllersUsuario.LoginController">
+
+    <top>
+        <HBox alignment="CENTER_RIGHT" prefHeight="40.0" spacing="0">
+            <Button onAction="#minimizar"
+                    styleClass="minimize-button"
+                    text="—"
+                    prefHeight="40.0"
+                    prefWidth="45.0"/>
+
+            <Button onAction="#cerrar"
+                    styleClass="close-button"
+                    text="✕"
+                    prefHeight="40.0"
+                    prefWidth="45.0"/>
+        </HBox>
+    </top>
 
     <left>
         <VBox alignment="CENTER"

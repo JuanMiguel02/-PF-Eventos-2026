@@ -165,6 +165,34 @@
 }
 
 .primary-button:hover {
-
     -fx-background-color: #25664A;
+}
+
+/* =========================
+   WINDOW CONTROLS
+========================= */
+
+.close-button {
+    -fx-background-color: transparent;
+    -fx-text-fill: #163A36;
+    -fx-font-size: 14px;
+    -fx-cursor: hand;
+    -fx-background-radius: 0;
+}
+
+.close-button:hover {
+    -fx-background-color: #e81123;
+    -fx-text-fill: white;
+}
+
+.minimize-button {
+    -fx-background-color: transparent;
+    -fx-text-fill: #163A36;
+    -fx-font-size: 14px;
+    -fx-cursor: hand;
+    -fx-background-radius: 0;
+}
+
+.minimize-button:hover {
+    -fx-background-color: #e5e5e5;
 }

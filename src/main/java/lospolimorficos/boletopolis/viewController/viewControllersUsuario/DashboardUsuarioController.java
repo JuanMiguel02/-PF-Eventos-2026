@@ -1,4 +1,4 @@
-package lospolimorficos.boletopolis.viewController.viewControllersAdmin.Usuario;
+package lospolimorficos.boletopolis.viewController.viewControllersUsuario;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -105,6 +105,23 @@ public class DashboardUsuarioController {
         Stage stage = (Stage) contentPane.getScene().getWindow();
 
         GestorNavegacion.cambiarVista(stage, "/lospolimorficos/boletopolis/view.userViews/loginView.fxml");
+    }
+
+    /**
+     * Minimiza la ventana.
+     */
+    @FXML
+    private void minimizar() {
+        Stage stage = (Stage) contentPane.getScene().getWindow();
+        stage.setIconified(true);
+    }
+
+    /**
+     * Cierra la aplicación.
+     */
+    @FXML
+    private void cerrar() {
+        System.exit(0);
     }
 
     /**

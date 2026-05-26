@@ -1,4 +1,4 @@
-package lospolimorficos.boletopolis.viewController.viewControllersAdmin.Usuario;
+package lospolimorficos.boletopolis.viewController.viewControllersUsuario;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.PasswordField;
@@ -118,5 +118,15 @@ public class LoginController {
         }
 
         mostrandoPassword = !mostrandoPassword;
+    }
+    @FXML
+    public void cerrar() {
+        System.exit(0);
+    }
+
+    @FXML
+    public void minimizar() {
+        Stage stage = (Stage) txtCorreo.getScene().getWindow();
+        stage.setIconified(true);
     }
 }

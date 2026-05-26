@@ -91,4 +91,9 @@ public class PagoTarjeta implements MetodoPago{
     public String getDescripcion() {
         return "Tarjeta " + tipoTarjeta + " terminada en " + numeroTarjeta.substring(numeroTarjeta.length() -4 );
     }
+
+    @Override
+    public String toString(){
+        return  getDescripcion();
+    }
 }

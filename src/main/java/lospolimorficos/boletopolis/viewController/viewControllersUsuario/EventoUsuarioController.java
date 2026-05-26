@@ -1,8 +1,10 @@
-package lospolimorficos.boletopolis.viewController.viewControllersAdmin.Usuario;
+package lospolimorficos.boletopolis.viewController.viewControllersUsuario;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.layout.FlowPane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 
 import lospolimorficos.boletopolis.models.Evento;
@@ -73,10 +75,28 @@ public class EventoUsuarioController {
      * @param evento Evento seleccionado.
      */
     private void comprarEvento(Evento evento) {
+        if (evento == null) return;
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/lospolimorficos/boletopolis/view.userViews/comprasUsuario.fxml"));
+            Parent vistaCompra = loader.load();
 
-        System.out.println(
-                "Comprar evento: "
-                        + evento.getNombre()
-        );
+            CompraUsuarioController controller = loader.getController();
+            controller.setEvento(evento);
+
+            if (flowEventos.getScene() != null) {
+                StackPane contentPane = (StackPane) flowEventos.getScene().lookup("#contentPane");
+                if (contentPane != null) {
+                    contentPane.getChildren().clear();
+                    contentPane.getChildren().add(vistaCompra);
+                } else {
+                    System.err.println("[DEBUG_LOG] No se encontró contentPane en la escena");
+                }
+            } else {
+                System.err.println("[DEBUG_LOG] La escena es nula en EventoUsuarioController");
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+            lospolimorficos.boletopolis.services.ServicioAlerta.mostrarAlertaError("No se pudo cargar la vista de compra.");
+        }
     }
 }

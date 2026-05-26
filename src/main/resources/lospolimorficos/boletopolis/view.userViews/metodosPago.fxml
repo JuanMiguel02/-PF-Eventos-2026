@@ -6,9 +6,31 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="lospolimorficos.boletopolis.viewController.viewControllersAdmin.Usuario.MetodosPagoController"
-            prefHeight="400.0" prefWidth="600.0">
+<VBox xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="lospolimorficos.boletopolis.viewController.viewControllersUsuario.MetodosPagoController"
+      spacing="20" style="-fx-padding: 20;">
 
-</AnchorPane>
+    <Label text="Mis Métodos de Pago" style="-fx-font-size: 20; -fx-font-weight: bold;"/>
+
+    <HBox spacing="20" VBox.vgrow="ALWAYS">
+        <VBox spacing="10" HBox.hgrow="ALWAYS">
+            <Label text="Métodos Guardados" style="-fx-font-weight: bold;"/>
+            <ListView fx:id="listMetodosPago" VBox.vgrow="ALWAYS"/>
+            <Button text="Eliminar Método" onAction="#eliminarMetodoPago" style="-fx-background-color: #e74c3c; -fx-text-fill: white;"/>
+        </VBox>
+
+        <VBox spacing="10" HBox.hgrow="ALWAYS">
+            <Label text="Historial de Compras" style="-fx-font-weight: bold;"/>
+            <TableView fx:id="tblHistorialCompras" VBox.vgrow="ALWAYS">
+                <columns>
+                    <TableColumn fx:id="colEvento" text="Evento" prefWidth="150"/>
+                    <TableColumn fx:id="colFecha" text="Fecha" prefWidth="100"/>
+                    <TableColumn fx:id="colTotal" text="Total" prefWidth="80"/>
+                    <TableColumn fx:id="colEstado" text="Estado" prefWidth="100"/>
+                </columns>
+            </TableView>
+        </VBox>
+    </HBox>
+
+</VBox>
