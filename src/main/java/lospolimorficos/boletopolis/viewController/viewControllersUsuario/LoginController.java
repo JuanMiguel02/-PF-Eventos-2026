@@ -129,4 +129,13 @@ public class LoginController {
         Stage stage = (Stage) txtCorreo.getScene().getWindow();
         stage.setIconified(true);
     }
+
+    @FXML
+    private void handleRegistrar() {
+        Stage stage = (Stage) txtCorreo.getScene().getWindow();
+        GestorNavegacion.cambiarVista(
+                stage,
+                "/lospolimorficos/boletopolis/view.userViews/registroCliente.fxml"
+        );
+    }
 }

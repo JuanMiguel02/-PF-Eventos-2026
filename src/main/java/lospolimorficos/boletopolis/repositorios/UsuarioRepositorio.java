@@ -122,6 +122,19 @@ public final class UsuarioRepositorio {
     }
 
     /**
+     * Busca un usuario por su correo electrónico.
+     *
+     * @param correo El correo electrónico del usuario a buscar.
+     * @return El objeto {@link Usuario} si se encuentra, o {@code null} si no.
+     */
+    public Usuario buscarPorCorreo(String correo) {
+        return usuarios.stream()
+                .filter(usuario -> usuario.getCorreo().equals(correo))
+                .findFirst()
+                .orElse(null);
+    }
+
+    /**
      * Busca un usuario (cliente) por su correo electrónico o número de documento.
      *
      * @param busqueda El correo electrónico o número de documento del cliente a buscar.

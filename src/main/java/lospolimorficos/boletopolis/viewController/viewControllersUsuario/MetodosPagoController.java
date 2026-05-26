@@ -37,7 +37,7 @@ public class MetodosPagoController {
     }
 
     private void configurarTablas() {
-        if (colEvento == null) return; // Guard against FXML injection issues if any
+        if (colEvento == null) return;
 
         colEvento.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getEvento().getNombre()));
         colFecha.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getFechaCompra().toString()));

@@ -36,10 +36,10 @@ public class EventoCardController {
         lblDescripcion.setText(evento.getDescripcion());
         lblFecha.setText(evento.getFechaYHora().format(formatter));
         lblLugar.setText(evento.getCiudad().toString() + ", " + evento.getRecinto().getNombre());
-        
+
         lblReembolsable.setVisible(evento.permiteReembolso());
         lblReembolsable.setManaged(evento.permiteReembolso());
-        
+
         if (evento.getRutaImagen() != null && !evento.getRutaImagen().isEmpty()) {
             try {
                 String ruta = evento.getRutaImagen();
@@ -56,6 +56,9 @@ public class EventoCardController {
                     imagen = new Image(ruta);
                 }
                 ivImagen.setImage(imagen);
+                System.out.println("SET EVENTO");
+                System.out.println(lblNombre);
+                System.out.println(evento.getNombre());
             } catch (Exception e) {
                 System.err.println("No se pudo cargar la imagen en la tarjeta: " + e.getMessage());
             }

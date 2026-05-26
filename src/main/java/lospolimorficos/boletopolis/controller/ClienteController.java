@@ -1,10 +1,7 @@
 package lospolimorficos.boletopolis.controller;
 
 import javafx.collections.ObservableList;
-import lospolimorficos.boletopolis.models.Cliente;
-import lospolimorficos.boletopolis.models.CuentaSimulada;
-import lospolimorficos.boletopolis.models.MetodoPago;
-import lospolimorficos.boletopolis.models.PagoTarjeta;
+import lospolimorficos.boletopolis.models.*;
 import lospolimorficos.boletopolis.repositorios.UsuarioRepositorio;
 
 import java.util.List;
@@ -57,6 +54,10 @@ public class ClienteController {
     public Cliente buscarCliente(String busqueda){
         // Delega la búsqueda al repositorio de usuarios.
         return usuarioRepositorio.buscarUsuario(busqueda);
+    }
+
+    public Usuario buscarPorCorreo(String correo){
+       return usuarioRepositorio.buscarPorCorreo(correo);
     }
 
     /**

@@ -89,6 +89,7 @@
                         styleClass="btn-login"/>
 
                 <Button text="Registrarse"
+                        onAction="#handleRegistrar"
                         styleClass="btn-register"/>
 
             </VBox>

@@ -77,7 +77,7 @@ public class DashboardUsuarioController {
      */
     @FXML
     private void mostrarCompras() {
-        cargarVista("/lospolimorficos/boletopolis/view.userViews/comprasUsuario.fxml");
+        cargarVista("/lospolimorficos/boletopolis/view.userViews/metodosPago.fxml");
     }
 
     /**
@@ -141,7 +141,7 @@ public class DashboardUsuarioController {
             }
             contentPane.getChildren().clear();
             contentPane.getChildren().add(vista);
-        } catch (IOException e) {e.printStackTrace();
+        } catch (IOException e) {System.err.println(e.getMessage());
         }
     }
 }

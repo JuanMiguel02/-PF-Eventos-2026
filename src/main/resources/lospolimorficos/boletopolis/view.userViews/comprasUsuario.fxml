@@ -1,47 +1,96 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<VBox spacing="10" xmlns="http://javafx.com/javafx"
-      xmlns:fx="http://javafx.com/fxml"
-      fx:controller="lospolimorficos.boletopolis.viewController.viewControllersUsuario.CompraUsuarioController"
-      prefHeight="600.0" prefWidth="800.0" style="-fx-padding: 20;">
+<VBox prefHeight="700.0" prefWidth="1200.0" spacing="15" style="-fx-padding: 20; -fx-background-color: #F5F5F5;" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lospolimorficos.boletopolis.viewController.viewControllersUsuario.CompraUsuarioController">
 
-    <Label fx:id="lblEvento" style="-fx-font-size: 20; -fx-font-weight: bold;"/>
+    <!-- PANEL DERECHO -->
+    <VBox prefWidth="420"
+          spacing="15"
+          style="-fx-background-color: white;
+             -fx-padding: 18;
+             -fx-background-radius: 15;
+             -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.08), 10,0,0,2);">
 
-    <HBox spacing="20" VBox.vgrow="ALWAYS">
-        <VBox spacing="10" HBox.hgrow="ALWAYS">
-            <Label text="Seleccione sus asientos:"/>
-            <ScrollPane fitToHeight="true" fitToWidth="true" VBox.vgrow="ALWAYS" style="-fx-background-color: transparent;">
-                <content>
-                    <AnchorPane fx:id="panelMapa" style="-fx-border-color: #ccc; -fx-background-color: white;"/>
-                </content>
-            </ScrollPane>
-        </VBox>
+        <!-- RESUMEN -->
+        <Label text="Resumen de Selección"
+               style="-fx-font-size: 16;
+                  -fx-font-weight: bold;
+                  -fx-text-fill: #163A36;" />
 
-        <VBox spacing="15" prefWidth="250">
-            <Label text="Resumen de Selección" style="-fx-font-weight: bold;"/>
-            <Label fx:id="lblResumen" text="Asientos: 0 | Total: $0.00"/>
+        <Label fx:id="lblResumen"
+               text="Asientos: 0 | Total: $0.00"
+               style="-fx-font-size: 14;" />
 
-            <Separator/>
+        <Separator />
 
-            <Label text="Método de Pago:"/>
-            <ComboBox fx:id="cbMetodosPago" maxWidth="Infinity"/>
+        <!-- MÉTODO PAGO -->
+        <Label text="Método de Pago:"
+               style="-fx-font-weight: bold;" />
 
-            <CheckBox fx:id="chkNotificaciones" text="Recibir notificaciones del evento" selected="true"/>
+        <ComboBox fx:id="cbMetodosPago"
+                  maxWidth="Infinity" />
 
-            <Button text="Finalizar Compra" onAction="#finalizarCompra" maxWidth="Infinity"
-                    style="-fx-background-color: #4CAF50; -fx-text-fill: white; -fx-font-weight: bold;"/>
+        <CheckBox fx:id="chkNotificaciones"
+                  selected="true"
+                  text="Recibir notificaciones del evento" />
 
-            <Separator/>
+        <!-- BOTÓN -->
+        <Button text="Finalizar Compra"
+                maxWidth="Infinity"
+                onAction="#finalizarCompra"
+                style="-fx-background-color: #2E7D5A;
+                   -fx-text-fill: white;
+                   -fx-font-weight: bold;
+                   -fx-font-size: 14;
+                   -fx-background-radius: 10;
+                   -fx-padding: 10;" />
 
-            <Label text="Tus Entradas:" fx:id="lblTituloEntradas" visible="false"/>
-            <TextArea fx:id="txtResumenEntradas" editable="false" visible="false" prefHeight="200" wrapText="true"/>
-        </VBox>
-    </HBox>
+        <Separator />
 
-</VBox>
+        <!-- TABLA AFORO -->
+        <Label text="Aforo por Zona"
+               style="-fx-font-size: 17;
+                  -fx-font-weight: bold;
+                  -fx-text-fill: #163A36;" />
+
+        <TableView fx:id="tablaAforo"
+                   prefHeight="300"
+                   prefWidth="380"
+                   style="-fx-font-size: 14;">
+
+            <columns>
+
+                <TableColumn fx:id="colZonaNombre"
+                             prefWidth="160"
+                             text="Zona" />
+
+                <TableColumn fx:id="colOcupacion"
+                             prefWidth="100"
+                             text="Ocupados" />
+
+                <TableColumn fx:id="colZonaCapacidad"
+                             prefWidth="120"
+                             text="Capacidad" />
+
+            </columns>
+
+        </TableView>
+
+        <Separator />
+
+        <!-- ENTRADAS -->
+        <Label fx:id="lblTituloEntradas"
+               text="Tus Entradas:"
+               visible="false"
+               style="-fx-font-size: 15;
+                  -fx-font-weight: bold;" />
+
+        <TextArea fx:id="txtResumenEntradas"
+                  editable="false"
+                  prefHeight="180"
+                  visible="false"
+                  wrapText="true" />
+
+    </VBox>
