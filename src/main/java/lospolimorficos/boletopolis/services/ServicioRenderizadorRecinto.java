@@ -68,21 +68,28 @@ public class ServicioRenderizadorRecinto {
         double escW = datos[2];
         double escH = datos[3];
 
+        // 1. Dibujar el rectángulo del escenario
         Rectangle rect = new Rectangle(escW, escH);
         rect.setStyle("-fx-fill: #575252;");
         rect.setLayoutX(escX);
         rect.setLayoutY(escY);
 
+        // 2. Crear la etiqueta de texto
         Label labelEscenario = new Label("Escenario");
-        labelEscenario.setLayoutY(escY - 20);
-        labelEscenario.widthProperty().addListener((obs, oldVal, newVal) -> {
-            labelEscenario.setLayoutX((escX + escW / 2) - newVal.doubleValue() / 2);
-        });
-        labelEscenario.setLayoutX(escX); // Posición inicial antes del listener
+        labelEscenario.setStyle("-fx-font-weight: bold; -fx-text-fill: #333333;");
+        labelEscenario.setLayoutY(escY - 20); // 20 píxeles por encima del rectángulo
 
+        // 3. Añadirlos de inmediato al panel
         panelMapa.getChildren().addAll(rect, labelEscenario);
-    }
 
+        // 4.   Calcular el centro real una vez el nodo existe en el grafo de escena
+        javafx.application.Platform.runLater(() -> {
+            double anchoTexto = labelEscenario.getWidth();
+            // Fórmula matemática exacta del centro geométrico del escenario:
+            double centroX = escX + (escW / 2.0) - (anchoTexto / 2.0);
+            labelEscenario.setLayoutX(centroX);
+        });
+    }
     /**
      * <p><b>Dibuja una etiqueta con el nombre de la zona en el panel.</b></p>
      *

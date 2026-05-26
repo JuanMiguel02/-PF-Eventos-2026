@@ -107,6 +107,11 @@
                           -fx-font-weight: bold;
                           -fx-text-fill: #163A36;"/>
 
+            <Label text="*Doble clic sobre algún elemento de la tabla para conocer sus detalles"
+                   style="-fx-font-size: 14px;
+                          -fx-font-weight: bold;
+                          -fx-text-fill: #163A36;"/>
+
             <TableView fx:id="tablaCompras"
                        VBox.vgrow="ALWAYS">
 

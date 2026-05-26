@@ -86,6 +86,31 @@ public class EventoController {
                 .toList();
     }
 
+    public List<Evento> filtrarPorNombreYTipo(List<Evento> eventos, String filtroTexto, String tipoSubclase) {
+        // Si no hay filtros activos, retornamos la lista completa de inmediato
+        String textoLimpio = (filtroTexto == null) ? "" : filtroTexto.trim().toLowerCase();
+        boolean filtrarTipo = (tipoSubclase != null && !tipoSubclase.equalsIgnoreCase("Todos"));
+
+        return eventos.stream()
+                .filter(evento -> {
+                    // Filtro 1: El nombre debe contener la cadena de búsqueda
+                    return evento.getNombre().toLowerCase().contains(textoLimpio);
+                })
+                .filter(evento -> {
+                    // Filtro 2: Coincidencia por subclase (si no se seleccionó "Todos")
+                    if (!filtrarTipo) {
+                        return true;
+                    }
+
+                    // Obtenemos el nombre simple de la clase (ej: "Concierto", "ObraTeatro", "Conferencia")
+                    String nombreClaseConcreta = evento.getClass().getSimpleName().toLowerCase();
+
+                    // Evaluamos si el nombre de la clase contiene la palabra clave (ej: "teatro" calza en "obrateatro")
+                    return nombreClaseConcreta.contains(tipoSubclase.toLowerCase());
+                })
+                .toList();
+    }
+
     /**
      * Registra un nuevo evento en el sistema.
      *

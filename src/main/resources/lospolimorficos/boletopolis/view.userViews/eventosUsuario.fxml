@@ -1,10 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ScrollPane?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.FlowPane?>
-<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
 
 <AnchorPane prefHeight="700.0"
             prefWidth="1000.0"
@@ -14,7 +11,6 @@
             fx:controller="lospolimorficos.boletopolis.viewController.viewControllersUsuario.EventoUsuarioController">
 
     <children>
-
         <VBox spacing="20.0"
               styleClass="content-panel"
               AnchorPane.topAnchor="0.0"
@@ -23,33 +19,30 @@
               AnchorPane.rightAnchor="0.0">
 
             <children>
+                <Label text="Eventos Disponibles" styleClass="header-title"/>
 
-                <!-- TITULO -->
-                <Label text="Eventos Disponibles"
-                       styleClass="header-title"/>
+                <HBox spacing="15.0" alignment="CENTER_LEFT" style="-fx-background-color: #FFFFFF; -fx-padding: 10; -fx-background-radius: 8; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.05), 5, 0, 0, 1);">
+                    <children>
+                        <Label text="Buscar por Nombre:" style="-fx-font-weight: bold; -fx-text-fill: #163A36;"/>
+                        <TextField fx:id="txtBuscarNombre" promptText="Escribe el nombre del evento..." prefWidth="250.0" onKeyReleased="#aplicarFiltros"/>
 
-                <!-- CONTENEDOR SCROLL -->
+                        <Label text="Tipo de Evento:" style="-fx-font-weight: bold; -fx-text-fill: #163A36;"/>
+                        <ComboBox fx:id="cmbBuscarTipo" prefWidth="180.0" onAction="#aplicarFiltros"/>
+                    </children>
+                </HBox>
+
                 <ScrollPane fitToWidth="true"
                             VBox.vgrow="ALWAYS"
                             style="-fx-background-color: transparent;
                                    -fx-background: transparent;">
-
                     <content>
-
-                        <!-- FLOW DE EVENTOS -->
                         <FlowPane fx:id="flowEventos"
                                   hgap="20"
                                   vgap="20"
                                   prefWrapLength="900"/>
-
                     </content>
-
                 </ScrollPane>
-
             </children>
-
         </VBox>
-
     </children>
-
 </AnchorPane>
