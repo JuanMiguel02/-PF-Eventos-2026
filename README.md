@@ -82,8 +82,8 @@ lospolimorficos.boletopolis
  └── viewController      # Controladores de Interfaz de Usuario ligados a las vistas JavaFX
       ├── viewControllersAdmin    # Flujos de pantalla exclusivos para el rol de administrador
       └── viewControllersUsuario  # Flujos de compra, mapa del recinto interactivo y edición de perfil del cliente
-       └── viewControllersUsuario  # Flujos de compartidos entre los dos perfiles
-
+       └── viewControllersCompartidos  # Flujos de compartidos entre los dos perfiles
+```
  ## 🛠️ Requisitos Técnicos y Tecnologías
  Lenguaje Base: Java 21 LTS o superior.
 
@@ -96,7 +96,7 @@ lospolimorficos.boletopolis
  ## 💻 Instrucciones para la Ejecución Local
  1. Clonar el repositorio
 ```bash
- git clone [https://github.com/JuanMiguel02/-PF-Eventos-2026.git](https://github.com/JuanMiguel02/-PF-Eventos-2026.git)
+ git clone https://github.com/JuanMiguel02/-PF-Eventos-2026
 ```
 
  2. Importar el Proyecto: Abre tu IDE (se recomienda IntelliJ IDEA) y selecciona "Open" apuntando al directorio raíz clonado.
