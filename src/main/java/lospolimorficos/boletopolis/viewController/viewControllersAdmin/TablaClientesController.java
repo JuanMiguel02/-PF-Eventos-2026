@@ -94,12 +94,12 @@ public class TablaClientesController {
             String telefono = txtTelefonoCliente.getText();
             String correo = txtCorreoCliente.getText();
 
-            Cliente cliente = new Cliente(nombre, apellido, correo, telefono, "123456", documento);
+            Cliente cliente = new Cliente(nombre, apellido, documento, correo, telefono, documento);
 
             if(clienteController.registrarCliente(cliente)){
 
                 mostrarAlerta("Éxito", "Cliente: " + cliente.getNombreCompleto()
-                        + " " + cliente.getDocumento() + " Registrado Éxitosamente", Alert.AlertType.INFORMATION);
+                        + " " + cliente.getDocumento() + " Registrado Éxitosamente - Actualice su contraseña al ingresar a la plataforma, su contraseña es su número de documento", Alert.AlertType.INFORMATION);
                 limpiarCampos();
                 cargarClientes();
             }else{

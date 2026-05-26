@@ -10,7 +10,6 @@ import javafx.stage.Stage;
 import lospolimorficos.boletopolis.models.Compra;
 import lospolimorficos.boletopolis.models.Entrada;
 import lospolimorficos.boletopolis.models.ServicioAdicional;
-import lospolimorficos.boletopolis.viewController.viewControllersAdmin.EntradaCardController;
 
 import java.io.IOException;
 import java.util.ArrayList;

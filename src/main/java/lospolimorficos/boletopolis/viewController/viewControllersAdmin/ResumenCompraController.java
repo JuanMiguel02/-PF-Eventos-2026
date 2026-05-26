@@ -9,6 +9,7 @@ import javafx.scene.layout.VBox;
 import lospolimorficos.boletopolis.models.Compra;
 import lospolimorficos.boletopolis.models.Entrada;
 import lospolimorficos.boletopolis.models.ServicioAdicional;
+import lospolimorficos.boletopolis.viewController.viewControllersCompartidos.EntradaCardController;
 
 import java.io.IOException;
 

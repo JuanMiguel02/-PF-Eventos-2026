@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.geometry.Insets?>
 
-<AnchorPane prefWidth="300.0" styleClass="white-bg, shadow" stylesheets="@../../styles/dashboardAdmin.css" xmlns="http://javafx.com/javafx/24.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lospolimorficos.boletopolis.viewController.viewControllersAdmin.EntradaCardController">
+<AnchorPane prefWidth="300.0" styleClass="white-bg, shadow" stylesheets="@../../styles/dashboardAdmin.css" xmlns="http://javafx.com/javafx/24.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lospolimorficos.boletopolis.viewController.viewControllersCompartidos.EntradaCardController">
    <children>
       <VBox spacing="5.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
          <children>

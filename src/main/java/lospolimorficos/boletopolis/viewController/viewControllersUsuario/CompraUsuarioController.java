@@ -11,11 +11,13 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import lospolimorficos.boletopolis.controller.CompraController;
 import lospolimorficos.boletopolis.models.*;
+import lospolimorficos.boletopolis.services.GestorNavegacion;
 import lospolimorficos.boletopolis.services.GestorSesion;
 import lospolimorficos.boletopolis.services.ServicioAlerta;
 import lospolimorficos.boletopolis.services.ServicioDibujoRecinto;
@@ -165,6 +167,14 @@ public class CompraUsuarioController {
 
                 // 5. Bloquear la pantalla principal hasta que cierre esta
                 ventanaServicios.showAndWait();
+                if (panelMapa.getScene() != null) {
+                    // 1. Buscamos el contenedor interno
+                    StackPane contentPane = (StackPane) panelMapa.getScene().lookup("#contentPane");
+
+                    // 2.  Delegamos la responsabilidad al Gestor de Navegación centralizado
+                    GestorNavegacion.cambiarVistaInterna(contentPane, "/lospolimorficos/boletopolis/view.userViews/eventosUsuario.fxml");
+                }
+
 
             } catch (IOException e) {
                 System.err.println("Error al cargar la vista de servicios adicionales: " + e.getMessage());
