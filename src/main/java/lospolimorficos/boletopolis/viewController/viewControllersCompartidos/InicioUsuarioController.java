@@ -1,4 +1,4 @@
-package lospolimorficos.boletopolis.viewController.viewControllersUsuario;
+package lospolimorficos.boletopolis.viewController.viewControllersCompartidos;
 
 
 import javafx.fxml.FXML;

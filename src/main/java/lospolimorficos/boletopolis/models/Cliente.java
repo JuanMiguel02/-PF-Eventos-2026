@@ -39,6 +39,9 @@ public class Cliente extends Usuario implements EventoObserver{
     public void actualizarEvento(Evento evento, EstadoEvento nuevoEstado) {
         String mensaje = "El evento " + evento.getNombre() +
                 " ahora está en estado: " + nuevoEstado;
+        if(nuevoEstado == EstadoEvento.CANCELADO){
+            mensaje += " (El valor de su compra ha sido reembolsado)";
+        }
         notificaciones.add(mensaje);
         System.out.println("Notificación para " + getNombreCompleto() + ": " + mensaje);
     }

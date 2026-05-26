@@ -93,10 +93,8 @@ public class DetalleEventoController {
 
         if (evento.getRutaImagen() != null && !evento.getRutaImagen().isEmpty()) {
             try {
-
                 String ruta = evento.getRutaImagen();
                 Image imagen;
-                //Imágenes internas
                 if(ruta.startsWith("/")){
                     var recurso = getClass().getResource(ruta);
                     if(recurso != null){
@@ -104,10 +102,9 @@ public class DetalleEventoController {
                     }else{
                         throw new Exception("Recurso no encontrado: " + ruta);
                     }
-                }else{ //Imágenes externas
+                }else{
                     imagen = new Image(ruta);
                 }
-
                 ivEvento.setImage(imagen);
             } catch (Exception e) {
                 System.err.println("No se pudo cargar la imagen: " + e.getMessage());
@@ -118,7 +115,6 @@ public class DetalleEventoController {
     private void renderizarMapa() {
         if (evento == null || evento.getRecinto() == null) return;
 
-        // Ajustamos el tamaño del panel para que el ScrollPane funcione correctamente
         Platform.runLater(() -> {
             servicioDibujo.renderizar(evento.getRecinto().getEscenario(), evento.getRecinto().getZonas());
         });
@@ -143,7 +139,10 @@ public class DetalleEventoController {
         try {
             evento.setNombre(txtNombre.getText());
             evento.setDescripcion(txtDescripcion.getText());
+
+            // En lugar de usar setEstado(), usamos cambiarEstado() para alertar a los suscriptores.
             evento.cambiarEstado(cmbEstado.getValue());
+
             evento.setFechaYHora(LocalDateTime.parse(txtFecha.getText(), formatter));
             if(rutaImagenSeleccionada != null){
                 evento.setRutaImagen(rutaImagenSeleccionada);

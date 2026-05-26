@@ -27,5 +27,7 @@ module lospolimorficos.boletopolis {
     opens lospolimorficos.boletopolis.controller to javafx.fxml;
     opens lospolimorficos.boletopolis.viewController.viewControllersAdmin to javafx.fxml;
     opens lospolimorficos.boletopolis.viewController.viewControllersUsuario to javafx.fxml;
+    exports lospolimorficos.boletopolis.viewController.viewControllersCompartidos;
+    opens lospolimorficos.boletopolis.viewController.viewControllersCompartidos to javafx.fxml;
 
 }

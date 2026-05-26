@@ -13,6 +13,7 @@ import javafx.stage.Stage;
 import lospolimorficos.boletopolis.controller.ClienteController;
 import lospolimorficos.boletopolis.controller.CompraController;
 import lospolimorficos.boletopolis.controller.EventoController;
+import lospolimorficos.boletopolis.models.Admin;
 import lospolimorficos.boletopolis.models.Cliente;
 import lospolimorficos.boletopolis.models.Compra;
 import lospolimorficos.boletopolis.models.Evento;
@@ -36,6 +37,8 @@ public class DashboardAdminController {
     private Label lblTotalEventos;
     @FXML
     private Label lblTotalCompras;
+    @FXML
+    private Label lblNombreAdmin;
 
     private final ClienteController clienteController = new ClienteController();
     private final EventoController eventoController = new EventoController();
@@ -43,6 +46,10 @@ public class DashboardAdminController {
 
     @FXML
     public void initialize(){
+        //  Obtener el administrador de la sesión actual y setear su nombre
+        if (GestorSesion.getInstancia().getUsuarioActual() instanceof Admin admin) {
+            lblNombreAdmin.setText("Admin: " + admin.getNombreCompleto());
+        }
         actualizarTotales();
         cargarMetricas();
         clienteController.getClientes().addListener((ListChangeListener<Cliente>) c -> actualizarDashboard());

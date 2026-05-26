@@ -7,7 +7,7 @@
 <?import javafx.scene.text.*?>
 <?import org.kordamp.ikonli.javafx.*?>
 
-<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lospolimorficos.boletopolis.viewController.viewControllersAdmin.DashboardAdminController">
+<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="750.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lospolimorficos.boletopolis.viewController.viewControllersAdmin.DashboardAdminController">
    <children>
       <AnchorPane prefHeight="200.0" prefWidth="200.0">
          <children>
@@ -125,7 +125,7 @@
                               </Button>
                            </children>
                         </VBox>
-                        <Label alignment="CENTER" layoutX="20.0" layoutY="159.0" prefHeight="20.0" prefWidth="181.0" textAlignment="CENTER" textFill="WHITE">
+                        <Label fx:id="lblNombreAdmin" alignment="CENTER" layoutX="20.0" layoutY="159.0" prefHeight="20.0" prefWidth="181.0" textAlignment="CENTER" textFill="WHITE">
                            <font>
                               <Font name="Times New Roman" size="18.0" />
                            </font>

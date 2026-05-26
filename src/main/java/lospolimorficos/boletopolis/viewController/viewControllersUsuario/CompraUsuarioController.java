@@ -1,12 +1,13 @@
 package lospolimorficos.boletopolis.viewController.viewControllersUsuario;
-
 import javafx.application.Platform;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
@@ -18,7 +19,8 @@ import lospolimorficos.boletopolis.models.*;
 import lospolimorficos.boletopolis.services.GestorSesion;
 import lospolimorficos.boletopolis.services.ServicioAlerta;
 import lospolimorficos.boletopolis.services.ServicioDibujoRecinto;
-
+import lospolimorficos.boletopolis.viewController.viewControllersCompartidos.ServiciosAdicionalesController;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -35,7 +37,6 @@ public class CompraUsuarioController {
     private ComboBox<MetodoPago> cbMetodosPago;
     @FXML
     private CheckBox chkNotificaciones;
-
     @FXML
     private TableView<Zona> tablaAforo;
     @FXML
@@ -138,15 +139,43 @@ public class CompraUsuarioController {
                 eventoSeleccionado.agregarObservador(clienteActual);
             }
 
-            // Mostramos el nuevo Stage con el recibo detallado
-            mostrarResumenEntradas(compra);
+            try {
+                // 1. Cargar la vista
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/lospolimorficos/boletopolis/views/adminViews/ServiciosAdicionalesView.fxml"));
+                Parent root = loader.load();
+
+                // 2. Obtener el controlador reutilizable
+                ServiciosAdicionalesController serviciosController = loader.getController();
+
+                // 3. Crear el Stage de manera Modal
+                Stage ventanaServicios = new Stage();
+                ventanaServicios.initModality(Modality.APPLICATION_MODAL);
+                ventanaServicios.setTitle("Personaliza tu Experiencia - Servicios Adicionales");
+                ventanaServicios.setScene(new Scene(root));
+
+                // 4. Pasar los datos y definir el Runnable (lo que pasará al dar "Confirmar")
+                serviciosController.setCompra(compra, () -> {
+                    // Este código se ejecuta cuando el usuario da clic en "Confirmar Servicios"
+                    // Aquí puedes actualizar la base de datos o el archivo de la compra si es necesario
+                    System.out.println("Servicios adicionales actualizados para la compra.");
+
+                    // Opcional: Mostrar ahora sí una alerta de éxito final con el total definitivo
+                    mostrarResumenEntradas(compra);
+                });
+
+                // 5. Bloquear la pantalla principal hasta que cierre esta
+                ventanaServicios.showAndWait();
+
+            } catch (IOException e) {
+                System.err.println("Error al cargar la vista de servicios adicionales: " + e.getMessage());
+                e.printStackTrace();
+            }
+            // -----------------------------------------------------------
 
             // Limpiamos selección y refrescamos componentes principales
             servicioDibujo.limpiarSeleccion();
             tablaAforo.refresh();
             actualizarResumen();
-        } else {
-            ServicioAlerta.mostrarAlertaError("No se pudo completar la compra. Verifique su saldo.");
         }
     }
 

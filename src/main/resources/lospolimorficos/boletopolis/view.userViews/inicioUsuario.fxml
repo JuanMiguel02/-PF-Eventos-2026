@@ -11,7 +11,7 @@
 <StackPane stylesheets="@../styles/dashboardUsuario.css"
            xmlns="http://javafx.com/javafx/21"
            xmlns:fx="http://javafx.com/fxml/1"
-           fx:controller="lospolimorficos.boletopolis.viewController.viewControllersUsuario.InicioUsuarioController">
+           fx:controller="lospolimorficos.boletopolis.viewController.viewControllersCompartidos.InicioUsuarioController">
 
     <VBox spacing="25"
           alignment="TOP_LEFT"
