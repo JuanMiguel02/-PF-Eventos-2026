@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<BorderPane prefHeight="720.0"
+            prefWidth="1200.0"
+            stylesheets="@../styles/login.css"
+            xmlns="http://javafx.com/javafx/17"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="lospolimorficos.boletopolis.viewController.viewControllersAdmin.Usuario.LoginController">
+
+    <left>
+        <VBox alignment="CENTER"
+              spacing="20"
+              prefWidth="450"
+              styleClass="left-panel">
+
+            <Label text="BOLETOPOLIS"
+                   styleClass="titulo-logo"/>
+
+            <Label text="Sistema de Gestión de Eventos"
+                   styleClass="subtitulo-logo"/>
+
+            <Label text="Compra entradas, explora eventos y vive experiencias únicas."
+                   wrapText="true"
+                   maxWidth="300"
+                   styleClass="descripcion-logo"/>
+        </VBox>
+    </left>
+
+    <center>
+        <VBox alignment="CENTER"
+              spacing="20"
+              styleClass="right-panel">
+
+            <VBox spacing="15"
+                  maxWidth="380"
+                  styleClass="login-card">
+                <Label text="Iniciar Sesión"
+                       styleClass="titulo-login"/>
+
+                <TextField fx:id="txtCorreo"
+                           promptText="Correo electrónico"
+                           styleClass="input"/>
+
+                <HBox spacing="10" alignment="CENTER_LEFT">
+
+                    <StackPane HBox.hgrow="ALWAYS">
+
+                        <PasswordField fx:id="txtPassword"
+                                       promptText="Contraseña"
+                                       styleClass="input"/>
+
+                        <TextField fx:id="txtPasswordVisible"
+                                   promptText="Contraseña"
+                                   styleClass="input"
+                                   visible="false"
+                                   managed="false"/>
+
+                    </StackPane>
+
+                    <Button text="👁"
+                            onAction="#mostrarPassword"
+                            styleClass="btn-eye"/>
+
+                </HBox>
+
+                <Button text="Ingresar"
+                        onAction="#iniciarSesion"
+                        styleClass="btn-login"/>
+
+                <Button text="Registrarse"
+                        styleClass="btn-register"/>
+
+            </VBox>
+
+        </VBox>
+    </center>
+
+</BorderPane>

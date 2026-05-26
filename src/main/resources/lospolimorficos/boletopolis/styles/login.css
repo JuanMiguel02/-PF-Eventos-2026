@@ -1,0 +1,103 @@
+.left-panel{
+    -fx-background-color: linear-gradient(to bottom right, #163A36, #245C52);
+}
+
+.right-panel{
+     -fx-background-color: linear-gradient(to bottom right, #E8ECEF, #DDE3E8);
+}
+
+.titulo-logo{
+    -fx-font-size: 40px;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+}
+
+.subtitulo-logo{
+    -fx-font-size: 20px;
+    -fx-text-fill: #DADADA;
+}
+
+.descripcion-logo{
+    -fx-font-size: 15px;
+    -fx-text-fill: white;
+    -fx-text-alignment: center;
+}
+
+.titulo-login{
+    -fx-font-size: 30px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #163A36;
+}
+.login-card{
+    -fx-background-color: white;
+    -fx-padding: 40px;
+    -fx-background-radius: 20px;
+
+    -fx-effect: dropshadow(
+        gaussian,
+        rgba(0,0,0,0.15),
+        20,
+        0.2,
+        0,
+        5
+    );
+}
+.input{
+  -fx-pref-height: 45px;
+      -fx-background-radius: 12px;
+      -fx-border-radius: 12px;
+      -fx-font-size: 14px;
+      -fx-background-color: #F9F9F9;
+      -fx-border-color: #D0D0D0;
+      -fx-padding: 0 15 0 15;
+}
+
+.input:focused{
+    -fx-border-color: #2E7D5A;
+}
+.btn-eye{
+    -fx-background-color: transparent;
+    -fx-font-size: 16px;
+    -fx-cursor: hand;
+}
+
+.btn-eye:hover{
+    -fx-scale-x: 1.1;
+    -fx-scale-y: 1.1;
+}
+
+.btn-login{
+    -fx-background-color: #2E7D5A;
+    -fx-text-fill: white;
+    -fx-font-size: 15px;
+    -fx-font-weight: bold;
+    -fx-background-radius: 10px;
+    -fx-pref-height: 45px;
+}
+
+.btn-login:hover{
+    -fx-background-color: #25694B;
+}
+
+.btn-register{
+    -fx-background-color: white;
+    -fx-text-fill: #163A36;
+
+    -fx-border-color: #163A36;
+    -fx-border-width: 2px;
+
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+
+    -fx-background-radius: 10px;
+    -fx-border-radius: 10px;
+
+    -fx-pref-height: 45px;
+
+    -fx-cursor: hand;
+}
+
+.btn-register:hover{
+    -fx-background-color: #163A36;
+    -fx-text-fill: white;
+}
