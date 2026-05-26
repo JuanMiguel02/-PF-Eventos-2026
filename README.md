@@ -58,12 +58,12 @@ Para garantizar que el sistema cumpla con los atributos de calidad de **mantenib
 ---
 
 ## 👥 Credenciales de Acceso
-
+Para este proyecto, los clientes ya tienen una cuenta y un método de pago disponible
 Puedes explorar, auditar o evaluar los flujos de trabajo paralelos del sistema iniciando sesión directamente con los siguientes datos:
 
 | Rol de Usuario | Correo Electrónico (User) | Contraseña (Password) | Detalles de la Cuenta / Saldo Inicial |
 | :--- | :--- | :--- | :--- |
-| **👤 Cliente / Usuario** | `casablancas@gmail.com` | `12345` | **Nombre:** Julian Casablancas <br>**Doc:** 12345 <br>**Plataforma:** NEQUI <br>**Saldo Semilla:** \$9,050,000.00 COP |
+| **👤 Cliente / Usuario** | `casablancas@gmail.com` | `12345` | **Nombre:** Julian Casablancas <br>**Doc:** 12345 <br>**Plataforma:** NEQUI <br>**Saldo Base:** \$9,050,000.00 COP |
 | **🛡️ Administrador** | `sancho@boletopolis.com` | `123456` | **Nombre:** Sancho Panza <br>**Doc:** 3123213 <br>**Privilegios:** Gestión total de eventos, estados, cancelaciones y carga de recursos. |
 
 ---
