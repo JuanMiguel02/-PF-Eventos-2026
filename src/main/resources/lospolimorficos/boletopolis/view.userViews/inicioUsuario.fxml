@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+
+<StackPane stylesheets="@../styles/dashboardUsuario.css"
+           xmlns="http://javafx.com/javafx/21"
+           xmlns:fx="http://javafx.com/fxml/1"
+           fx:controller="lospolimorficos.boletopolis.viewController.viewControllersAdmin.Usuario.InicioUsuarioController">
+
+    <VBox spacing="25"
+          alignment="TOP_LEFT"
+          styleClass="content-panel">
+
+        <padding>
+            <Insets top="20"
+                    right="20"
+                    bottom="20"
+                    left="20"/>
+        </padding>
+
+        <!-- =========================
+             TITULO
+        ========================== -->
+
+        <VBox spacing="5">
+
+            <Label text="Bienvenido a BOLETÓPOLIS"
+                   styleClass="header-title"/>
+
+            <Label text="Explora eventos, administra tus compras y disfruta la experiencia."
+                   styleClass="card-text"/>
+
+        </VBox>
+
+        <!-- =========================
+             CARDS
+        ========================== -->
+
+        <HBox spacing="20">
+
+            <!-- EVENTOS -->
+
+            <VBox prefWidth="260"
+                  prefHeight="180"
+                  spacing="12"
+                  styleClass="card">
+
+                <Label text="Eventos Disponibles"
+                       styleClass="card-title"/>
+
+                <Label text="Explora conciertos, festivales y eventos deportivos."
+                       wrapText="true"
+                       styleClass="card-text"/>
+
+                <Region VBox.vgrow="ALWAYS"/>
+
+                <Button text="Ver Eventos"
+                        styleClass="primary-button"
+                        onAction="#mostrarEventos"/>
+
+            </VBox>
+
+            <!-- COMPRAS -->
+
+            <VBox prefWidth="260"
+                  prefHeight="180"
+                  spacing="12"
+                  styleClass="card">
+
+                <Label text="Mis Compras"
+                       styleClass="card-title"/>
+
+                <Label text="Consulta el historial y estado de tus boletos."
+                       wrapText="true"
+                       styleClass="card-text"/>
+
+                <Region VBox.vgrow="ALWAYS"/>
+
+                <Button text="Ver Compras"
+                        styleClass="primary-button"
+                        onAction="#mostrarCompras"/>
+
+            </VBox>
+
+            <!-- PERFIL -->
+
+            <VBox prefWidth="260"
+                  prefHeight="180"
+                  spacing="12"
+                  styleClass="card">
+
+                <Label text="Perfil Usuario"
+                       styleClass="card-title"/>
+
+                <Label text="Administra tu información y métodos de pago."
+                       wrapText="true"
+                       styleClass="card-text"/>
+
+                <Region VBox.vgrow="ALWAYS"/>
+
+                <Button text="Ver Perfil"
+                        styleClass="primary-button"
+                        onAction="#mostrarPerfil"/>
+
+            </VBox>
+
+        </HBox>
+
+    </VBox>
+
+</StackPane>
